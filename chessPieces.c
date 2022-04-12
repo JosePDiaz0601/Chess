@@ -31,7 +31,7 @@ void getRangeOfMotion(void)
             }
         }
     }
-    
+
     if piece == 3
     {
         if y+3 < 8 
