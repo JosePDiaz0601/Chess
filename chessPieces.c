@@ -81,4 +81,22 @@ void getRangeOfMotion(void)
         }
         
     }
-}
+
+	if (piece == 4){
+		for (i = x+1, i <= 7, i++){
+			rangeOfMotion[i][y] = 1;
+		}
+		for (i = 0, i < x, i++){
+			rangeOfMotion[i][y] = 1;
+		}	 
+		for (j = y+1, j <= 7, j++){
+			rangeOfMotion[x][j] = 1;
+		}
+		for (j = 0, j < y, j++){
+			rangeOfMotion[x][j] = 1;
+		}
+	}
+
+
+
+
