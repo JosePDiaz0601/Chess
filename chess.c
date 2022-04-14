@@ -73,7 +73,7 @@ int main(void)
         else if (promptInput == 3){
             done = true;
         }
-        printf("\n\n");
+        printf("\n\n\n\n");
     }
     return 0;
 }
@@ -81,7 +81,7 @@ int main(void)
 void viewGameSettings(){
 
 }
-
+//update these functions in the future
 void playAgainstAI(){
 
 }
