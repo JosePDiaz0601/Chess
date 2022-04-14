@@ -175,5 +175,12 @@ void getRangeOfMotion(void)
 		if ((x-1 < 8) == (x-1 > 0) == (y+1 < 0) == (y+1 < 8)){ 
 			rangeOfMotion[x-1][y+1] = 1;
 		}
-		if ((x-1 < 8) == (x-1 > 0) == (y-1))
-			 
+		if ((x-1 < 8) == (x-1 > 0) == (y-1 > 0) == (y-1 < 8)){
+			rangeOfMotion[x-1][y+1] = 1;
+		}
+		if ((x+1 < 8) == (x+1 > 0) == (y-1 > 0) == (y-1 < 8)){
+			rangeOfMotion[x+1][y-1] = 1;
+		}
+	}
+
+
