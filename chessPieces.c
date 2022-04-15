@@ -42,7 +42,7 @@ int * getRangeOfMotion(int piece, char color, int x, int y, bool hasMoved)
     }
 
 	if (piece == 1 && (strcmp("b", color) ==0)){
-		if (y < 7){
+		if (y >= 0){
 			rangeOfMotion[x+(8*(y-1))] = 1;
 			if (hasMoved != 1){
 					rangeOfMotion[x+(8*(y-2))] = 1;
