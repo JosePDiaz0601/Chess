@@ -14,7 +14,7 @@
     10- brook
     11- bqueen
     12- bking*/
-int type, x, y, color; //paul made color to char type.
+int type; //paul made color to char type.
 bool hasMoved;
 
 
@@ -26,7 +26,7 @@ HOW TO GET X AND Y VALUES FOR RANGE OF MOTION
 		int 42%8, which is the x (2)
 */
 
-int * getRangeOfMotion(int piece)
+int * getRangeOfMotion(int piece, char color, int x, int y)
 {
 	static int rangeOfMotion[64];
     if (piece == 1)
@@ -264,6 +264,7 @@ int * getRangeOfMotion(int piece)
 			rangeOfMotion[x+1+(8*(y-1))] = 1;
 		}
 	}
+
 	if (piece == 7){
 
 	}
@@ -284,6 +285,10 @@ int * getRangeOfMotion(int piece)
 	}
 	return rangeOfMotion;
 }
+
+
+
+
 /*WHEN CALLING rangeOfMotion do this format
 
 int *p;
@@ -293,4 +298,3 @@ p = getRangeOfMotion(piece);
 
 P WILL BE ARRAY rangeOfMotion;
 */
-
