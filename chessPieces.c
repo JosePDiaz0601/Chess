@@ -299,8 +299,16 @@ int * getRangeOfMotion(int piece, char color, int x, int y, bool hasMoved)
 	return rangeOfMotion;
 }
 
-
-
+void *movePiece(int type, int x1, int y1, int x2, int y2)
+{
+	
+	int *p;
+	int selection = (x2 + (8*y2));
+	p = getRangeOfMotion()
+	if (rangeOfMotion(selection) == 1){
+		
+	}
+}
 
 /*WHEN CALLING rangeOfMotion do this format
 
