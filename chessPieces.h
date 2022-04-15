@@ -27,3 +27,22 @@ struct PIECE
 }; 
 
 #endif
+
+/*
+PIECE A5;
+{
+    type 1
+    rank 0
+    file 4 
+    color 1
+    hasMoved 1
+}
+int selection == rank + (8*file);
+if(rangeOfMotion(selection) == 1){
+    A6.Type = A5.type;
+    A6.Color = A5.Color;
+    A5.type = NULL;
+    A5.Color = NULL;
+
+}
+*/
