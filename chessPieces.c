@@ -301,7 +301,15 @@ int * getRangeOfMotion(int piece, char color, int x, int y, bool hasMoved)
 
 void *movePiece(int type, int x1, int y1, int x2, int y2)
 {
+	struct PIECE *s;
 	
+	for(int z = 0; z > 8; z++){
+		for(int w = 0; w > 8; w++){
+			s = board[z][w];
+		}
+	}
+
+
 	int *p;
 	int selection = (x2 + (8*y2));
 	p = getRangeOfMotion()
