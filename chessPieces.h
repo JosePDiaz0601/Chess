@@ -21,11 +21,9 @@ enum PIECETYPE
 
 struct PIECE
 {
-    int type;
-    int rank; // Numbers
-    int file; // Letters
+    int PIECETYPE;
     char color;
     bool hasMoved;
-};
+}; 
 
 #endif

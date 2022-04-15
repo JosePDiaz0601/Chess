@@ -96,12 +96,65 @@ void playAgainstAI()
 
 void newBoard()
 {
+    // Creating the array for tha board
     struct PIECE board[8][8];
-    PIECE *pawn1;
-    pawn1 = (PIECE *)malloc(sizeof(IMAGE));
-    // Instantiate pawns
-    for (int i = 0; i < 8; i++)
+
+    // Create and assign the pieces
+    struct PIECE *pawn0 = {1, 'W', 0};
+    board[1][0] = *pawn0;
+
+    struct PIECE *pawn1 = {1, 'W', 0};
+    board[1][1] = *pawn1;
+
+    struct PIECE *pawn2 = {1, 'W', 0};
+    board[1][2] = *pawn2;
+
+    struct PIECE *pawn3 = {1, 'W', 0};
+    board[1][3] = *pawn3;
+
+    struct PIECE *pawn4 = {1, 'W', 0};
+    board[1][4] = *pawn4;
+
+    struct PIECE *pawn5 = {1, 'W', 0};
+    board[1][5] = *pawn5;
+
+    struct PIECE *pawn6 = {1, 'W', 0};
+    board[1][6] = *pawn6;
+
+    struct PIECE *pawn7 = {1, 'W', 0};
+    board[1][7] = *pawn7;
+
+    struct PIECE *pawn0B = {1, 'W', 0};
+    board[6][0] = *pawn0B;
+
+    struct PIECE *pawn1B = {1, 'W', 0};
+    board[6][1] = *pawn1B;
+
+    struct PIECE *pawn2B = {1, 'W', 0};
+    board[6][2] = *pawn2B;
+
+    struct PIECE *pawn3B = {1, 'W', 0};
+    board[6][3] = *pawn3B;
+
+    struct PIECE *pawn4B = {1, 'W', 0};
+    board[6][4] = *pawn4B;
+
+    struct PIECE *pawn5B = {1, 'W', 0};
+    board[6][5] = *pawn5B;
+
+    struct PIECE *pawn6B = {1, 'W', 0};
+    board[6][6] = *pawn6B;
+
+    struct PIECE *pawn7B = {1, 'W', 0};
+    board[6][7] = *pawn7B;
+
+    // Instantiate blank spaces as null
+    for (int i = 2; i < 6; i++)
     {
+        for (int j = 0; j < 8; j++)
+        {
+            board[i][j] = NULL;
+        }
     }
 }
 
