@@ -16,15 +16,18 @@ enum PIECETYPE
     bishop = 3,
     rook = 4,
     queen = 5,
-    king = 6
+    king = 6,
+    empty = 7
 };
 
 struct PIECE
 {
-    int PIECETYPE;
+    enum PIECETYPE;
     char color;
     bool hasMoved;
-}; 
+};
+
+struct PIECE board[8][8];
 
 #endif
 
@@ -33,7 +36,7 @@ PIECE A5;
 {
     type 1
     rank 0
-    file 4 
+    file 4
     color 1
     hasMoved 1
 }
