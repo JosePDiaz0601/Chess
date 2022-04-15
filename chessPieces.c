@@ -16,7 +16,6 @@
     11- bqueen
     12- bking*/
 int type; //paul made color to char type.
-bool hasMoved;
 
 
 /*
@@ -27,7 +26,7 @@ HOW TO GET X AND Y VALUES FOR RANGE OF MOTION
 		int 42%8, which is the x (2)
 */
 
-int * getRangeOfMotion(int piece, char color, int x, int y)
+int * getRangeOfMotion(int piece, char color, int x, int y, bool hasMoved)
 {
 	static int rangeOfMotion[64];
     if (piece == 1 && (strcmp("w", color) == 0))
@@ -41,6 +40,15 @@ int * getRangeOfMotion(int piece, char color, int x, int y)
             }
         }
     }
+
+	if (piece == 1 && (strcmp("b", color) ==0)){
+		if (y < 7){
+			rangeOfMotion[x+(8*(y-1))] = 1;
+			if (hasMoved != 1){
+					rangeOfMotion[x+(8*(y-2))] = 1;
+			}
+		}
+	} 
 
 	if (piece == 2){	
 
@@ -265,7 +273,7 @@ int * getRangeOfMotion(int piece, char color, int x, int y)
 			rangeOfMotion[x+1+(8*(y-1))] = 1;
 		}
 	}
-
+/*
 	if (piece == 7){
 
 	}
@@ -284,6 +292,10 @@ int * getRangeOfMotion(int piece, char color, int x, int y)
 	if (piece == 12){
 		
 	}
+
+*/ 
+// we wouldn't need to make black pieces since we have strcmp for pawns, all the other pieces 
+// should have the same code, either white or black
 	return rangeOfMotion;
 }
 
