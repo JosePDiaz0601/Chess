@@ -16,97 +16,133 @@
     12- bking*/
 int type, x, y, color; //paul made color to char type.
 bool hasMoved;
-int rangeOfMotion[][];
 
-void getRangeOfMotion(void)
+
+/*
+HOW TO GET X AND Y VALUES FOR RANGE OF MOTION
+	rangeOfMotion is 64 spaces wide
+	if rangeOfMotion(42) == 1, to get the x and y do:
+		int 42/8, which is the y (5)
+		int 42%8, which is the x (2)
+*/
+
+int * getRangeOfMotion(int piece)
 {
-    if piece == 1
+	static int rangeOfMotion[64];
+    if (piece == 1)
     {
-        if y < 7
+        if (y < 7)
         {
-            rangeOfMotion[x][y+1] = 1;
-            if hasMoved != 1
+            rangeOfMotion[x+(8*(y+1))] = 1;
+            if (hasMoved != 1)
             {
-                rangeOfMotion[x][y+2] = 1;
+                rangeOfMotion[x+(8*(y+2))] = 1;
             }
         }
     }
 
 	if (piece == 2){	
-		for (i = x+1; i <=7; i++){
-			for (j = y+1; j <= 7; j++){  
-				rangeOfMotion[i][j] = 1;
-			}
+
+		while (x+1 < 8 && y+1 < 8)
+		{
+			x++;
+			y++;
+			rangeOfMotion[x+(8*y)];
 		}
-		for (i = 0; i < x; i++){
-			for (j = 0; j < y; j++){
-				rangeOfMotion[i][j] = 1;
-	 		}
+		while (x-1 >= 0 && y+1 < 8)
+		{
+			x--;
+			y++;
+			rangeOfMotion[x+(8*y)];
 		}
-		for (i = x-1; i >= 0; i--){ 
-			for (j = y+1; j <= 7; i++){
-				rangeOfMotion[i][j] = 1;   
-			}
+		while (x+1 < 8 && y-1 >= 0)
+		{
+			x++;
+			y--;
+			rangeOfMotion[x+(8*y)];
 		}
-		for (i = 7; i > x; i--){
-			for (j = 0; j < y; j++){
-				rangeOfMotion[i][j] = 1; 
-			}
+		while (x-1 >= 0 && y-1 >= 0)
+		{
+			x--;
+			y--;
+			rangeOfMotion[x+(8*y)];
 		}
 	}
 
-    if piece == 3
+    if(piece == 3)
     {
-        if y+3 < 8 
+        if((y+3) < 8)
         {
-            if x+1 < 8
+            if (x+1 < 8)
             {
-                rangeOfMotion[x+1][y+3] = 1;
+                rangeOfMotion[(x+1)+(8*(y+3))] = 1;
             }
-            if x-1 >= 0
+            if (x-1 >= 0)
             {
-                rangeOfMotion[x-1][y+3] = 1;
+                rangeOfMotion[(x-1)+(8*(y+3))] = 1;
             }
         }
-        if y-3 >= 0
+        if (y-3 >= 0) 
         {
-            if x+1 < 8
+            if (x+1 < 8)
             {
-                rangeOfMotion[x+1][y-3] = 1;
+                rangeOfMotion[(x+1)+(8*(y-3))] = 1;
             }
-            if x-1 >= 0
+            if (x-1 >= 0)
             {
-                rangeOfMotion[x-1][y-3] = 1;
+                rangeOfMotion[(x-1)+(8*(y-3))] = 1;
             }
         }
 
-        if y+1 < 8 
+        if (y+1 < 8 )
         {
-            if x+1 < 8
+            if (x+1 < 8)
             {
-                rangeOfMotion[x+3][y+1] = 1;
+                rangeOfMotion[(x+3)+(8*(y+1))] = 1;
             }
-            if x-1 >= 0
+            if (x-1 >= 0)
             {
-                rangeOfMotion[x-3][y+1] = 1;
+                rangeOfMotion[(x-3)+(8*(y+1))] = 1;
             }
         }
-        if y-1 >= 0
+        if (y-1 >= 0)
         {
-            if x+3 < 8
+            if (x+3 < 8)
             {
-                rangeOfMotion[x+3][y-1] = 1;
+                rangeOfMotion[(x+3)+(8*(y-1))] = 1;
             }
-            if x-3 >= 0
+            if (x-3 >= 0)
             {
-                rangeOfMotion[x-3][y-1] = 1;
+                rangeOfMotion[(x-3)+(8*(y-1))] = 1;
             }
         }
         
     }
 
 	if (piece == 4){
-		for (i = x+1, i <= 7, i++){
+		while (x+1 < 8)
+		{
+			x++;
+			rangeOfMotion[x+(8*y)];
+		}
+		while (x-1 >= 0)
+		{
+			x--;
+			rangeOfMotion[x+(8*y)];
+		}
+		while (y+1 < 8)
+		{
+			y++;
+			rangeOfMotion[x+(8*y)];
+		}
+		while (y-1 >= 0)
+		{
+			y--;
+			rangeOfMotion[x+(8*y)];
+		}
+	}
+
+/*		for (i = x+1, i <= 7, i++){
 			rangeOfMotion[i][y] = 1;
 		}
 		for (i = 0, i < x, i++){
@@ -118,69 +154,143 @@ void getRangeOfMotion(void)
 		for (j = 0, j < y, j++){
 			rangeOfMotion[x][j] = 1;
 		}
-	}
+*/
 
 	if (piece == 5){
-		for (i = x+1; i <=7; i++){
-			for (j = y+1; j <= 7; j++){  
-				rangeOfMotion[i][j] = 1;
+		while (x+1 < 8 && y+1 < 8)
+		{
+			x++;
+			y++;
+			rangeOfMotion[x+(8*y)];
+		}
+		while (x-1 >= 0 && y+1 < 8)
+		{
+			x--;
+			y++;
+			rangeOfMotion[x+(8*y)];
+		}
+		while (x+1 < 8 && y-1 >= 0)
+		{
+			x++;
+			y--;
+			rangeOfMotion[x+(8*y)];
+		}
+		while (x-1 >= 0 && y-1 >= 0)
+		{
+			x--;
+			y--;
+			rangeOfMotion[x+(8*y)];
+		}
+		while (x+1 < 8)
+		{
+			x++;
+			rangeOfMotion[x+(8*y)];
+		}
+		while (x-1 >= 0)
+		{
+			x--;
+			rangeOfMotion[x+(8*y)];
+		}
+		while (y+1 < 8)
+		{
+			y++;
+			rangeOfMotion[x+(8*y)];
+		}
+		while (y-1 >= 0)
+		{
+			y--;
+			rangeOfMotion[x+(8*y)];
+		}
+
+	}
+/*		for (int i = x+1; i <=7; i++){
+			for (int j = y+1; j <= 7; j++){  
+				rangeOfMotion[i+(8*j)] = 1;
 			}
 		}
 		for (i = 0; i < x; i++){
 			for (j = 0; j < y; j++){
-				rangeOfMotion[i][j] = 1;
+				rangeOfMotion[i+(8*j)] = 1;
 	 		}
 		}
 		for (i = x-1; i >= 0; i--){ 
 			for (j = y+1; j <= 7; i++){
-				rangeOfMotion[i][j] = 1;   
+				rangeOfMotion[i+(8*j)] = 1;   
 			}
 		}
 		for (i = 7; i > x; i--){
 			for (j = 0; j < y; j++){
-				rangeOfMotion[i][j] = 1; 
+				rangeOfMotion[i+(8*j)] = 1; 
 			}
 		}
 		for (i = x+1, i <= 7, i++){
-			rangeOfMotion[i][y] = 1;
+			rangeOfMotion[i+(8*y)] = 1;
 		}
 		for (i = 0, i < x, i++){
-			rangeOfMotion[i][y] = 1;
+			rangeOfMotion[i+(8*y)] = 1;
 		}	 
 		for (j = y+1, j <= 7, j++){
-			rangeOfMotion[x][j] = 1;
+			rangeOfMotion[x+(8*j)] = 1;
 		}
 		for (j = 0, j < y, j++){
-			rangeOfMotion[x][j] = 1;
+			rangeOfMotion[x+(8*j)] = 1;
 		}
 
-	}
+	*/
 
-	if (pieces == 6){
+	if (piece == 6){
 		if (y+1 < 8){
-			rangeOfMotion[x][y+1] = 1; 
+			rangeOfMotion[x+(8*(y+1))] = 1; 
 		}
 		if ((y-1 < 8) == (y-1 > 0)){
-			rangeOfMotion[x][y-1] = 1;
+			rangeOfMotion[x+(8*(y-1))] = 1;
 		}
 		if (x+1 < 8){
-			rangeOfMotion[x+1][y] = 1;
+			rangeOfMotion[x+1+(8*(y))] = 1;
 		}
 		if ((x-1 < 8) == (x-1 > 0)){
-			rangeOfMotion[x-1][y] = 1;
+			rangeOfMotion[x-1+(8*(y))] = 1;
 		}
 		if ((x+1 < 8) == (x+1 > 0) == (y+1 < 0) == (y+1 < 8)){
-			rangeOfMotion[x+1][y+1] = 1;
+			rangeOfMotion[x+1+(8*(y+1))] = 1;
 		}
 		if ((x-1 < 8) == (x-1 > 0) == (y+1 < 0) == (y+1 < 8)){ 
-			rangeOfMotion[x-1][y+1] = 1;
+			rangeOfMotion[x-1+(8*(y+1))] = 1;
 		}
 		if ((x-1 < 8) == (x-1 > 0) == (y-1 > 0) == (y-1 < 8)){
-			rangeOfMotion[x-1][y+1] = 1;
+			rangeOfMotion[x-1+(8*(y+1))] = 1;
 		}
 		if ((x+1 < 8) == (x+1 > 0) == (y-1 > 0) == (y-1 < 8)){
-			rangeOfMotion[x+1][y-1] = 1;
+			rangeOfMotion[x+1+(8*(y-1))] = 1;
 		}
 	}
+	if (piece == 7){
 
+	}
+	if (piece == 8){
+		
+	}
+	if (piece == 9){
+		
+	}
+	if (piece == 10){
+		
+	}
+	if (piece == 11){
+		
+	}
+	if (piece == 12){
+		
+	}
+	return rangeOfMotion;
+}
+/*WHEN CALLING rangeOfMotion do this format
+
+int *p;
+
+p = getRangeOfMotion(piece);
+
+
+P WILL BE ARRAY rangeOfMotion;
+*/
 
