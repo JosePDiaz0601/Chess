@@ -1,6 +1,7 @@
 #include "chessPieces.h"
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 /*  1 - wpawn 
     2 - wbishop
@@ -29,7 +30,7 @@ HOW TO GET X AND Y VALUES FOR RANGE OF MOTION
 int * getRangeOfMotion(int piece)
 {
 	static int rangeOfMotion[64];
-    if (piece == 1)
+    if (piece == 1 && (strcmp("w", color) == 0))
     {
         if (y < 7)
         {
