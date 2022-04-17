@@ -30,6 +30,25 @@ char positionValues[8][8][3] = {
 char player1Sign = 'X';
 char player2Sign = 'O';*/
 
+
+void displayStartingMenu(){
+    //display menu prompt
+    printf("\nWelcome to Unoptimized Chess, our newly released chess game from Loading��!\n");
+//        printf("2. Start New Game (Human v. Human)\n");
+    printf("1. Start New Game (Human v. AI)\n");
+    printf("2. Game Settings\n");
+    printf("3. Exit Game\n");
+}
+
+//explain some game settings to user
+void viewGameSettings(){
+	printf("\nFor this version release, the human user must play as White. ");
+	printf("\nThere is a 50 move limit on the number of moves that can be played. ");
+	printf("\nCheckmate detection is not fully functional yet. ");
+	printf("\nFor more information about the program objectives, we urge players to ");
+	printf("\nconsult the user manual. ");
+}
+
 // main function that determines which version of game to play and whether to exit
 int main(void)
 {
@@ -39,13 +58,7 @@ int main(void)
     char movePart1[3],movePart2[3],movePart3[3];
 
     while (!programFinished){
-
-        //display menu prompt
-        printf("Welcome to Unoptimized Chess, our newly released chess game from Loading��!\n");
-//        printf("2. Start New Game (Human v. Human)\n");
-        printf("1. Start New Game (Human v. AI)\n");
-        printf("2. Game Settings\n");
-        printf("3. Exit Game\n");
+    	displayStartingMenu();
         printf("Choose Option: ");
         scanf("%d", &promptInput);
         int j;
@@ -54,8 +67,9 @@ int main(void)
         if (promptInput == 1){
             //print board with starting position, for alpha release, user does not choose color to play
         	bool gameOver = false;
+        	int moveCount = 0;
 
-        	printf("  +----+----+----+----+----+----+----+----+\n");
+        	printf("\n  +----+----+----+----+----+----+----+----+\n");
         	for(int i = 8; i > 0; i--){
         		j= 0;
         		printf("%d | %s | %s | %s | %s | %s | %s | %s | %s |\n", i, positionValues[i-1][j], positionValues[i-1][j+1] , positionValues[i-1][j+2], positionValues[i-1][j+3], positionValues[i-1][j+4] , positionValues[i-1][j+5] , positionValues[i-1][j+6] ,positionValues[i-1][j+7] );
@@ -113,6 +127,8 @@ int main(void)
 
 				positionValues[currentSquareRow][currentSquareCol][0] = ' ';
 				positionValues[currentSquareRow][currentSquareCol][1] = ' ';
+				//increment the count of the moves (1 move is done when both White and Black have finished their turn)
+				moveCount++;
 				//display the updated board
 				printf("\n========================================================================");
 				printf("\n========================================================================");
@@ -125,32 +141,66 @@ int main(void)
 				printf("    a    b    c    d    e    f    g    h");
 				printf("\n========================================================================");
 				printf("\n========================================================================");
+
+				if (moveCount > 50){
+					gameOver = true;
+					printf("\nThe game has exceeded the maximum number of moves possible for this version release. Thanks for playing.\n");
+				}
+				int promptGameExit = 0;     //user's input assigned to promptInput
+				printf("\nTo stop the game choose (1). Otherwise, the game shall continue: ");
+                scanf("%d", &promptGameExit);
+				if (promptGameExit == 1){
+				    gameOver = true;
+				}
         	}
-        	programFinished = true;
+//        	programFinished = true;
         }
         else if (promptInput == 2){
-//            viewGameSettings();
+            viewGameSettings();
         }
         else if (promptInput == 3){
             programFinished = true;
+        }
+        char boardStartingValues[8][8][3] = {
+            {{'w','R','\0'},{'w','N','\0'},{'w','B','\0'},{'w','Q','\0'},{'w','K','\0'},{'w','B','\0'},{'w','N','\0'},{'w','R','\0'}}, //First rank of board , index 0 for row of array
+            {{'w','P','\0'},{'w','P','\0'},{'w','P','\0'},{'w','P','\0'},{'w','P','\0'},{'w','P','\0'},{'w','P','\0'},{'w','P','\0'}},	//second rank
+            {{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'}},	//third rank
+            {{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'}},	//fourth rank
+            {{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'}},	//fifth rank
+            {{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'},{' ',' ','\0'}},	//sixth rank
+            {{'b','P','\0'},{'b','P','\0'},{'b','P','\0'},{'b','P','\0'},{'b','P','\0'},{'b','P','\0'},{'b','P','\0'},{'b','P','\0'}},	//seventh rank of board, index 6 for row of array
+            {{'b','R','\0'},{'b','N','\0'},{'b','B','\0'},{'b','K','\0'},{'b','Q','\0'},{'b','B','\0'},{'b','N','\0'},{'b','R','\0'}} //eight rank, index 7 for row of array
+        };
+        for (int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                for (int k = 0; k < 3; k++){
+                    positionValues[i][j][k] = (char)(boardStartingValues[i][j][k]);
+                }
+            }
         }
         printf("\n\n\n\n");
     }
     return 0;
 }
 
-void displayStartingMenu(){
+
+/**return the row and column of the initial square and final square of a piece moved by the AI
+ * (a-h) corresponds to columns 0 to 7 in the positionValues array
+ * (1-8) corresponds to rows 0 to 7 in the positionValues array
+ */
+int getAIMoveInitialSquareRow(){
 
 }
 
-void viewGameSettings(){
+int getAIMoveInitialSquareColumn(){
 
 }
-//update these functions in the future
-//make additional functions to
 
+int getAIMoveFinalSquareRow(){
 
-void playAgainstAI(){
+}
+
+int getAIMoveFinalSquareColumn(){
 
 }
 
