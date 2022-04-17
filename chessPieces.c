@@ -26,7 +26,7 @@ HOW TO GET X AND Y VALUES FOR RANGE OF MOTION
 		int 42%8, which is the x (2)
 */
 
-int * getRangeOfMotion(int piece, char color, int x, int y, bool hasMoved)
+int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasMoved)
 {
 	static int rangeOfMotion[64];
     if (piece == 1 && (strcmp("w", color) == 0))
@@ -299,13 +299,13 @@ int * getRangeOfMotion(int piece, char color, int x, int y, bool hasMoved)
 	return rangeOfMotion;
 }
 
-void *movePiece(int type, int x1, int y1, int x2, int y2)
+void *movePiece(int x1, int y1, int x2, int y2)
 {
 	
 	struct PIECE s = board[x1][y1]; 
-	
+	int *p;
 	int selection = (x2 + (8*y2));
-	//p = getRangeOfMotion();
+	p = getRangeOfMotion(s.type, s.color, x1, y1, s.hasMoved);
 	if (rangeOfMotion(selection) == 1){
 		board[x1][y1] = *empty;
 		board[x2][y2] = s;

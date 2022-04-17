@@ -22,7 +22,7 @@ enum PIECETYPE
 
 struct PIECE
 {
-    enum PIECETYPE;
+    enum PIECETYPE type;
     char color;
     bool hasMoved;
 };
