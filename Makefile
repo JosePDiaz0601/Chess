@@ -1,5 +1,2 @@
-<<<<<<< HEAD
-//Initial Makefile
-=======
-Test 
->>>>>>> 316b4cefd20a53df738e131982b502792d444d1b
+results: chess.c chessAI.c chessPieces.c chess.h chessAI.h chessPieces.h
+	    $(CC) chess.c chessAI.c chessPieces.c -o results
