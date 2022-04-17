@@ -6,6 +6,8 @@
  */
 #include <stdio.h>
 #include <stdbool.h>
+#include "chessPieces.h"
+#include "chessAI.h"
 /**#define ANSI_COLOR_RED  "\x1B[31m"
 #define ANSI_COLOR_GREEN  "\x1B[32m"
 #define ANSI_COLOR_BLUE  "\x1B[34m"

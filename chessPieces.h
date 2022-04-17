@@ -28,6 +28,7 @@ struct PIECE
 };
 
 struct PIECE board[8][8];
+struct PIECE *empty = {7, 'W', 0};
 
 #endif
 
