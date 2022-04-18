@@ -37,6 +37,8 @@ void viewGameSettings(){
 	printf("\nFor this version release, the human user must play as White. ");
 	printf("\nThere is a 50 move limit on the number of moves that can be played. ");
 	printf("\nCheckmate detection is not fully functional yet. ");
+    printf("\nAlpha version only supports human vs human gameplay. ");
+    printf("\n AI not fully implemented yet.");
 	printf("\nFor more information about the program objectives, we urge players to ");
 	printf("\nconsult the user manual. ");
 }
