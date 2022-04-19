@@ -3,6 +3,10 @@
 
 #include <stdbool.h>
 
+void newBoard();
+
+int movePiece(int x1, int y1, int x2, int y2);
+
 enum color
 {
     black = 0,
@@ -17,7 +21,7 @@ enum PIECETYPE
     rook = 4,
     queen = 5,
     king = 6,
-    empty = 7
+    eempty = 7
 };
 
 struct PIECE
@@ -28,7 +32,7 @@ struct PIECE
 };
 
 struct PIECE board[8][8];
-struct PIECE *empty = {7, 'W', 0};
+//struct PIECE *empty = {7, 'W', 0};
 
 #endif
 
