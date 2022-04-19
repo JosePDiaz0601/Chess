@@ -1,3 +1,11 @@
+/*********************************************************************/
+/* Chess Assignment, for EECS 22L, Spring 22                     */
+/*                                                                   */
+/* Initial author: Jose Diaz                                       */
+/*                                                                   */
+/* Logfile.c  notation file reader and writer for UNOPTIMIZED CHESS  */
+/*                                                                   */
+/*********************************************************************/
 #include "LogFile.h"
 
 //function to write to log. returns an integer for error purposes.
