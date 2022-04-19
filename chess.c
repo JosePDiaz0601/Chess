@@ -6,8 +6,8 @@
  */
 #include <stdio.h>
 #include <stdbool.h>
-#include "chessPieces.h"
-#include "chessAI.h"
+//#include "chessPieces.h"
+//#include "chessAI.h"
 
 //array with initial positions of chess pieces, have the zeroth row correspond to white's first rank
 //columns go from a to h on board, 0 to 7 for array indices
@@ -218,7 +218,7 @@ int getAIMoveFinalSquareRow(){
 int getAIMoveFinalSquareColumn(){
 
 }
-
+/*
 void newBoard()
 {
 	// Creating the array for the board
@@ -333,5 +333,6 @@ void newBoard()
         }
     }
 }
+*/
 
 /* EOF */
