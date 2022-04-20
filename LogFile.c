@@ -1,6 +1,44 @@
-    	                                //Declaration of an array of unknown size containing the move
-void WriteToLog(char move[]){}          //Write to log takes whatever is in 'move' array and Writes it to the LogFile
-const char *ReturnCurrentMove();      //Returns a pointer to the current move. Might be applicable for GUI purposes, easy enough to implement.
-const char *ReturnLastMove();        //Similar to ReturnCurrentMove, except returns the last move. 
-void DeleteMove()                   //Should delete the indicated move. Useful for situations where we allow user to redo their move.
-void CloseLog();                   //Closes the LogFile, should be called when the game is complete or someone has forfeitted.
+/*********************************************************************/
+/* Chess Assignment, for EECS 22L, Spring 22                     */
+/*                                                                   */
+/* Initial author: Jose Diaz                                       */
+/*                                                                   */
+/* Logfile.c  notation file reader and writer for UNOPTIMIZED CHESS  */
+/*                                                                   */
+/*********************************************************************/
+#include "LogFile.h"
+
+//function to write to log. returns an integer for error purposes.
+int WriteToLog(char MovePart1[2],char MovePart2[2],char MovePiece[2]){
+char *filename = "LogFile.log";
+
+ /*This portion opens the file corresponding to pointer 'filename'*/
+    FILE *fp = fopen(filename, "w");
+    if (fp == NULL)
+    {
+        printf("File 'LogFile.log' could not be opened. %s", filename);
+        return 0;
+	}
+	fprintf(fp,"%s",MovePart1);  /*we might have to change fp to filename, not sure yet*/
+	fprintf(fp,"%s",MovePart2);
+	fprintf(fp,"%s",MovePiece);
+
+   fclose(filename);
+
+}
+ char *ReturnCurrentMove(void){
+
+
+ }
+const char *ReturnLastMove(void){
+
+
+}
+void DeleteMove(void){
+
+
+}
+void CloseLog(void){
+
+
+}

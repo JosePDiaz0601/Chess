@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-
+#include <stdio.h>
 /*  1 - wpawn 
     2 - wbishop
     3 - wknight
@@ -17,6 +17,7 @@
     12- bking*/
 int type; //paul made color to char type.
 
+static int rangeOfMotion[64];
 
 /*
 HOW TO GET X AND Y VALUES FOR RANGE OF MOTION
@@ -28,20 +29,28 @@ HOW TO GET X AND Y VALUES FOR RANGE OF MOTION
 
 int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasMoved)
 {
+    for(int x = 0; x <= 63; x++){
+        rangeOfMotion[x] = 0;
+		//printf("RANGE OF MOTION at %d = %d\n", x, rangeOfMotion[x]);
+    }
 	static int rangeOfMotion[64];
-    if (piece == 1 && (strcmp("w", color) == 0))
+	printf("X is %d\nY is %d\n Piece is %d\n", x, y, piece);
+    if ((piece == 1) && ('W' == color))
     {
         if (y < 7)
         {
             rangeOfMotion[x+(8*(y+1))] = 1;
-            if (hasMoved != 1)
+            if (hasMoved == 0)
             {
                 rangeOfMotion[x+(8*(y+2))] = 1;
             }
         }
+        for (int test = 0; test <= 63; test++){
+            //printf("RANGE OF MOTION at %d = %d\n", x, rangeOfMotion[test]);
+        }
     }
 
-	if (piece == 1 && (strcmp("b", color) ==0)){
+	if (piece == 1 && 'B' == color){
 		if (y >= 0){
 			rangeOfMotion[x+(8*(y-1))] = 1;
 			if (hasMoved != 1){
@@ -273,43 +282,36 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasM
 			rangeOfMotion[x+1+(8*(y-1))] = 1;
 		}
 	}
-/*
-	if (piece == 7){
 
-	}
-	if (piece == 8){
-		
-	}
-	if (piece == 9){
-		
-	}
-	if (piece == 10){
-		
-	}
-	if (piece == 11){
-		
-	}
-	if (piece == 12){
-		
-	}
 
-*/ 
 // we wouldn't need to make black pieces since we have strcmp for pawns, all the other pieces 
 // should have the same code, either white or black
+	//for(int testing = 0; testing < 64; testing++){
+	//printf("%d %d %d %d %d %d %d %d \n%d %d %d %d %d %d %d %d \n%d %d %d %d %d %d %d %d \n%d %d %d %d %d %d %d %d \n%d %d %d %d %d %d %d %d \n%d %d %d %d %d %d %d %d \n%d %d %d %d %d %d %d %d \n%d %d %d %d %d %d %d %d \n", rangeOfMotion[testing]);}
 	return rangeOfMotion;
 }
 
-void *movePiece(int x1, int y1, int x2, int y2)
+int movePiece(int x1, int y1, int x2, int y2)
 {
-	
-	struct PIECE s = board[x1][y1]; 
+	struct PIECE empty = {7, 'W', 0};
+	struct PIECE s = board[y1][x1]; 
 	int *p;
+	int check = 0;
 	int selection = (x2 + (8*y2));
+	//printf("s.type = %d\n", board[y1][x1].type);
+	//printf("s.color = %c\n", board[y1][x1].color);
+	//printf("x1 = %d\n", x1);
+	//printf("y1 = %d\n", y1);
 	p = getRangeOfMotion(s.type, s.color, x1, y1, s.hasMoved);
-	if (rangeOfMotion(selection) == 1){
-		board[x1][y1] = *empty;
-		board[x2][y2] = s;
+	printf("P = %d\n", *(p+(x2 + (8*y2))));
+	if (*(p+(x2 + (8*y2))) == 1){
+		board[y1][x1] = empty;
+		board[y2][x2] = s;
+		printf("P IS EQUAL TO 1\n");
+	}else{
+		check = 1;
 	}
+	return check;
 }
 
 /*WHEN CALLING rangeOfMotion do this format
