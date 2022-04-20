@@ -6,8 +6,8 @@
  */
 #include <stdio.h>
 #include <stdbool.h>
-//#include "chessPieces.h"
-//#include "chessAI.h"
+#include "chessPieces.h"
+#include "chessAI.h"
 
 // array with initial positions of chess pieces, have the zeroth row correspond to white's first rank
 // columns go from a to h on board, 0 to 7 for array indices
@@ -48,7 +48,8 @@ void viewGameSettings()
 void printCurrentBoard()
 {
     printf("\n  +----+----+----+----+----+----+----+----+\n");
-    for (int i = 8; i > 0; i--)
+    int i;
+    for (i = 8; i > 0; i--)
     {
         int j = 0;
         printf("%d | %s | %s | %s | %s | %s | %s | %s | %s |\n", i, positionValues[i - 1][j], positionValues[i - 1][j + 1], positionValues[i - 1][j + 2], positionValues[i - 1][j + 3], positionValues[i - 1][j + 4], positionValues[i - 1][j + 5], positionValues[i - 1][j + 6], positionValues[i - 1][j + 7]);
@@ -71,11 +72,14 @@ void resetStartingPosition()
         {{'b', 'P', '\0'}, {'b', 'P', '\0'}, {'b', 'P', '\0'}, {'b', 'P', '\0'}, {'b', 'P', '\0'}, {'b', 'P', '\0'}, {'b', 'P', '\0'}, {'b', 'P', '\0'}}, // seventh rank of board, index 6 for row of array
         {{'b', 'R', '\0'}, {'b', 'N', '\0'}, {'b', 'B', '\0'}, {'b', 'K', '\0'}, {'b', 'Q', '\0'}, {'b', 'B', '\0'}, {'b', 'N', '\0'}, {'b', 'R', '\0'}}  // eight rank, index 7 for row of array
     };
-    for (int i = 0; i < 8; i++)
+    int i;
+    for (i = 0; i < 8; i++)
     {
-        for (int j = 0; j < 8; j++)
+        int j;
+        for (j = 0; j < 8; j++)
         {
-            for (int k = 0; k < 3; k++)
+            int k;
+            for (k = 0; k < 3; k++)
             {
                 positionValues[i][j][k] = (char)(boardStartingValues[i][j][k]);
             }
