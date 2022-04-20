@@ -1,5 +1,2 @@
-results: chess.c chess.h
-	    $(CC) chess.c -o results
-
-clean: 
-	rm -f results 
+results: chess.c chessAI.c chessPieces.c chess.h chessAI.h chessPieces.h
+	    $(CC) chess.c chessAI.c chessPieces.c -o results
