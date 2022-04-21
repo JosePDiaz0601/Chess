@@ -39,7 +39,7 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasM
 		//}
 		//looper++;
     }
-	printf("X is %d\nY is %d\n Piece is %d\n", x, y, piece);
+	printf("X is %d\nY is %d\nPiece is %d\n", x, y, piece);
     if ((piece == 1) && ('W' == color))
     {
         if (y < 7)
@@ -339,7 +339,7 @@ int movePiece(int x1, int y1, int x2, int y2)
 	if (*(p+(x2 + (8*y2))) == 1){
 		board[y1][x1] = empty;
 		board[y2][x2] = s;
-		printf("P IS EQUAL TO 1\n");
+		//printf("P IS EQUAL TO 1\n");
 	}else{
 		check = 1;
 	}
