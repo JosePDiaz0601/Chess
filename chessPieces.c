@@ -150,21 +150,29 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasM
     }
 
 	if (piece == 4){
+		int tempx = x;
+		int tempy = y;
 		while (x+1 < 8)
 		{
 			x++;
 			rangeOfMotion[x+(8*y)] = 1;
 		}
+		x = tempx;
+		y = tempy;
 		while (x-1 >= 0)
 		{
 			x--;
 			rangeOfMotion[x+(8*y)] = 1;
 		}
+		x = tempx;
+		y = tempy;
 		while (y+1 < 8)
 		{
 			y++;
 			rangeOfMotion[x+(8*y)] = 1;
 		}
+		x = tempx;
+		y = tempy;
 		while (y-1 >= 0)
 		{
 			y--;
