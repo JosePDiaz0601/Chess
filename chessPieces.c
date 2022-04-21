@@ -29,11 +29,16 @@ HOW TO GET X AND Y VALUES FOR RANGE OF MOTION
 
 int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasMoved)
 {
-    for(int x = 0; x <= 63; x++){
+	int looper = 0;
+    for(int x = 63; x >= 0; x--){
         rangeOfMotion[x] = 0;
-		//printf("RANGE OF MOTION at %d = %d\n", x, rangeOfMotion[x]);
+		printf("%d", rangeOfMotion[x]);
+		//if(looper = 8){
+		//printf("\n");
+		//looper = 0;
+		//}
+		//looper++;
     }
-	static int rangeOfMotion[64];
 	printf("X is %d\nY is %d\n Piece is %d\n", x, y, piece);
     if ((piece == 1) && ('W' == color))
     {
@@ -59,56 +64,63 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasM
 		}
 	} 
 
-	if (piece == 2){	
-
-		while (x+1 < 8 && y+1 < 8)
+	if (piece == 3){	
+		int tempx = x;
+		int tempy = y;
+		while (tempx+1 < 8 && tempy+1 < 8)
 		{
-			x++;
-			y++;
-			rangeOfMotion[x+(8*y)];
+			tempx++;
+			tempy++;
+			rangeOfMotion[tempx+(8*tempy)] = 1;
 		}
-		while (x-1 >= 0 && y+1 < 8)
+		tempx = x;
+		tempy = y;
+		while (tempx-1 >= 0 && tempy+1 < 8)
 		{
-			x--;
-			y++;
-			rangeOfMotion[x+(8*y)];
+			tempx--;
+			tempy++;
+			rangeOfMotion[tempx+(8*tempy)] = 1;
 		}
-		while (x+1 < 8 && y-1 >= 0)
+		tempx = x;
+		tempy = y;
+		while (tempx+1 < 8 && tempy-1 >= 0)
 		{
-			x++;
-			y--;
-			rangeOfMotion[x+(8*y)];
+			tempx++;
+			tempy--;
+			rangeOfMotion[tempx+(8*tempy)] = 1;
 		}
-		while (x-1 >= 0 && y-1 >= 0)
+		tempx = x;
+		tempy = y;
+		while (tempx-1 >= 0 && tempy-1 >= 0)
 		{
-			x--;
-			y--;
-			rangeOfMotion[x+(8*y)];
+			tempx--;
+			tempy--;
+			rangeOfMotion[tempx+(8*tempy)] = 1;
 		}
 	}
 
-    if(piece == 3)
+    if(piece == 2)
     {
         if((y+3) < 8)
         {
             if (x+1 < 8)
             {
-                rangeOfMotion[(x+1)+(8*(y+3))] = 1;
+                rangeOfMotion[(x+1)+(8*(y+2))] = 1;
             }
             if (x-1 >= 0)
             {
-                rangeOfMotion[(x-1)+(8*(y+3))] = 1;
+                rangeOfMotion[(x-1)+(8*(y+2))] = 1;
             }
         }
         if (y-3 >= 0) 
         {
             if (x+1 < 8)
             {
-                rangeOfMotion[(x+1)+(8*(y-3))] = 1;
+                rangeOfMotion[(x+1)+(8*(y-2))] = 1;
             }
             if (x-1 >= 0)
             {
-                rangeOfMotion[(x-1)+(8*(y-3))] = 1;
+                rangeOfMotion[(x-1)+(8*(y-2))] = 1;
             }
         }
 
@@ -116,22 +128,22 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasM
         {
             if (x+1 < 8)
             {
-                rangeOfMotion[(x+3)+(8*(y+1))] = 1;
+                rangeOfMotion[(x+2)+(8*(y+1))] = 1;
             }
             if (x-1 >= 0)
             {
-                rangeOfMotion[(x-3)+(8*(y+1))] = 1;
+                rangeOfMotion[(x-2)+(8*(y+1))] = 1;
             }
         }
         if (y-1 >= 0)
         {
             if (x+3 < 8)
             {
-                rangeOfMotion[(x+3)+(8*(y-1))] = 1;
+                rangeOfMotion[(x+2)+(8*(y-1))] = 1;
             }
             if (x-3 >= 0)
             {
-                rangeOfMotion[(x-3)+(8*(y-1))] = 1;
+                rangeOfMotion[(x-2)+(8*(y-1))] = 1;
             }
         }
         
@@ -141,22 +153,22 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasM
 		while (x+1 < 8)
 		{
 			x++;
-			rangeOfMotion[x+(8*y)];
+			rangeOfMotion[x+(8*y)] = 1;
 		}
 		while (x-1 >= 0)
 		{
 			x--;
-			rangeOfMotion[x+(8*y)];
+			rangeOfMotion[x+(8*y)] = 1;
 		}
 		while (y+1 < 8)
 		{
 			y++;
-			rangeOfMotion[x+(8*y)];
+			rangeOfMotion[x+(8*y)] = 1;
 		}
 		while (y-1 >= 0)
 		{
 			y--;
-			rangeOfMotion[x+(8*y)];
+			rangeOfMotion[x+(8*y)] = 1;
 		}
 	}
 
@@ -179,45 +191,45 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasM
 		{
 			x++;
 			y++;
-			rangeOfMotion[x+(8*y)];
+			rangeOfMotion[x+(8*y)] = 1;
 		}
 		while (x-1 >= 0 && y+1 < 8)
 		{
 			x--;
 			y++;
-			rangeOfMotion[x+(8*y)];
+			rangeOfMotion[x+(8*y)] = 1;
 		}
 		while (x+1 < 8 && y-1 >= 0)
 		{
 			x++;
 			y--;
-			rangeOfMotion[x+(8*y)];
+			rangeOfMotion[x+(8*y)] = 1;
 		}
 		while (x-1 >= 0 && y-1 >= 0)
 		{
 			x--;
 			y--;
-			rangeOfMotion[x+(8*y)];
+			rangeOfMotion[x+(8*y)] = 1;
 		}
 		while (x+1 < 8)
 		{
 			x++;
-			rangeOfMotion[x+(8*y)];
+			rangeOfMotion[x+(8*y)] = 1;
 		}
 		while (x-1 >= 0)
 		{
 			x--;
-			rangeOfMotion[x+(8*y)];
+			rangeOfMotion[x+(8*y)] = 1;
 		}
 		while (y+1 < 8)
 		{
 			y++;
-			rangeOfMotion[x+(8*y)];
+			rangeOfMotion[x+(8*y)] = 1;
 		}
 		while (y-1 >= 0)
 		{
 			y--;
-			rangeOfMotion[x+(8*y)];
+			rangeOfMotion[x+(8*y)] = 1;
 		}
 
 	}
@@ -286,8 +298,20 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasM
 
 // we wouldn't need to make black pieces since we have strcmp for pawns, all the other pieces 
 // should have the same code, either white or black
-	//for(int testing = 0; testing < 64; testing++){
-	//printf("%d %d %d %d %d %d %d %d \n%d %d %d %d %d %d %d %d \n%d %d %d %d %d %d %d %d \n%d %d %d %d %d %d %d %d \n%d %d %d %d %d %d %d %d \n%d %d %d %d %d %d %d %d \n%d %d %d %d %d %d %d %d \n%d %d %d %d %d %d %d %d \n", rangeOfMotion[testing]);}
+/*	printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[0], rangeOfMotion[1], rangeOfMotion[2], rangeOfMotion[3], rangeOfMotion[4], rangeOfMotion[5], rangeOfMotion[6], rangeOfMotion[7]);
+	printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[0+8], rangeOfMotion[1+8], rangeOfMotion[2+8], rangeOfMotion[3+8], rangeOfMotion[4+8], rangeOfMotion[5+8], rangeOfMotion[6+8], rangeOfMotion[7+8]);
+	printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[0+8+8], rangeOfMotion[1+8+8], rangeOfMotion[2+8+8], rangeOfMotion[3+8+8], rangeOfMotion[4+8+8], rangeOfMotion[5+8+8], rangeOfMotion[6+8+8], rangeOfMotion[7+8+8]);
+	printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[0+8+8+8], rangeOfMotion[1+8+8+8], rangeOfMotion[2+8+8+8], rangeOfMotion[3+8+8+8], rangeOfMotion[4+8+8+8], rangeOfMotion[5+8+8+8], rangeOfMotion[6+8+8+8], rangeOfMotion[7+8+8+8]);
+	printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[0+8+8+8+8], rangeOfMotion[1+8+8+8+8], rangeOfMotion[2+8+8+8+8], rangeOfMotion[3+8+8+8+8], rangeOfMotion[4+8+8+8+8], rangeOfMotion[5+8+8+8+8], rangeOfMotion[6+8+8+8+8], rangeOfMotion[7+8+8+8+8]);
+	printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[0+8+8+8+8+8], rangeOfMotion[1+8+8+8+8+8], rangeOfMotion[2+8+8+8+8+8], rangeOfMotion[3+8+8+8+8+8], rangeOfMotion[4+8+8+8+8+8], rangeOfMotion[5+8+8+8+8+8], rangeOfMotion[6+8+8+8+8+8], rangeOfMotion[7+8+8+8+8+8]);
+	printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[0+8+8+8+8+8+8], rangeOfMotion[1+8+8+8+8+8+8], rangeOfMotion[2+8+8+8], rangeOfMotion[3+8+8+8], rangeOfMotion[4+8+8+8], rangeOfMotion[5+8+8+8], rangeOfMotion[6+8+8+8], rangeOfMotion[7+8+8+8]);
+	printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[0+8+8+8+8+8+8+8], rangeOfMotion[1+8+8+8+8+8+8+8], rangeOfMotion[2+8+8+8], rangeOfMotion[3+8+8+8], rangeOfMotion[4+8+8+8], rangeOfMotion[5+8+8+8], rangeOfMotion[6+8+8+8], rangeOfMotion[7+8+8+8]);
+*/
+	int checkLoop = 56;
+	for(int testing = 0; testing <= 7; testing++){
+		printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[checkLoop], rangeOfMotion[checkLoop+1], rangeOfMotion[checkLoop+2], rangeOfMotion[checkLoop+3], rangeOfMotion[checkLoop+4], rangeOfMotion[checkLoop+5], rangeOfMotion[checkLoop+6], rangeOfMotion[checkLoop+7]);
+		checkLoop -= 8;
+	}
 	return rangeOfMotion;
 }
 
