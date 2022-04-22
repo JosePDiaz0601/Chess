@@ -87,7 +87,7 @@ void printCurrentBoardBlackPerspective()
         printf("%d | %s | %s | %s | %s | %s | %s | %s | %s |\n", i+1, positionValues[i][j], positionValues[i][j - 1], positionValues[i][j - 2], positionValues[i][j - 3], positionValues[i][j - 4], positionValues[i][j - 5], positionValues[i][j - 6], positionValues[i][j - 7]);
         printf("  +----+----+----+----+----+----+----+----+\n");
     }
-    printf("    a    b    c    d    e    f    g    h");
+    printf("    h    g    f    e    d    c    b    a");
     printf("\n========================================================================");
     printf("\n========================================================================");
 }
@@ -219,7 +219,7 @@ int main(void)
                 }
                 else{
                     printCurrentBoardBlackPerspective();
-                }                
+                }
                 turn += 1; //updates whose turn it is
                 printf("\nBlack to move. Please enter a move in the format of initial square \n");
                 printf("and destination square (e.g. e7 e5). Note that the file must be \n");
