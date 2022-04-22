@@ -19,7 +19,8 @@ ChessAI.o: ./src/chessAI.c ./src/chessAI.h ./src/chessPieces.h ./src/LogFile.h
 	$(CC) $(CFLAGS) -c ./src/chessAI.c -o ./bin/ChessAI.o
 
 LogFile.o: ./src/LogFile.c ./src/LogFile.h
-	$(CC) $(CFLAGS) -c ./src/LogFile.c -o ./bin/LogFile.o
+	$(CC) $(CFLAGS) -c ./src/LogFile.c -o ./bin/LogFile.o ./bin/LogFile.log
+#might have to delete ./bin.LogFile.log
 
 clean:
 	rm ./bin/chess
