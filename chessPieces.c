@@ -172,22 +172,22 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2, i
     {
         if((y+2) < 8)
         {
-            if (x+1 < 8){
+            if (x+1 < 8 && (board[0][y+2][x+1].color != pieceColor)){
 
                 rangeOfMotion[(x+1)+(8*(y+2))] = 1;
             }
-            if (x-1 >= 0)
+            if (x-1 >= 0 && (board[0][y+2][x-1].color != pieceColor))
             {
                 rangeOfMotion[(x-1)+(8*(y+2))] = 1;
             }
         }
         if (y-2 >= 0) 
         {
-            if (x+1 < 8)
+            if (x+1 < 8 && (board[0][y-2][x+1].color != pieceColor))
             {
                 rangeOfMotion[(x+1)+(8*(y-2))] = 1;
             }
-            if (x-1 >= 0)
+            if (x-1 >= 0 && (board[0][y-2][x-1].color != pieceColor))
             {
                 rangeOfMotion[(x-1)+(8*(y-2))] = 1;
             }
@@ -195,22 +195,22 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2, i
 
         if (y+1 < 8 )
         {
-            if (x+2 < 8)
+            if (x+2 < 8 && (board[0][y+1][x+2].color != pieceColor)) 
             {
                 rangeOfMotion[(x+2)+(8*(y+1))] = 1;
             }
-            if (x-2 >= 0)
+            if (x-2 >= 0 && (board[0][y+1][x-2].color != pieceColor))
             {
                 rangeOfMotion[(x-2)+(8*(y+1))] = 1;
             }
         }
         if (y-1 >= 0)
         {
-            if (x+2 < 8)
+            if (x+2 < 8 && (board[0][y-1][x+2].color != pieceColor))
             {
                 rangeOfMotion[(x+2)+(8*(y-1))] = 1;
             }
-            if (x-2 >= 0)
+            if (x-2 >= 0 && (board[0][y-1][x-2].color != pieceColor))
             {
                 rangeOfMotion[(x-2)+(8*(y-1))] = 1;
             }
@@ -292,51 +292,122 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2, i
 */
 
 	if (piece == 5){
-		while (x+1 < 8 && y+1 < 8)
-		{
-			x++;
-			y++;
-			rangeOfMotion[x+(8*y)] = 1;
-		}
-		while (x-1 >= 0 && y+1 < 8)
-		{
-			x--;
-			y++;
-			rangeOfMotion[x+(8*y)] = 1;
-		}
-		while (x+1 < 8 && y-1 >= 0)
-		{
-			x++;
-			y--;
-			rangeOfMotion[x+(8*y)] = 1;
-		}
-		while (x-1 >= 0 && y-1 >= 0)
-		{
-			x--;
-			y--;
-			rangeOfMotion[x+(8*y)] = 1;
-		}
+		int tempx = x;
+		int tempy = y;
 		while (x+1 < 8)
 		{
+			if (board[0][y][x+1].color == pieceColor){
+				break;
+			}else{
 			x++;
 			rangeOfMotion[x+(8*y)] = 1;
+			if (board[0][y][x].color != pieceColor && board[0][y][x].color != 'E'){
+				break;
+			}
+			}
 		}
+		x = tempx;
+		y = tempy;
 		while (x-1 >= 0)
 		{
+			if (board[0][y][x-1].color == pieceColor){
+				break;
+			}else{
 			x--;
 			rangeOfMotion[x+(8*y)] = 1;
+			if (board[0][y][x].color != pieceColor && board[0][y][x].color != 'E'){
+				break;
+			}
+			}
 		}
+		x = tempx;
+		y = tempy;
 		while (y+1 < 8)
 		{
+			if (board[0][y+1][x].color == pieceColor){
+				break;
+			}else{
 			y++;
 			rangeOfMotion[x+(8*y)] = 1;
+			if (board[0][y][x].color != pieceColor && board[0][y][x].color != 'E'){
+				break;
+			}
+			}
 		}
+		x = tempx;
+		y = tempy;
 		while (y-1 >= 0)
 		{
+			if (board[0][y-1][x].color == pieceColor){
+				break;
+			}else{
 			y--;
 			rangeOfMotion[x+(8*y)] = 1;
+			if (board[0][y][x].color != pieceColor && board[0][y][x].color != 'E'){
+				break;
+			}
+			}
 		}
-
+		x = tempx;
+		y = tempy;
+		while (x+1 < 8 && y+1 < 8)
+		{
+			if (board[0][y+1][x+1].color == pieceColor){
+				break;
+			}else{
+			x++;
+			y++;
+			rangeOfMotion[x+(8*y)] = 1;
+			if (board[0][y][x].color != pieceColor && board[0][y][x].color != 'E'){
+				break;
+			}
+			}
+		}
+		x = tempx;
+		y = tempy;
+		while (x-1 >= 0 && y+1 <8)
+		{
+			if (board[0][y+1][x-1].color == pieceColor){
+				break;
+			}else{
+			x--;
+			y++;
+			rangeOfMotion[x+(8*y)] = 1;
+			if (board[0][y][x].color != pieceColor && board[0][y][x].color != 'E'){
+				break;
+			}
+			}
+		}
+		x = tempx;
+		y = tempy;
+		while (y-1 < 8 && x+1 < 8)
+		{
+			if (board[0][y-1][x+1].color == pieceColor){
+				break;
+			}else{
+			y--;
+			x++;
+			rangeOfMotion[x+(8*y)] = 1;
+			if (board[0][y][x].color != pieceColor && board[0][y][x].color != 'E'){
+				break;
+			}
+			}
+		}
+		x = tempx;
+		y = tempy;
+		while (y-1 >= 0 && x-1 >= 0)
+		{
+			if (board[0][y-1][x-1].color == pieceColor){
+				break;
+			}else{
+			y--;
+			x--;
+			rangeOfMotion[x+(8*y)] = 1;
+			if (board[0][y][x].color != pieceColor && board[0][y][x].color != 'E'){
+				break;
+			}
+			}
+		}
 	}
 /*		for (int i = x+1; i <=7; i++){
 			for (int j = y+1; j <= 7; j++){  
