@@ -152,58 +152,59 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2, i
 	if (piece == 4){
 		int tempx = x;
 		int tempy = y;
+		char pieceColor = board[0][y][x].color;
 		while (x+1 < 8)
 		{
+			if (board[0][y][x+1].color == pieceColor){
+				break;
+			}else{
 			x++;
 			rangeOfMotion[x+(8*y)] = 1;
-			if (board[0][x+1][y].color == board[0][x][y].color){
+			if (board[0][y][x].color != pieceColor && board[0][y][x].color != 'E'){
 				break;
 			}
-			if (board[0][x+1][y].color != board[0][x][y].color){
-				rangeOfMotion[(x+1)+(8*y)] = 1;
-				break;
 			}
 		}
 		x = tempx;
 		y = tempy;
 		while (x-1 >= 0)
 		{
+			if (board[0][y][x-1].color == pieceColor){
+				break;
+			}else{
 			x--;
 			rangeOfMotion[x+(8*y)] = 1;
-			if (board[0][x-1][y].color == board[0][x][y].color){
+			if (board[0][y][x].color != pieceColor && board[0][y][x].color != 'E'){
 				break;
 			}
-			if (board[0][x-1][y].color != board[0][x][y].color){
-				rangeOfMotion[(x-1)+(8*y)] = 1;
-				break;
 			}
 		}
 		x = tempx;
 		y = tempy;
 		while (y+1 < 8)
 		{
+			if (board[0][y+1][x].color == pieceColor){
+				break;
+			}else{
 			y++;
 			rangeOfMotion[x+(8*y)] = 1;
-			if (board[0][x][y+1].color == board[0][x][y].color){
+			if (board[0][y][x].color != pieceColor && board[0][y][x].color != 'E'){
 				break;
 			}
-			if (board[0][x][y+1].color != board[0][x][y].color){
-				rangeOfMotion[(x)+(8*(y+1))] = 1;
-				break;
 			}
 		}
 		x = tempx;
 		y = tempy;
 		while (y-1 >= 0)
 		{
+			if (board[0][y-1][x].color == pieceColor){
+				break;
+			}else{
 			y--;
 			rangeOfMotion[x+(8*y)] = 1;
-			if (board[0][x][y-1].color == board[0][x][y].color){
+			if (board[0][y][x].color != pieceColor && board[0][y][x].color != 'E'){
 				break;
 			}
-			if (board[0][x][y-1].color != board[0][x][y].color){
-				rangeOfMotion[(x)+(8*(y-1))] = 1;
-				break;
 			}
 		}
 	}
@@ -353,7 +354,7 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2, i
 
 int movePiece(int x1, int y1, int x2, int y2)
 {
-	struct PIECE empty = {7, 'W', 0};
+	struct PIECE empty = {7, 'E', 0};
 	struct PIECE s = board[0][y1][x1]; 
 	int *p;
 	int check = 0;
