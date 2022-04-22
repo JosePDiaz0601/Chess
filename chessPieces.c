@@ -126,11 +126,11 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasM
 
         if (y+1 < 8 )
         {
-            if (x+1 < 8)
+            if (x+2 < 8)
             {
                 rangeOfMotion[(x+2)+(8*(y+1))] = 1;
             }
-            if (x-1 >= 0)
+            if (x-2 >= 0)
             {
                 rangeOfMotion[(x-2)+(8*(y+1))] = 1;
             }
