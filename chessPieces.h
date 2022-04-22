@@ -2,6 +2,7 @@
 #define PIECESHEADER
 
 #include <stdbool.h>
+#include "chess.h"
 
 void newBoard();
 
@@ -32,7 +33,7 @@ struct PIECE
     bool hasMoved;
 };
 
-struct PIECE board[8][8];
+struct PIECE board[500][8][8];
 //struct PIECE *empty = {7, 'W', 0};
 
 #endif
