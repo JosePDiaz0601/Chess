@@ -7,9 +7,10 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "chessPieces.h"
-#include "chessPieces.c"
+//#include "chessPieces.c"
 #include "chessAI.h"
 
+int colorInput; //the int that user types to choose color 0 for white 1 for black
 // array with initial positions of chess pieces, have the zeroth row correspond to white's first rank
 // columns go from a to h on board, 0 to 7 for array indices
 char positionValues[8][8][3] = {
@@ -23,6 +24,9 @@ char positionValues[8][8][3] = {
     {{'b', 'R', '\0'}, {'b', 'N', '\0'}, {'b', 'B', '\0'}, {'b', 'Q', '\0'}, {'b', 'K', '\0'}, {'b', 'B', '\0'}, {'b', 'N', '\0'}, {'b', 'R', '\0'}}  // eight rank, index 7 for row of array
 };
 // (0,0) corresponds to a1, (4,7) corresponds to d7, (7,7) corresponds to h8
+
+
+
 
 void printPromptWhiteToMove(){
     printf("\nWhite to move. Please enter a move in the format of initial square \n");
@@ -131,7 +135,7 @@ int main(void)
 {
     int promptInput = 0;          /* user's input (from menu, choose 1 to start game,
     2 to view game settings, 3 to exit game) assigned to promptInput*/
-    int colorInput = 0; //the int that user types to choose color 0 for white 1 for black
+    colorInput = 0; //set color 0 to white by default
     bool programFinished = false; // checks whether game is exited
     int turn;
     turn = 0;
@@ -215,7 +219,7 @@ int main(void)
                 }
                 else{
                     printCurrentBoardBlackPerspective();
-                }
+                }                
                 turn += 1; //updates whose turn it is
                 printf("\nBlack to move. Please enter a move in the format of initial square \n");
                 printf("and destination square (e.g. e7 e5). Note that the file must be \n");
