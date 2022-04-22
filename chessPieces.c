@@ -63,11 +63,21 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2, i
     }
 
 	if (piece == 1 && 'B' == color){
-		if (y >= 0){
-			rangeOfMotion[x+(8*(y-1))] = 1;
-			if (hasMoved != 1){
-					rangeOfMotion[x+(8*(y-2))] = 1;
-			}
+		if (y >= 0 && board[0][y-1][x].type == 7)
+        {
+            rangeOfMotion[x+(8*(y-1))] = 1;
+            if (hasMoved == 0 && board[0][y-2][x].type == 7)
+            {
+                rangeOfMotion[x+(8*(y-2))] = 1;
+            }
+        }
+		if ((y >= 0 && x-1 >= 0) && (board[0][y-1][x-1].color != pieceColor) && (board[0][y-1][x-1].color != 'E'))
+		{
+			rangeOfMotion[(x-1)+(8*(y-1))] = 1;
+		}
+		if ((y >= 0 && x+1 < 7) && (board[0][y-1][x+1].color != pieceColor) && (board[0][y-1][x+1].color != 'E'))
+		{
+			rangeOfMotion[(x+1)+(8*(y-1))] = 1;
 		}
 	} 
 
