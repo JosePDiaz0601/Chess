@@ -332,7 +332,7 @@ void newBoard()
     // struct PIECE board[8][8];
 
     // The Empty Piece
-    struct PIECE empty = {7, 'W', 0};
+    struct PIECE empty = {7, 'E', 0};
 
     // Create and assign the pieces
 
