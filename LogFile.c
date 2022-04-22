@@ -9,9 +9,9 @@
 #include "LogFile.h"
 
 //function to write to log. returns an integer for error purposes.
+int movecounter;
 int WriteToLog(char MovePart1[2],char MovePart2[2],char MovePiece[2]){
 char *filename = "LogFile.log";
-FILE *fp;
 
  /*This portion opens the file corresponding to pointer 'filename'*/
     FILE *fp = fopen(filename, "w");
@@ -20,11 +20,10 @@ FILE *fp;
         printf("File 'LogFile.log' could not be opened. %s", filename);
         return 0;
 	}
-	fprintf(fp,"%s",MovePart1);  /*we might have to change fp to filename, not sure yet*/
-	fprintf(fp,"%s",MovePart2);
-	fprintf(fp,"%s",MovePiece);
+	fprintf(fp,"%d,%s,%s,%s\n",movecounter,MovePart1,MovePart2,MovePiece);  /*we might have to change fp to filename, not sure yet*/
 
-   fclose(filename);
+
+   fclose(fp);
 
 }
 
