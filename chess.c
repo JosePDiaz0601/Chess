@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "chessPieces.h"
-//#include "chessPieces.c"
+#include "chessPieces.c"
 #include "chessAI.h"
 
 int colorInput; //the int that user types to choose color 0 for white 1 for black
@@ -325,7 +325,7 @@ int getAIMoveFinalSquareColumn()
 {
     return 0;
 }
-/*
+
 void newBoard()
 {
     // Creating the array for the board
@@ -444,6 +444,6 @@ void newBoard()
             }
         }
 }
-*/
+
 
 /* EOF */
