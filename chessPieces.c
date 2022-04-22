@@ -29,7 +29,7 @@ HOW TO GET X AND Y VALUES FOR RANGE OF MOTION
 
 int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasMoved)
 {
-	int looper = 0;
+	//int looper = 0;
     for(int x = 63; x >= 0; x--){
         rangeOfMotion[x] = 0;
 		printf("%d", rangeOfMotion[x]);
@@ -289,16 +289,16 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasM
 		if ((x-1 < 8) == (x-1 > 0)){
 			rangeOfMotion[x-1+(8*(y))] = 1;
 		}
-		if ((x+1 < 8) == (x+1 > 0) == (y+1 < 0) == (y+1 < 8)){
+		if (  ((x+1 < 8) == (x+1 > 0)) == ((y+1 < 0) == (y+1 < 8))  ){
 			rangeOfMotion[x+1+(8*(y+1))] = 1;
 		}
-		if ((x-1 < 8) == (x-1 > 0) == (y+1 < 0) == (y+1 < 8)){ 
+		if (  ((x-1 < 8) == (x-1 > 0)) == ((y+1 < 0) == (y+1 < 8))  ){ 
 			rangeOfMotion[x-1+(8*(y+1))] = 1;
 		}
-		if ((x-1 < 8) == (x-1 > 0) == (y-1 > 0) == (y-1 < 8)){
+		if (  ((x-1 < 8) == (x-1 > 0)) == ((y-1 > 0) == (y-1 < 8))  ){
 			rangeOfMotion[x-1+(8*(y+1))] = 1;
 		}
-		if ((x+1 < 8) == (x+1 > 0) == (y-1 > 0) == (y-1 < 8)){
+		if (  ((x+1 < 8) == (x+1 > 0)) ==   ((y-1 > 0) == (y-1 < 8))  ){
 			rangeOfMotion[x+1+(8*(y-1))] = 1;
 		}
 	}
@@ -320,7 +320,7 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasM
 		printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[checkLoop], rangeOfMotion[checkLoop+1], rangeOfMotion[checkLoop+2], rangeOfMotion[checkLoop+3], rangeOfMotion[checkLoop+4], rangeOfMotion[checkLoop+5], rangeOfMotion[checkLoop+6], rangeOfMotion[checkLoop+7]);
 		checkLoop -= 8;
 	}
-	return rangeOfMotion;
+	return rangeOfMotion; //this line returns an error when compiling try this website https://stackoverflow.com/questions/23593597/returning-an-integer-array-pointer-in-c
 }
 
 int movePiece(int x1, int y1, int x2, int y2)
@@ -329,7 +329,9 @@ int movePiece(int x1, int y1, int x2, int y2)
 	struct PIECE s = board[y1][x1]; 
 	int *p;
 	int check = 0;
-	int selection = (x2 + (8*y2));
+ /**
+	int selection = 0;
+  selection = (x2 + (8*y2));*/ //these are currently not being used, when they are used --> uncomment
 	//printf("s.type = %d\n", board[y1][x1].type);
 	//printf("s.color = %c\n", board[y1][x1].color);
 	//printf("x1 = %d\n", x1);
