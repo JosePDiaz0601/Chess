@@ -329,111 +329,112 @@ void newBoard()
     // Create and assign the pieces
 
     struct PIECE pawn0 = {pawn, 'W', 0};
-    board[1][0] = pawn0;
+    board[0][1][0] = pawn0;
 //   printf("sTEST.type = %d\n", board[1][0].type);
 //	printf("sTEST.color = %c\n", board[1][0].color);
 
     struct PIECE pawn1 = {pawn, 'W', 0};
-    board[1][1] = pawn1;
+    board[0][1][1] = pawn1;
 
     struct PIECE pawn2 = {pawn, 'W', 0};
-    board[1][2] = pawn2;
+    board[0][1][2] = pawn2;
 
     struct PIECE pawn3 = {pawn, 'W', 0};
-    board[1][3] = pawn3;
+    board[0][1][3] = pawn3;
 
     struct PIECE pawn4 = {pawn, 'W', 0};
-    board[1][4] = pawn4;
+    board[0][1][4] = pawn4;
 
     struct PIECE pawn5 = {pawn, 'W', 0};
-    board[1][5] = pawn5;
+    board[0][1][5] = pawn5;
 
     struct PIECE pawn6 = {pawn, 'W', 0};
-    board[1][6] = pawn6;
+    board[0][1][6] = pawn6;
 
     struct PIECE pawn7 = {pawn, 'W', 0};
-    board[1][7] = pawn7;
+    board[0][1][7] = pawn7;
 
     struct PIECE pawn0B = {pawn, 'B', 0};
-    board[6][0] = pawn0B;
+    board[0][6][0] = pawn0B;
 
     struct PIECE pawn1B = {pawn, 'B', 0};
-    board[6][1] = pawn1B;
+    board[0][6][1] = pawn1B;
 
     struct PIECE pawn2B = {pawn, 'B', 0};
-    board[6][2] = pawn2B;
+    board[0][6][2] = pawn2B;
 
     struct PIECE pawn3B = {pawn, 'B', 0};
-    board[6][3] = pawn3B;
+    board[0][6][3] = pawn3B;
 
     struct PIECE pawn4B = {pawn, 'B', 0};
-    board[6][4] = pawn4B;
+    board[0][6][4] = pawn4B;
 
     struct PIECE pawn5B = {pawn, 'B', 0};
-    board[6][5] = pawn5B;
+    board[0][6][5] = pawn5B;
 
     struct PIECE pawn6B = {pawn, 'B', 0};
-    board[6][6] = pawn6B;
+    board[0][6][6] = pawn6B;
 
     struct PIECE pawn7B = {pawn, 'B', 0};
-    board[6][7] = pawn7B;
+    board[0][6][7] = pawn7B;
 
     struct PIECE rook0 = {rook, 'W', 0};
-    board[0][0] = rook0;
+    board[0][0][0] = rook0;
 
     struct PIECE rook1 = {rook, 'W', 0};
-    board[0][7] = rook1;
+    board[0][0][7] = rook1;
 
     struct PIECE rook0B = {rook, 'B', 0};
-    board[7][0] = rook0B;
+    board[0][7][0] = rook0B;
 
     struct PIECE rook1B = {rook, 'B', 0};
-    board[7][7] = rook1B;
+    board[0][7][7] = rook1B;
 
     struct PIECE knight0 = {knight, 'W', 0};
-    board[0][1] = knight0;
+    board[0][0][1] = knight0;
 
     struct PIECE knight1 = {knight, 'W', 0};
-    board[0][6] = knight1;
+    board[0][0][6] = knight1;
 
     struct PIECE knight0B = {knight, 'B', 0};
-    board[7][1] = knight0B;
+    board[0][7][1] = knight0B;
 
     struct PIECE knight1B = {knight, 'B', 0};
-    board[7][6] = knight1B;
+    board[0][7][6] = knight1B;
 
     struct PIECE bishop0 = {bishop, 'W', 0};
-    board[0][2] = bishop0;
+    board[0][0][2] = bishop0;
 
     struct PIECE bishop1 = {bishop, 'W', 0};
-    board[0][5] = bishop1;
+    board[0][0][5] = bishop1;
 
     struct PIECE bishop0B = {bishop, 'B', 0};
-    board[7][2] = bishop0B;
+    board[0][7][2] = bishop0B;
 
     struct PIECE bishop1B = {bishop, 'B', 0};
-    board[7][5] = bishop1B;
+    board[0][7][5] = bishop1B;
 
     struct PIECE queenW = {queen, 'W', 0};
-    board[0][3] = queenW;
+    board[0][0][3] = queenW;
 
     struct PIECE queenB = {queen, 'B', 0};
-    board[7][3] = queenB;
+    board[0][7][3] = queenB;
 
     struct PIECE kingW = {king, 'W', 0};
-    board[0][4] = kingW;
+    board[0][0][4] = kingW;
 
     struct PIECE kingB = {king, 'B', 0};
-    board[7][4] = kingB;
+    board[0][7][4] = kingB;
 
     // Instantiate blank spaces as null
-    for (int i = 2; i < 6; i++)
-    {
-        for (int j = 0; j < 8; j++)
+    for (int y = 0; y < 499; y++)
+        for (int i = 2; i < 6; i++)
         {
-            board[i][j] = empty;
+            for (int j = 0; j < 8; j++)
+            {
+                board[y][i][j] = empty;
+            }
         }
-    }
 }
 
 /* EOF */

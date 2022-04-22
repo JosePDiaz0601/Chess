@@ -101,7 +101,7 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasM
 
     if(piece == 2)
     {
-        if((y+3) < 8)
+        if((y+2) < 8)
         {
             if (x+1 < 8)
             {
@@ -112,7 +112,7 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasM
                 rangeOfMotion[(x-1)+(8*(y+2))] = 1;
             }
         }
-        if (y-3 >= 0) 
+        if (y-2 >= 0) 
         {
             if (x+1 < 8)
             {
@@ -137,11 +137,11 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasM
         }
         if (y-1 >= 0)
         {
-            if (x+3 < 8)
+            if (x+2 < 8)
             {
                 rangeOfMotion[(x+2)+(8*(y-1))] = 1;
             }
-            if (x-3 >= 0)
+            if (x-2 >= 0)
             {
                 rangeOfMotion[(x-2)+(8*(y-1))] = 1;
             }
@@ -326,7 +326,7 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasM
 int movePiece(int x1, int y1, int x2, int y2)
 {
 	struct PIECE empty = {7, 'W', 0};
-	struct PIECE s = board[y1][x1]; 
+	struct PIECE s = board[0][y1][x1]; 
 	int *p;
 	int check = 0;
  /**
@@ -339,8 +339,8 @@ int movePiece(int x1, int y1, int x2, int y2)
 	p = getRangeOfMotion(s.type, s.color, x1, y1, s.hasMoved);
 	printf("P = %d\n", *(p+(x2 + (8*y2))));
 	if (*(p+(x2 + (8*y2))) == 1){
-		board[y1][x1] = empty;
-		board[y2][x2] = s;
+		board[0][y1][x1] = empty;
+		board[0][y2][x2] = s;
 		//printf("P IS EQUAL TO 1\n");
 	}else{
 		check = 1;
