@@ -2,10 +2,13 @@
 #define PIECESHEADER
 
 #include <stdbool.h>
+#include "chess.h"
 
 void newBoard();
 
-int movePiece(int x1, int y1, int x2, int y2);
+int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasMoved);
+
+int *movePiece(int x1, int y1, int x2, int y2);
 //int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasMoved);
 
 enum color
