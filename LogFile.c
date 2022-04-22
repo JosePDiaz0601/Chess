@@ -38,4 +38,3 @@ FILE *pointer1, *pointer2;
 
 void ConvertToPDF(void){
    int hello;
-}
