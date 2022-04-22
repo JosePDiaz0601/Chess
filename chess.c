@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "chessPieces.h"
-#include "chessPieces.c"
+//#include "chessPieces.c"
 #include "chessAI.h"
 
 int colorInput; //the int that user types to choose color 0 for white 1 for black
@@ -219,7 +219,7 @@ int main(void)
                 }
                 else{
                     printCurrentBoardBlackPerspective();
-                }
+                }                
                 turn += 1; //updates whose turn it is
                 printf("\nBlack to move. Please enter a move in the format of initial square \n");
                 printf("and destination square (e.g. e7 e5). Note that the file must be \n");
