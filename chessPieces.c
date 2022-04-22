@@ -39,20 +39,27 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2, i
 		//}
 		//looper++;
     }
+	char pieceColor = board[0][y][x].color;
 	printf("X is %d\nY is %d\nPiece is %d\n", x, y, piece);
     if ((piece == 1) && ('W' == color))
+
     {
-        if (y < 7)
+        if (y < 7 && board[0][y+1][x].type == 7)
         {
             rangeOfMotion[x+(8*(y+1))] = 1;
-            if (hasMoved == 0)
+            if (hasMoved == 0 && board[0][y+2][x].type == 7)
             {
                 rangeOfMotion[x+(8*(y+2))] = 1;
             }
         }
-        for (int test = 0; test <= 63; test++){
-            //printf("RANGE OF MOTION at %d = %d\n", x, rangeOfMotion[test]);
-        }
+		if ((y < 7 && x-1 >= 0) && (board[0][y+1][x-1].color != pieceColor) && (board[0][y+1][x-1].color != 'E'))
+		{
+			rangeOfMotion[(x-1)+(8*(y+1))] = 1;
+		}
+		if ((y < 7 && x+1 < 7) && (board[0][y+1][x+1].color != pieceColor) && (board[0][y+1][x+1].color != 'E'))
+		{
+			rangeOfMotion[(x+1)+(8*(y+1))] = 1;
+		}
     }
 
 	if (piece == 1 && 'B' == color){
@@ -67,6 +74,67 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2, i
 	if (piece == 3){	
 		int tempx = x;
 		int tempy = y;
+		while (x+1 < 8 && y+1 < 8)
+		{
+			if (board[0][y+1][x+1].color == pieceColor){
+				break;
+			}else{
+			x++;
+			y++;
+			rangeOfMotion[x+(8*y)] = 1;
+			if (board[0][y][x].color != pieceColor && board[0][y][x].color != 'E'){
+				break;
+			}
+			}
+		}
+		x = tempx;
+		y = tempy;
+		while (x-1 >= 0 && y+1 <8)
+		{
+			if (board[0][y+1][x-1].color == pieceColor){
+				break;
+			}else{
+			x--;
+			y++;
+			rangeOfMotion[x+(8*y)] = 1;
+			if (board[0][y][x].color != pieceColor && board[0][y][x].color != 'E'){
+				break;
+			}
+			}
+		}
+		x = tempx;
+		y = tempy;
+		while (y-1 < 8 && x+1 < 8)
+		{
+			if (board[0][y-1][x+1].color == pieceColor){
+				break;
+			}else{
+			y--;
+			x++;
+			rangeOfMotion[x+(8*y)] = 1;
+			if (board[0][y][x].color != pieceColor && board[0][y][x].color != 'E'){
+				break;
+			}
+			}
+		}
+		x = tempx;
+		y = tempy;
+		while (y-1 >= 0 && x-1 >= 0)
+		{
+			if (board[0][y-1][x-1].color == pieceColor){
+				break;
+			}else{
+			y--;
+			x--;
+			rangeOfMotion[x+(8*y)] = 1;
+			if (board[0][y][x].color != pieceColor && board[0][y][x].color != 'E'){
+				break;
+			}
+			}
+		}
+	}
+		/*int tempx = x;
+		int tempy = y;
 		while (tempx+1 < 8 && tempy+1 < 8)
 		{
 			tempx++;
@@ -78,6 +146,7 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2, i
 		while (tempx-1 >= 0 && tempy+1 < 8)
 		{
 			tempx--;
+
 			tempy++;
 			rangeOfMotion[tempx+(8*tempy)] = 1;
 		}
@@ -96,15 +165,15 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2, i
 			tempx--;
 			tempy--;
 			rangeOfMotion[tempx+(8*tempy)] = 1;
-		}
-	}
+		}*/
+	
 
     if(piece == 2)
     {
         if((y+2) < 8)
         {
-            if (x+1 < 8)
-            {
+            if (x+1 < 8){
+
                 rangeOfMotion[(x+1)+(8*(y+2))] = 1;
             }
             if (x-1 >= 0)
@@ -152,7 +221,6 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2, i
 	if (piece == 4){
 		int tempx = x;
 		int tempy = y;
-		char pieceColor = board[0][y][x].color;
 		while (x+1 < 8)
 		{
 			if (board[0][y][x+1].color == pieceColor){
@@ -370,6 +438,8 @@ int movePiece(int x1, int y1, int x2, int y2)
 	if (*(p+(x2 + (8*y2))) == 1){
 		board[0][y1][x1] = empty;
 		board[0][y2][x2] = s;
+		board[0][y2][x2].hasMoved = 1;
+	
 		//printf("P IS EQUAL TO 1\n");
 	}else{
 		check = 1;
