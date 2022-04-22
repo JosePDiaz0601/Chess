@@ -27,7 +27,7 @@ HOW TO GET X AND Y VALUES FOR RANGE OF MOTION
 		int 42%8, which is the x (2)
 */
 
-int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasMoved)
+int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2, int y2, bool hasMoved)
 {
 	//int looper = 0;
     for(int x = 63; x >= 0; x--){
@@ -156,6 +156,13 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasM
 		{
 			x++;
 			rangeOfMotion[x+(8*y)] = 1;
+			if (board[0][x+1][y].color == board[0][x][y].color){
+				break;
+			}
+			if (board[0][x+1][y].color != board[0][x][y].color){
+				rangeOfMotion[(x+1)+(8*y)] = 1;
+				break;
+			}
 		}
 		x = tempx;
 		y = tempy;
@@ -163,6 +170,13 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasM
 		{
 			x--;
 			rangeOfMotion[x+(8*y)] = 1;
+			if (board[0][x-1][y].color == board[0][x][y].color){
+				break;
+			}
+			if (board[0][x-1][y].color != board[0][x][y].color){
+				rangeOfMotion[(x-1)+(8*y)] = 1;
+				break;
+			}
 		}
 		x = tempx;
 		y = tempy;
@@ -170,6 +184,13 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasM
 		{
 			y++;
 			rangeOfMotion[x+(8*y)] = 1;
+			if (board[0][x][y+1].color == board[0][x][y].color){
+				break;
+			}
+			if (board[0][x][y+1].color != board[0][x][y].color){
+				rangeOfMotion[(x)+(8*(y+1))] = 1;
+				break;
+			}
 		}
 		x = tempx;
 		y = tempy;
@@ -177,6 +198,13 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasM
 		{
 			y--;
 			rangeOfMotion[x+(8*y)] = 1;
+			if (board[0][x][y-1].color == board[0][x][y].color){
+				break;
+			}
+			if (board[0][x][y-1].color != board[0][x][y].color){
+				rangeOfMotion[(x)+(8*(y-1))] = 1;
+				break;
+			}
 		}
 	}
 
@@ -336,7 +364,7 @@ int movePiece(int x1, int y1, int x2, int y2)
 	//printf("s.color = %c\n", board[y1][x1].color);
 	//printf("x1 = %d\n", x1);
 	//printf("y1 = %d\n", y1);
-	p = getRangeOfMotion(s.type, s.color, x1, y1, s.hasMoved);
+	p = getRangeOfMotion(s.type, s.color, x1, y1, x2, y2, s.hasMoved);
 	printf("P = %d\n", *(p+(x2 + (8*y2))));
 	if (*(p+(x2 + (8*y2))) == 1){
 		board[0][y1][x1] = empty;
