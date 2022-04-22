@@ -7,32 +7,36 @@
 /*                                                                   */
 /*********************************************************************/
 #include "LogFile.h"
+#include <stdlib.h>
+
 
 //function to write to log. returns an integer for error purposes.
 int WriteToLog(char MovePart1[2],char MovePart2[2],char MovePiece[2]){
 char *filename = "LogFile.log";
 
  /*This portion opens the file corresponding to pointer 'filename'*/
-    FILE *fp = fopen(filename, "w");
+    FILE *fp;
+    fp = fopen("/users/ugrad/akatare/testSubmission/SourceCodePackage/bin/LogFile.log", "w");
     if (fp == NULL)
     {
         printf("File 'LogFile.log' could not be opened. %s", filename);
-        return 0;
+        return -1;
 	}
 	fprintf(fp,"%s",MovePart1);  /*we might have to change fp to filename, not sure yet*/
 	fprintf(fp,"%s",MovePart2);
 	fprintf(fp,"%s",MovePiece);
 
-   fclose(filename);
+   fclose(fp);
+   return 0;
 
 }
- char *ReturnCurrentMove(void){
-
+const char *ReturnCurrentMove(void){
+	 return NULL; //change this later
 
  }
 const char *ReturnLastMove(void){
 
-
+	return NULL; //change this later
 }
 void DeleteMove(void){
 

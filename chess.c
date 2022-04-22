@@ -129,7 +129,8 @@ int main(void)
     2 to view game settings, 3 to exit game) assigned to promptInput*/
     int colorInput = 0; //the int that user types to choose color 0 for white 1 for black
     bool programFinished = false; // checks whether game is exited
-    int turn = 0;
+    int turn;
+    turn = 0;
     //when turn % 2 == 0 (white's Turn), when turn % 2 == 1 (black's Turn)
 
     char movePart1[3], movePart2[3];
@@ -211,6 +212,7 @@ int main(void)
                 else{
                     printCurrentBoardBlackPerspective();
                 }
+                turn += 1; //updates whose turn it is
                 printf("\nBlack to move. Please enter a move in the format of initial square \n");
                 printf("and destination square (e.g. e7 e5). Note that the file must be \n");
                 printf("typed in lowercase (a to h), and the rank must be from 1 to 8. : ");
@@ -298,18 +300,22 @@ int main(void)
  */
 int getAIMoveInitialSquareRow()
 {
+    return 0;
 }
 
 int getAIMoveInitialSquareColumn()
 {
+    return 0;
 }
 
 int getAIMoveFinalSquareRow()
 {
+    return 0;
 }
 
 int getAIMoveFinalSquareColumn()
 {
+    return 0;
 }
 
 void newBoard()
