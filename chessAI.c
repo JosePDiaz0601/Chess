@@ -26,12 +26,12 @@ void randomMove()
       AIinput = 1;
     else
       AIinput = 0;
-    
+    int i2, j2;
     for (int i = 0; i < 8; i++)
     {
         for (int j = 0; j < 8; j++)
         {
-            temp[64] = getRangeOfMotion(board[0][i][j].type, board[0][i][j].color, i, j, board[0][i][j].hasMoved);
+            temp[64] = getRangeOfMotion(board[0][i][j].type, board[0][i][j].color, i, j, i2, j2, board[0][i][j].hasMoved);
             for (int k = 0; k < 64; k++)
             {
                 moves[i + j][k] = temp[k];
