@@ -19,6 +19,7 @@ int type; //paul made color to char type.
 
 static int rangeOfMotion[64];
 struct PIECE empty = {7, 'E', 0};
+int valid = 0;
 /*
 HOW TO GET X AND Y VALUES FOR RANGE OF MOTION
 	rangeOfMotion is 64 spaces wide
@@ -42,12 +43,7 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2, i
 	char pieceColor = board[0][y][x].color;
 	printf("X is %d\nY is %d\nPiece is %d\n", x, y, piece);
 
-	
-	
-
-
     if ((piece == 1) && ('W' == color))
-
     {
         if (y < 7 && board[0][y+1][x].type == 7)
         {
@@ -486,18 +482,6 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2, i
 		}
 	}
 
-
-// we wouldn't need to make black pieces since we have strcmp for pawns, all the other pieces 
-// should have the same code, either white or black
-/*	printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[0], rangeOfMotion[1], rangeOfMotion[2], rangeOfMotion[3], rangeOfMotion[4], rangeOfMotion[5], rangeOfMotion[6], rangeOfMotion[7]);
-	printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[0+8], rangeOfMotion[1+8], rangeOfMotion[2+8], rangeOfMotion[3+8], rangeOfMotion[4+8], rangeOfMotion[5+8], rangeOfMotion[6+8], rangeOfMotion[7+8]);
-	printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[0+8+8], rangeOfMotion[1+8+8], rangeOfMotion[2+8+8], rangeOfMotion[3+8+8], rangeOfMotion[4+8+8], rangeOfMotion[5+8+8], rangeOfMotion[6+8+8], rangeOfMotion[7+8+8]);
-	printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[0+8+8+8], rangeOfMotion[1+8+8+8], rangeOfMotion[2+8+8+8], rangeOfMotion[3+8+8+8], rangeOfMotion[4+8+8+8], rangeOfMotion[5+8+8+8], rangeOfMotion[6+8+8+8], rangeOfMotion[7+8+8+8]);
-	printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[0+8+8+8+8], rangeOfMotion[1+8+8+8+8], rangeOfMotion[2+8+8+8+8], rangeOfMotion[3+8+8+8+8], rangeOfMotion[4+8+8+8+8], rangeOfMotion[5+8+8+8+8], rangeOfMotion[6+8+8+8+8], rangeOfMotion[7+8+8+8+8]);
-	printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[0+8+8+8+8+8], rangeOfMotion[1+8+8+8+8+8], rangeOfMotion[2+8+8+8+8+8], rangeOfMotion[3+8+8+8+8+8], rangeOfMotion[4+8+8+8+8+8], rangeOfMotion[5+8+8+8+8+8], rangeOfMotion[6+8+8+8+8+8], rangeOfMotion[7+8+8+8+8+8]);
-	printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[0+8+8+8+8+8+8], rangeOfMotion[1+8+8+8+8+8+8], rangeOfMotion[2+8+8+8], rangeOfMotion[3+8+8+8], rangeOfMotion[4+8+8+8], rangeOfMotion[5+8+8+8], rangeOfMotion[6+8+8+8], rangeOfMotion[7+8+8+8]);
-	printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[0+8+8+8+8+8+8+8], rangeOfMotion[1+8+8+8+8+8+8+8], rangeOfMotion[2+8+8+8], rangeOfMotion[3+8+8+8], rangeOfMotion[4+8+8+8], rangeOfMotion[5+8+8+8], rangeOfMotion[6+8+8+8], rangeOfMotion[7+8+8+8]);
-*/
 	int checkLoop = 56;
 	for(int testing = 0; testing <= 7; testing++){
 		printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[checkLoop], rangeOfMotion[checkLoop+1], rangeOfMotion[checkLoop+2], rangeOfMotion[checkLoop+3], rangeOfMotion[checkLoop+4], rangeOfMotion[checkLoop+5], rangeOfMotion[checkLoop+6], rangeOfMotion[checkLoop+7]);
@@ -506,11 +490,242 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2, i
 	return rangeOfMotion; //this line returns an error when compiling try this website https://stackoverflow.com/questions/23593597/returning-an-integer-array-pointer-in-c
 }
 
-int movePiece(int x1, int y1, int x2, int y2)
-{
-	struct PIECE s = board[0][y1][x1]; 
+int check(char king, int boardNumber){
+	int x = 999;
+	int y = 999;
+	for (int loop1 = 0; loop1 < 8; loop1++){
+		for(int loop2 = 0; loop2 < 8; loop2++){
+			if (board[boardNumber][loop2][loop1].type == 6 && board[boardNumber][loop2][loop1].color == king){
+				int x = loop1;
+				int y = loop2;
+			}
+		}
+	}
+	
+	if(x == 999 && y == 999)
+	{
+		printf("ERROR %c KING COULD NOT BE FOUND", king);
+		return 5;
+	}
+
+	//QUEEN CHECK
+	int tempx = x;
+	int tempy = y;
+	char pieceColor = board[boardNumber][y][x].color;
+	int isInCheck = 0;
+	while (x+1 < 8)
+	{
+		if (board[boardNumber][y][x+1].color == pieceColor){
+			break;
+		}else{
+		x++;
+		
+		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E'){
+			int isInCheck = 1;
+			break;
+		}
+		}
+	}
+	x = tempx;
+	y = tempy;
+	while (x-1 >= 0)
+	{
+		if (board[boardNumber][y][x-1].color == pieceColor){
+			break;
+		}else{
+		x--;
+		
+		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E'){
+			int isInCheck = 1;
+			break;
+		}
+		}
+	}
+	x = tempx;
+	y = tempy;
+	while (y+1 < 8)
+	{
+		if (board[boardNumber][y+1][x].color == pieceColor){
+			break;
+		}else{
+		y++;
+		
+		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E'){
+			int isInCheck = 1;
+			break;
+		}
+		}
+	}
+	x = tempx;
+	y = tempy;
+	while (y-1 >= 0)
+	{
+		if (board[boardNumber][y-1][x].color == pieceColor){
+			break;
+		}else{
+		y--;
+		
+		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E'){
+			int isInCheck = 1;
+			break;
+		}
+		}
+	}
+	x = tempx;
+	y = tempy;
+	while (x+1 < 8 && y+1 < 8)
+	{
+		if (board[boardNumber][y+1][x+1].color == pieceColor){
+			break;
+		}else{
+		x++;
+		y++;
+		
+		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E'){
+			int isInCheck = 1;
+			break;
+		}
+		}
+	}
+	x = tempx;
+	y = tempy;
+	while (x-1 >= 0 && y+1 <8)
+	{
+		if (board[boardNumber][y+1][x-1].color == pieceColor){
+			break;
+		}else{
+		x--;
+		y++;
+		
+		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E'){
+			int isInCheck = 1;
+			break;
+		}
+		}
+	}
+	x = tempx;
+	y = tempy;
+	while (y-1 < 8 && x+1 < 8)
+	{
+		if (board[boardNumber][y-1][x+1].color == pieceColor){
+			break;
+		}else{
+		y--;
+		x++;
+		
+		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E'){
+			int isInCheck = 1;
+			break;
+		}
+		}
+	}
+	x = tempx;
+	y = tempy;
+	while (y-1 >= 0 && x-1 >= 0)
+	{
+		if (board[boardNumber][y-1][x-1].color == pieceColor){
+			break;
+		}else{
+		y--;
+		x--;
+		
+		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E'){
+			int isInCheck = 1;
+			break;
+			}
+		}
+	}
+
+	x = tempx;
+	y = tempy;
+
+	//KNIGHT CHECK
+	if((y+2) < 8)
+    {
+		if (x+1 < 8 && (board[boardNumber][y+2][x+1].color != pieceColor ) && (board[boardNumber][y+2][x+1].color != 'E'))
+		{
+			int isInCheck = 1;
+		}
+		if (x-1 >= 0 && (board[boardNumber][y+2][x-1].color != pieceColor) && (board[boardNumber][y+2][x-1].color != 'E'))
+		{
+			int isInCheck = 1;
+		}
+	}
+	if (y-2 >= 0) 
+	{
+		if (x+1 < 8 && (board[boardNumber][y-2][x+1].color != pieceColor)&&(board[boardNumber][y-2][x+1].color != 'E'))
+		{
+			int isInCheck = 1;
+		}
+		if (x-1 >= 0 && (board[boardNumber][y-2][x-1].color != pieceColor) && (board[boardNumber][y-2][x-1].color != 'E'))
+		{
+			int isInCheck = 1;
+		}
+	}
+
+	if (y+1 < 8 )
+	{
+		if (x+2 < 8 && (board[boardNumber][y+1][x+2].color != pieceColor) && (board[boardNumber][y+1][x+2].color != 'E')) 
+		{
+			int isInCheck = 1;
+		}
+		if (x-2 >= 0 && (board[boardNumber][y+1][x-2].color != pieceColor) && (board[boardNumber][y+1][x-2].color != 'E'))
+		{
+			int isInCheck = 1;
+		}
+	}
+	if (y-1 >= 0)
+	{
+		if (x+2 < 8 && (board[boardNumber][y-1][x+2].color != pieceColor) && (board[boardNumber][y-1][x+2].color != 'E'))
+		{
+			int isInCheck = 1;
+		}
+		if (x-2 >= 0 && (board[boardNumber][y-1][x-2].color != pieceColor) && (board[boardNumber][y-1][x-2].color != 'E'))
+		{
+			int isInCheck = 1;
+		}
+	}
+	return isInCheck;
+}
+
+void makeMove(int x1, int y1, int x2, int y2, char playercolor){
+	valid = 0;
+	if (playercolor == 0){
+		playercolor = 'w';
+	}
+	if (playercolor == 1){
+		playercolor = 'b';
+	}
+	struct PIECE s1 = board[0][y1][x1]; 
+	struct PIECE s2 = board[0][y2][x2];
 	int *p;
-	int check = 0;
+	int isInCheck = 0;
+	p = getRangeOfMotion(s1.type, s1.color, x1, y1, x2, y2, s1.hasMoved);
+	printf("P = %d\n", *(p+(x2 + (8*y2))));
+	if (*(p+(x2 + (8*y2))) == 1 && board[0][y1][x1].color == playercolor){
+		do
+		{
+		board[0][y1][x1] = empty;
+		board[0][y2][x2] = s1;
+		board[0][y2][x2].hasMoved = 1;
+
+			//isInCheck = check(playercolor, 0);
+			if(isInCheck == 1){
+				board[0][y1][x1] = s1;
+				board[0][y2][x2] = s2;
+				board[0][y1][x1].hasMoved = 0;
+				printf("INVALID MOVE: CURRENTLY IN CHECK");
+			}
+		} while (isInCheck == 1);
+	}else{
+		valid = 1;
+	}
+	return;
+}
+
+
+int movePiece(int x1, int y1, int x2, int y2, int playercolor)
+{
  /**
 	int selection = 0;
   selection = (x2 + (8*y2));*/ //these are currently not being used, when they are used --> uncomment
@@ -518,10 +733,13 @@ int movePiece(int x1, int y1, int x2, int y2)
 	//printf("s.color = %c\n", board[y1][x1].color);
 	//printf("x1 = %d\n", x1);
 	//printf("y1 = %d\n", y1);
-	p = getRangeOfMotion(s.type, s.color, x1, y1, x2, y2, s.hasMoved);
-	printf("P = %d\n", *(p+(x2 + (8*y2))));
-
-
+	struct PIECE s = board[0][y1][x1]; 
+	if (playercolor == 0){
+		playercolor == 'w';
+	}
+	if (playercolor == 1){
+		playercolor == 'b';
+	}
 	//en passant
 	if (s.type == 1 && y1 == 4){
 	if (board[0][y1][x1-1].type == 1 && board[0][y1][x1-1].hasMoved == 2 && x1-1 == x2) {
@@ -533,12 +751,10 @@ int movePiece(int x1, int y1, int x2, int y2)
 		board[0][y1+1][x1+1] = s;
 		board[0][y1][x1] =   empty;
 		board[0][y1][x1+1] = empty;}
-	
-
-
+	}
 
 	//castling
-	if(x1 == 4 && y1 == 0 && x2 == 7 && y2 == 0){
+	if(x1 == 4 && y1 == 0 && x2 == 7 && y2 == 0 && board[0][y1][x1].color == playercolor && board[0][y2][x2].color == playercolor){
 		if(board[0][y1][x1].hasMoved == 0 && board[0][y2][x2].hasMoved == 0){
 			if(board[0][y1][x1+1].type == 7 && board[0][y1][x1+2].type == 7){
 				
@@ -549,28 +765,14 @@ int movePiece(int x1, int y1, int x2, int y2)
 				board[0][0][4] = empty;
 				board[0][0][7] = empty;
 				
-				return check;
+				return valid;
 			}else{
-			if (*(p+(x2 + (8*y2))) == 1){
-				printf("1");
-				board[0][y1][x1] = empty;
-				board[0][y2][x2] = s;
-				board[0][y2][x2].hasMoved = 1;
-				}else{
-				check = 1;
-			}
+				makeMove(x1, y1, x2, y2, playercolor);
 			}
 		}else{
-		if (*(p+(x2 + (8*y2))) == 1){
-			printf("2");
-			board[0][y1][x1] = empty;
-			board[0][y2][x2] = s;
-			board[0][y2][x2].hasMoved = 1;
-				}else{
-		check = 1;
+			makeMove(x1, y1, x2, y2, playercolor);
 		}
-		}
-	}else if(x1 == 4 && y1 == 7 && x2 == 7 && y2 == 7){
+	}else if(x1 == 4 && y1 == 7 && x2 == 7 && y2 == 7 && board[0][y1][x1].color == playercolor && board[0][y2][x2].color == playercolor){
 		if(board[0][y1][x1].hasMoved == 0 && board[0][y2][x2].hasMoved == 0){
 			if(board[0][y1][x1+1].type == 7 && board[0][y1][x1+2].type == 7){
 				
@@ -581,28 +783,14 @@ int movePiece(int x1, int y1, int x2, int y2)
 				board[0][7][4] = empty;
 				board[0][7][7] = empty;
 				
-				return check;
+				return valid;
 			}else{
-			if (*(p+(x2 + (8*y2))) == 1){
-				printf("1");
-				board[0][y1][x1] = empty;
-				board[0][y2][x2] = s;
-				board[0][y2][x2].hasMoved = 1;
-				}else{
-				check = 1;
-			}
+				makeMove(x1, y1, x2, y2, playercolor);
 			}
 		}else{
-		if (*(p+(x2 + (8*y2))) == 1){
-			printf("2");
-			board[0][y1][x1] = empty;
-			board[0][y2][x2] = s;
-			board[0][y2][x2].hasMoved = 1;
-				}else{
-		check = 1;
+			makeMove(x1, y1, x2, y2, playercolor);
 		}
-		}
-		}else if(x1 == 4 && y1 == 7 && x2 == 0 && y2 == 7){
+		}else if(x1 == 4 && y1 == 7 && x2 == 0 && y2 == 7 && board[0][y1][x1].color == playercolor && board[0][y2][x2].color == playercolor){
 		if(board[0][y1][x1].hasMoved == 0 && board[0][y2][x2].hasMoved == 0){
 			if(board[0][y1][x1-1].type == 7 && board[0][y1][x1-2].type == 7 && board[0][y1][x1-3].type == 7){
 				
@@ -613,28 +801,14 @@ int movePiece(int x1, int y1, int x2, int y2)
 				board[0][7][4] = empty;
 				board[0][7][0] = empty;
 				
-				return check;
+				return valid;
 			}else{
-			if (*(p+(x2 + (8*y2))) == 1){
-				printf("1");
-				board[0][y1][x1] = empty;
-				board[0][y2][x2] = s;
-				board[0][y2][x2].hasMoved = 1;
-				}else{
-				check = 1;
-			}
+				makeMove(x1, y1, x2, y2, playercolor);
 			}
 		}else{
-		if (*(p+(x2 + (8*y2))) == 1){
-			printf("2");
-			board[0][y1][x1] = empty;
-			board[0][y2][x2] = s;
-			board[0][y2][x2].hasMoved = 1;
-				}else{
-		check = 1;
+			makeMove(x1, y1, x2, y2, playercolor);
 		}
-		}
-		}else if(x1 == 4 && y1 == 0 && x2 == 0 && y2 == 0){
+		}else if(x1 == 4 && y1 == 0 && x2 == 0 && y2 == 0 && board[0][y1][x1].color == playercolor && board[0][y2][x2].color == playercolor){
 		if(board[0][y1][x1].hasMoved == 0 && board[0][y2][x2].hasMoved == 0){
 			if(board[0][y1][x1-1].type == 7 && board[0][y1][x1-2].type == 7 && board[0][y1][x1-3].type == 7){
 				
@@ -645,40 +819,18 @@ int movePiece(int x1, int y1, int x2, int y2)
 				board[0][0][4] = empty;
 				board[0][0][0] = empty;
 				
-				return check;
+				return valid;
 			}else{
-			if (*(p+(x2 + (8*y2))) == 1){
-				printf("1");
-				board[0][y1][x1] = empty;
-				board[0][y2][x2] = s;
-				board[0][y2][x2].hasMoved = 1;
-				}else{
-				check = 1;
-			}
+				makeMove(x1, y1, x2, y2, playercolor);
 			}
 		}else{
-		if (*(p+(x2 + (8*y2))) == 1){
-			printf("2");
-			board[0][y1][x1] = empty;
-			board[0][y2][x2] = s;
-			board[0][y2][x2].hasMoved = 1;
-				}else{
-		check = 1;
-		}
+			makeMove(x1, y1, x2, y2, playercolor);
 		}
 	}else{
-		if (*(p+(x2 + (8*y2))) == 1){
-			printf("3");
-		board[0][y1][x1] = empty;
-		board[0][y2][x2] = s;
-		board[0][y2][x2].hasMoved = 1;
-			}else{
-		check = 1;
-	
-	}
+		makeMove(x1, y1, x2, y2, playercolor);
 	}
 		//printf("P IS EQUAL TO 1\n");
-	return check;
+	return valid;
 }
 
 /*WHEN CALLING rangeOfMotion do this format
