@@ -5,7 +5,7 @@
 #include "chess.h"
 
 void newBoard();
-int x1, y1, x2, y2;
+int x1Global, y1Global, x2Global, y2Global;
 
 int movePiece(int x1, int y1, int x2, int y2, int playercolor);
 //int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasMoved);

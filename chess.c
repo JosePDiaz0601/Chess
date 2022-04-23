@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "chessPieces.h"
-//#include "chessPieces.c"
+#include "chessPieces.c"
 #include "chessAI.h"
 
 int colorInput; //the int that user types to choose color 0 for white 1 for black
@@ -200,7 +200,7 @@ int main(void)
                             destSquareCol = (int)(movePart2[0]) - 97;    // a - 97 in ASCII corresponds to 0th column
                             destSquareRow = (int)(movePart2[1]) - 49;    // 1 as an ASCII char corresponds to 0th row
                         }
-                        int check = movePiece(currentSquareCol, currentSquareRow, destSquareCol, destSquareRow);
+                        int check = movePiece(currentSquareCol, currentSquareRow, destSquareCol, destSquareRow, colorInput);
                                         if (check == 0){
                             if(currentSquareCol == 4 && currentSquareRow == 0 && destSquareCol == 7 && destSquareRow == 0){
                                 positionValues[0][6][0] = (char)(positionValues[0][4][0]);
@@ -294,7 +294,7 @@ int main(void)
                             destSquareCol = (int)(movePart2[0]) - 97;    // a - 97 in ASCII corresponds to 0th column
                             destSquareRow = (int)(movePart2[1]) - 49;    // 1 as an ASCII char corresponds to 0th row
                         }
-                        check = movePiece(currentSquareCol, currentSquareRow, destSquareCol, destSquareRow);
+                        int check = movePiece(currentSquareCol, currentSquareRow, destSquareCol, destSquareRow, colorInput);
                         if (check == 0){
                             if(currentSquareCol == 4 && currentSquareRow == 0 && destSquareCol == 7 && destSquareRow == 0){
                                 positionValues[0][6][0] = (char)(positionValues[0][4][0]);
