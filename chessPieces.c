@@ -18,7 +18,7 @@
 int type; //paul made color to char type.
 
 static int rangeOfMotion[64];
-
+struct PIECE empty = {7, 'E', 0};
 /*
 HOW TO GET X AND Y VALUES FOR RANGE OF MOTION
 	rangeOfMotion is 64 spaces wide
@@ -41,6 +41,10 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2, i
     }
 	char pieceColor = board[0][y][x].color;
 	printf("X is %d\nY is %d\nPiece is %d\n", x, y, piece);
+
+	
+
+
     if ((piece == 1) && ('W' == color))
 
     {
@@ -503,7 +507,6 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2, i
 
 int movePiece(int x1, int y1, int x2, int y2)
 {
-	struct PIECE empty = {7, 'E', 0};
 	struct PIECE s = board[0][y1][x1]; 
 	int *p;
 	int check = 0;
@@ -516,15 +519,147 @@ int movePiece(int x1, int y1, int x2, int y2)
 	//printf("y1 = %d\n", y1);
 	p = getRangeOfMotion(s.type, s.color, x1, y1, x2, y2, s.hasMoved);
 	printf("P = %d\n", *(p+(x2 + (8*y2))));
-	if (*(p+(x2 + (8*y2))) == 1){
+
+	if(x1 == 4 && y1 == 0 && x2 == 7 && y2 == 0){
+		if(board[0][y1][x1].hasMoved == 0 && board[0][y2][x2].hasMoved == 0){
+			if(board[0][y1][x1+1].type == 7 && board[0][y1][x1+2].type == 7){
+				
+				struct PIECE k = board[0][y1][x1];
+				struct PIECE r = board[0][y2][x2];
+				board[0][0][6] = k;
+				board[0][0][5] = r;
+				board[0][0][4] = empty;
+				board[0][0][7] = empty;
+				
+				return check;
+			}else{
+			if (*(p+(x2 + (8*y2))) == 1){
+				printf("1");
+				board[0][y1][x1] = empty;
+				board[0][y2][x2] = s;
+				board[0][y2][x2].hasMoved = 1;
+				}else{
+				check = 1;
+			}
+			}
+		}else{
+		if (*(p+(x2 + (8*y2))) == 1){
+			printf("2");
+			board[0][y1][x1] = empty;
+			board[0][y2][x2] = s;
+			board[0][y2][x2].hasMoved = 1;
+				}else{
+		check = 1;
+		}
+		}
+	}else if(x1 == 4 && y1 == 7 && x2 == 7 && y2 == 7){
+		if(board[0][y1][x1].hasMoved == 0 && board[0][y2][x2].hasMoved == 0){
+			if(board[0][y1][x1+1].type == 7 && board[0][y1][x1+2].type == 7){
+				
+				struct PIECE k = board[0][y1][x1];
+				struct PIECE r = board[0][y2][x2];
+				board[0][7][6] = k;
+				board[0][7][5] = r;
+				board[0][7][4] = empty;
+				board[0][7][7] = empty;
+				
+				return check;
+			}else{
+			if (*(p+(x2 + (8*y2))) == 1){
+				printf("1");
+				board[0][y1][x1] = empty;
+				board[0][y2][x2] = s;
+				board[0][y2][x2].hasMoved = 1;
+				}else{
+				check = 1;
+			}
+			}
+		}else{
+		if (*(p+(x2 + (8*y2))) == 1){
+			printf("2");
+			board[0][y1][x1] = empty;
+			board[0][y2][x2] = s;
+			board[0][y2][x2].hasMoved = 1;
+				}else{
+		check = 1;
+		}
+		}
+		}else if(x1 == 4 && y1 == 7 && x2 == 0 && y2 == 7){
+		if(board[0][y1][x1].hasMoved == 0 && board[0][y2][x2].hasMoved == 0){
+			if(board[0][y1][x1-1].type == 7 && board[0][y1][x1-2].type == 7 && board[0][y1][x1-3].type == 7){
+				
+				struct PIECE k = board[0][y1][x1];
+				struct PIECE r = board[0][y2][x2];
+				board[0][7][2] = k;
+				board[0][7][3] = r;
+				board[0][7][4] = empty;
+				board[0][7][0] = empty;
+				
+				return check;
+			}else{
+			if (*(p+(x2 + (8*y2))) == 1){
+				printf("1");
+				board[0][y1][x1] = empty;
+				board[0][y2][x2] = s;
+				board[0][y2][x2].hasMoved = 1;
+				}else{
+				check = 1;
+			}
+			}
+		}else{
+		if (*(p+(x2 + (8*y2))) == 1){
+			printf("2");
+			board[0][y1][x1] = empty;
+			board[0][y2][x2] = s;
+			board[0][y2][x2].hasMoved = 1;
+				}else{
+		check = 1;
+		}
+		}
+		}else if(x1 == 4 && y1 == 0 && x2 == 0 && y2 == 0){
+		if(board[0][y1][x1].hasMoved == 0 && board[0][y2][x2].hasMoved == 0){
+			if(board[0][y1][x1-1].type == 7 && board[0][y1][x1-2].type == 7 && board[0][y1][x1-3].type == 7){
+				
+				struct PIECE k = board[0][y1][x1];
+				struct PIECE r = board[0][y2][x2];
+				board[0][0][2] = k;
+				board[0][0][3] = r;
+				board[0][0][4] = empty;
+				board[0][0][0] = empty;
+				
+				return check;
+			}else{
+			if (*(p+(x2 + (8*y2))) == 1){
+				printf("1");
+				board[0][y1][x1] = empty;
+				board[0][y2][x2] = s;
+				board[0][y2][x2].hasMoved = 1;
+				}else{
+				check = 1;
+			}
+			}
+		}else{
+		if (*(p+(x2 + (8*y2))) == 1){
+			printf("2");
+			board[0][y1][x1] = empty;
+			board[0][y2][x2] = s;
+			board[0][y2][x2].hasMoved = 1;
+				}else{
+		check = 1;
+		}
+		}
+	}else{
+		if (*(p+(x2 + (8*y2))) == 1){
+			printf("3");
 		board[0][y1][x1] = empty;
 		board[0][y2][x2] = s;
 		board[0][y2][x2].hasMoved = 1;
-	
-		//printf("P IS EQUAL TO 1\n");
-	}else{
+			}else{
 		check = 1;
+	
 	}
+	}
+		//printf("P IS EQUAL TO 1\n");
 	return check;
 }
 
