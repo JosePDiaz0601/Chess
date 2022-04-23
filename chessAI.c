@@ -19,7 +19,8 @@ void randomMove()
     int temp[64];
     int succ = 0;
     time_t t;
-    
+    int colorInput = 0;
+    int AIinput = 0;
     // Color Initialization
     if(colorInput == 0)
       AIinput = 1;
@@ -50,7 +51,7 @@ void randomMove()
         // Promotion check, if not move randomly
         else if (moves[location][moveset] == 1)
         {
-            if(board[0][location][moveset].color != colorInput && board[location][moveset].color != 'E')
+            if(board[0][location][moveset].color != colorInput && board[0][location][moveset].color != 'E')
             {
                 if(board[0][location][moveset].type == 1)
                 {
