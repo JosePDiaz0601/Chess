@@ -180,7 +180,7 @@ int main(void)
             int computerMoveDestSquareCol = -1;
             while (!gameOver)
             {
-                if (turn == 0){
+                if ((turn % 2) == 0){
                 	if(colorInput == 0){
                         promptWhiteToMove();
                         scanf("%s", movePart1);
@@ -206,8 +206,9 @@ int main(void)
                             destSquareCol = (int)(movePart2[0]) - 97;    // a - 97 in ASCII corresponds to 0th column
                             destSquareRow = (int)(movePart2[1]) - 49;    // 1 as an ASCII char corresponds to 0th row
                         }
+                        turn += 1;
                         int check = movePiece(currentSquareCol, currentSquareRow, destSquareCol, destSquareRow, colorInput);
-                                        if (check == 0){
+                        if (check == 0){
                             if(currentSquareCol == 4 && currentSquareRow == 0 && destSquareCol == 7 && destSquareRow == 0){
                                 positionValues[0][6][0] = (char)(positionValues[0][4][0]);
                                 positionValues[0][6][1] = (char)(positionValues[0][4][1]);
@@ -245,12 +246,14 @@ int main(void)
                                 positionValues[0][0][0] = ' ';
                                 positionValues[0][0][1] = ' ';
                             }else{
-                        positionValues[destSquareRow][destSquareCol][0] = (char)(positionValues[currentSquareRow][currentSquareCol][0]);
-                        positionValues[destSquareRow][destSquareCol][1] = (char)(positionValues[currentSquareRow][currentSquareCol][1]);
+								positionValues[destSquareRow][destSquareCol][0] = (char)(positionValues[currentSquareRow][currentSquareCol][0]);
+								positionValues[destSquareRow][destSquareCol][1] = (char)(positionValues[currentSquareRow][currentSquareCol][1]);
 
-                        positionValues[currentSquareRow][currentSquareCol][0] = ' ';
-                        positionValues[currentSquareRow][currentSquareCol][1] = ' ';}
-                        }else if (check == 1){
+								positionValues[currentSquareRow][currentSquareCol][0] = ' ';
+								positionValues[currentSquareRow][currentSquareCol][1] = ' ';
+                            }
+                        }
+                        else if (check == 1){
         //                    printf("INVALID MOVE, PLEASE ENTER A POSSIBLE MOVE");
                             printf("\nERROR. An illegal move has been made. Please enter an allowed move\n");
                             printf("according to the rules of chess. For more information on legal moves,\n");
@@ -285,11 +288,13 @@ int main(void)
 						computerMovePart2[0] = firstChar;
                         computerMovePart2[1] = secondChar;
                         computerMovePart2[2] = '\0';
+                        turn += 1;
 						printf("\nThe computer has chosen to play %s %s\n",computerMovePart1,computerMovePart2);
                         printCurrentBoard();
                 	}
                 }
                 //else: It is the turn of Black regardless of which side is the AI and which is the human user
+                //turb % 2 ==1
                 else{
                 	//Black's turn with human being white
                 	if(colorInput == 0){
@@ -314,6 +319,7 @@ int main(void)
 						computerMovePart2[0] = firstChar;
                         computerMovePart2[1] = secondChar;
                         computerMovePart2[2] = '\0';
+                        turn += 1;
 						printf("\nThe computer has chosen to play %s %s\n",computerMovePart1,computerMovePart2);
                         printCurrentBoard();
                 	}
@@ -341,6 +347,7 @@ int main(void)
                             destSquareCol = (int)(movePart2[0]) - 97;    // a - 97 in ASCII corresponds to 0th column
                             destSquareRow = (int)(movePart2[1]) - 49;    // 1 as an ASCII char corresponds to 0th row
                         }
+                        turn += 1; //updates whose turn it is
                         int check = movePiece(currentSquareCol, currentSquareRow, destSquareCol, destSquareRow, colorInput);
                         if (check == 0){
                             if(currentSquareCol == 4 && currentSquareRow == 0 && destSquareCol == 7 && destSquareRow == 0){
@@ -398,8 +405,6 @@ int main(void)
                         printf("\n========================================================================");
                         printf("\n========================================================================");
                         printCurrentBoard();
-
-                        turn += 1; //updates whose turn it is
                 	}
                 }
                 // increment the count of the moves (1 move is done when both White and Black have finished their turn)
