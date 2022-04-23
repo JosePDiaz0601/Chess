@@ -6,6 +6,7 @@
 #include "chessAI.h"
 #include "chessPieces.h"
 
+
 void newBoard();
 
 int getAIMoveInitialSquareRow();

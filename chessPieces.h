@@ -4,6 +4,8 @@
 #include <stdbool.h>
 #include "chess.h"
 
+char positionValues[8][8][3];
+
 void newBoard();
 int x1Global, y1Global, x2Global, y2Global;
 
@@ -38,7 +40,7 @@ struct PIECE
 
 struct PIECE board[500][8][8];
 //struct PIECE *empty = {7, 'W', 0};
-int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2, int y2, bool hasMoved);
+int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2, int y2, int hasMoved);
 #endif
 
 /*
