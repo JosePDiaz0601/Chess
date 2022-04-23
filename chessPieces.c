@@ -43,6 +43,7 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2, i
 	printf("X is %d\nY is %d\nPiece is %d\n", x, y, piece);
 
 	
+	
 
 
     if ((piece == 1) && ('W' == color))
@@ -520,6 +521,18 @@ int movePiece(int x1, int y1, int x2, int y2)
 	p = getRangeOfMotion(s.type, s.color, x1, y1, x2, y2, s.hasMoved);
 	printf("P = %d\n", *(p+(x2 + (8*y2))));
 
+
+	//en passant
+	if (s.type == 1 && y1 == 4){
+	if (board[0][y1][x1-1].type == 1 && board[0][y1][x1-1].hasMoved == 2 && x1-1 == x2) {
+		board[0][y1+1][x1-1] = s;
+		board[0][y1][x1] =   empty;
+		board[0][y1][x1-1] = empty;
+				}}
+
+
+
+	//castling
 	if(x1 == 4 && y1 == 0 && x2 == 7 && y2 == 0){
 		if(board[0][y1][x1].hasMoved == 0 && board[0][y2][x2].hasMoved == 0){
 			if(board[0][y1][x1+1].type == 7 && board[0][y1][x1+2].type == 7){
