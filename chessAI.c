@@ -19,6 +19,13 @@ void randomMove()
     int temp[64];
     int succ = 0;
     time_t t;
+    
+    // Color Initialization
+    if(colorInput == 0)
+      AIinput = 1;
+    else
+      AIinput = 0;
+    
     for (int i = 0; i < 8; i++)
     {
         for (int j = 0; j < 8; j++)
@@ -40,13 +47,32 @@ void randomMove()
         {
             continue;
         }
+        // Promotion check, if not move randomly
         else if (moves[location][moveset] == 1)
         {
-            if(board[location][moveset].color != colorInput && board[location][moveset].color != 'E')
+            if(board[0][location][moveset].color != colorInput && board[location][moveset].color != 'E')
             {
-                movePiece((location / 8), (location % 8), (moveset / 8), (moveset % 8));
-                succ = 1;
+                if(board[0][location][moveset].type == 1)
+                {
+                  if(AIinput == 0 && location == 6)
+                  {
+                    board[0][location][moveset].type = 5;
+                    movePiece((location / 8), (location % 8), 7, (location % 8));
+                  }
+                  else
+                  {
+                    if(location == 1)
+                      board[0][location][moveset].type = 5;
+                      movePiece((location / 8), (location % 8), 0, (location % 8));
+                  }
+                }
+                else
+                {
+                  movePiece((location / 8), (location % 8), (moveset / 8), (moveset % 8));
+                  succ = 1;
+                }
             }
         }
     }
+    
 }
