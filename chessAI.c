@@ -42,8 +42,11 @@ void randomMove()
         }
         else if (moves[location][moveset] == 1)
         {
-            movePiece((location / 8), (location % 8), (moveset / 8), (moveset % 8));
-            succ = 1;
+            if(board[location][moveset].color != colorInput && board[location][moveset].color != 'E')
+            {
+                movePiece((location / 8), (location % 8), (moveset / 8), (moveset % 8));
+                succ = 1;
+            }
         }
     }
 }
