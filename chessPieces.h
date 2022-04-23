@@ -26,6 +26,8 @@ enum PIECETYPE
     eempty = 7
 };
 
+
+
 struct PIECE
 {
     enum PIECETYPE type;
@@ -35,7 +37,7 @@ struct PIECE
 
 struct PIECE board[500][8][8];
 //struct PIECE *empty = {7, 'W', 0};
-
+int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2, int y2, bool hasMoved);
 #endif
 
 /*
