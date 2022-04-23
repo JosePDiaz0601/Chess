@@ -749,6 +749,7 @@ int movePiece(int x1Local, int y1Local, int x2Local, int y2Local, int playercolo
 	//printf("x1Global = %d\n", x1Global);
 	//printf("y1Global = %d\n", y1Global);
 	struct PIECE s = board[0][y1Global][x1Global]; 
+		printf("%d, %d, %c", s.type, y1Global, s.color);
 	if (playercolor == 0){
 		playercolor == 'w';
 	}
@@ -756,16 +757,39 @@ int movePiece(int x1Local, int y1Local, int x2Local, int y2Local, int playercolo
 		playercolor == 'b';
 	}
 	//en passant
-	if (s.type == 1 && y1Global == 4){
-	if (board[0][y1Global][x1Global-1].type == 1 && board[0][y1Global][x1Global-1].hasMoved == 2 && x1Global-1 == x2Global) {
+		if (s.type == 1 && y1Global == 4 && s.color == 'B'){
+		printf("black");
+		if (board[0][y1Global][x1Global-1].type == 1 && board[0][y1Global][x1Global-1].hasMoved == 2 && x1Global-1 == x2Global && (y1Global == y2Global)) {
+			printf("black1");
 		board[0][y1Global+1][x1Global-1] = s;
 		board[0][y1Global][x1Global] =   empty;
 		board[0][y1Global][x1Global-1] = empty;
+		return valid;
 				}
-	if (board[0][y1Global][x1Global+1].type == 1 && board[0][y1Global][x1Global+1].hasMoved == 2 && x1Global+1 == x2Global) {
+	if (board[0][y1Global][x1Global+1].type == 1 && board[0][y1Global][x1Global+1].hasMoved == 2 && x1Global+1 == x2Global && (y1Global == y2Global)) {
+			printf("black2");
 		board[0][y1Global+1][x1Global+1] = s;
 		board[0][y1Global][x1Global] =   empty;
-		board[0][y1Global][x1Global+1] = empty;}
+		board[0][y1Global][x1Global+1] = empty;
+		return valid;
+		}
+	}
+	if (s.type == 1 && y1Global == 3 && s.color == 'W'){
+		printf("white");
+		if (board[0][y1Global][x1Global-1].type == 1 && board[0][y1Global][x1Global-1].hasMoved == 2 && x1Global-1 == x2Global && (y1Global == y2Global)) {
+				printf("white1");
+			board[0][y1Global-1][x1Global-1] = s;
+			board[0][y1Global][x1Global] =   empty;
+			board[0][y1Global][x1Global-1] = empty;
+			return valid;
+		}
+		if (board[0][y1Global][x1Global+1].type == 1 && board[0][y1Global][x1Global+1].hasMoved == 2 && x1Global+1 == x2Global && (y1Global == y2Global)) {
+				printf("white2");
+			board[0][y1Global-1][x1Global+1] = s;
+			board[0][y1Global][x1Global] =   empty;
+			board[0][y1Global][x1Global+1] = empty;
+			return valid;
+		}
 	}
 	//Promotion
 		if ((board[0][y1Global][x1Global].type == 1) && (board[0][y1Global][x1Global].color == 'W') && ((y1Global == 6) && (y2Global == 7))){

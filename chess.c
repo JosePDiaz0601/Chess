@@ -180,7 +180,7 @@ int main(void)
             int computerMoveDestSquareCol = -1;
             while (!gameOver)
             {
-                if ((turn % 2) == 0){
+            	if ((turn % 2) == 0){
                 	if(colorInput == 0){
                         promptWhiteToMove();
                         scanf("%s", movePart1);
@@ -265,6 +265,10 @@ int main(void)
                         printf("\n========================================================================");
                         printf("\n========================================================================");
                         printCurrentBoard();
+                        if (checkMate == 1){
+                        	gameOver = true;
+                        	break;
+                        }
                 	}
                 	//White's turn with the AI being white.
                 	else{
@@ -291,6 +295,10 @@ int main(void)
                         turn += 1;
 						printf("\nThe computer has chosen to play %s %s\n",computerMovePart1,computerMovePart2);
                         printCurrentBoard();
+                        if (checkMate == 1){
+                        	gameOver = true;
+                        	break;
+                        }
                 	}
                 }
                 //else: It is the turn of Black regardless of which side is the AI and which is the human user
@@ -321,7 +329,11 @@ int main(void)
                         computerMovePart2[2] = '\0';
                         turn += 1;
 						printf("\nThe computer has chosen to play %s %s\n",computerMovePart1,computerMovePart2);
-                        printCurrentBoard();
+						printCurrentBoard();
+                        if (checkMate == 1){
+                        	gameOver = true;
+                        	break;
+                        }
                 	}
                 	//Black's turn with human being black
                 	else{
@@ -405,6 +417,10 @@ int main(void)
                         printf("\n========================================================================");
                         printf("\n========================================================================");
                         printCurrentBoard();
+                        if (checkMate == 1){
+                        	gameOver = true;
+                        	break;
+                        }
                 	}
                 }
                 // increment the count of the moves (1 move is done when both White and Black have finished their turn)
