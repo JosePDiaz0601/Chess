@@ -148,7 +148,8 @@ int main(void)
     //when turn % 2 == 0 (white's Turn), when turn % 2 == 1 (black's Turn)
 
     char movePart1[3], movePart2[3];
-    char computerMovePart1[3], computerMovePart2[3];
+    char computerMovePart1[3];
+    char computerMovePart2[3];
     while (!programFinished)
     {
         displayStartingMenu();
@@ -270,14 +271,20 @@ int main(void)
                         computerMoveCurrentSquareCol = y1Global;
                         computerMoveDestSquareRow = x1Global;
                         computerMoveDestSquareCol = y1Global;
-                        computerMovePart1[3] = {(char)(computerMoveCurrentSquareCol + 97),
-                        		(char)(computerMoveCurrentSquareRow + 49),
-								' '
-                        };
-						computerMovePart2[3] = {(char)(computerMoveDestSquareCol + 97),
-                        		(char)(computerMoveDestSquareRow + 49),
-								' '
-                        };
+                        char firstChar = 'a';
+                        char secondChar = '1';
+                        firstChar = (char)(computerMoveCurrentSquareCol + 97);
+                        secondChar = (char)(computerMoveCurrentSquareRow + 49);
+                        computerMovePart1[0] = firstChar;
+                        computerMovePart1[1] = secondChar;
+                        computerMovePart1[2] = '\0';
+
+                        firstChar = (char)(computerMoveDestSquareCol + 97);
+                        secondChar = (char)(computerMoveDestSquareRow + 49);
+
+						computerMovePart2[0] = firstChar;
+                        computerMovePart2[1] = secondChar;
+                        computerMovePart2[2] = '\0';
 						printf("\nThe computer has chosen to play %s %s\n",computerMovePart1,computerMovePart2);
                         printCurrentBoard();
                 	}
@@ -292,14 +299,21 @@ int main(void)
                         computerMoveCurrentSquareCol = y1Global;
                         computerMoveDestSquareRow = x1Global;
                         computerMoveDestSquareCol = y1Global;
-                        computerMovePart1[3] = {(char)(computerMoveCurrentSquareCol + 97),
-                        		(char)(computerMoveCurrentSquareRow + 49),
-								' '
-                        };
-						computerMovePart2[3] = {(char)(computerMoveDestSquareCol + 97),
-                        		(char)(computerMoveDestSquareRow + 49),
-								' '
-                        };
+
+                        char firstChar = 'a';
+                        char secondChar = '1';
+                        firstChar = (char)(computerMoveCurrentSquareCol + 97);
+                        secondChar = (char)(computerMoveCurrentSquareRow + 49);
+                        computerMovePart1[0] = firstChar;
+                        computerMovePart1[1] = secondChar;
+                        computerMovePart1[2] = '\0';
+
+                        firstChar = (char)(computerMoveDestSquareCol + 97);
+                        secondChar = (char)(computerMoveDestSquareRow + 49);
+
+						computerMovePart2[0] = firstChar;
+                        computerMovePart2[1] = secondChar;
+                        computerMovePart2[2] = '\0';
 						printf("\nThe computer has chosen to play %s %s\n",computerMovePart1,computerMovePart2);
                         printCurrentBoard();
                 	}
