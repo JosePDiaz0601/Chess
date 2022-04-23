@@ -528,7 +528,12 @@ int movePiece(int x1, int y1, int x2, int y2)
 		board[0][y1+1][x1-1] = s;
 		board[0][y1][x1] =   empty;
 		board[0][y1][x1-1] = empty;
-				}}
+				}
+	if (board[0][y1][x1+1].type == 1 && board[0][y1][x1+1].hasMoved == 2 && x1+1 == x2) {
+		board[0][y1+1][x1+1] = s;
+		board[0][y1][x1] =   empty;
+		board[0][y1][x1+1] = empty;}
+	
 
 
 
