@@ -724,8 +724,12 @@ void makeMove(int x1, int y1, int x2, int y2, char playercolor){
 }
 
 
-int movePiece(int x1, int y1, int x2, int y2, int playercolor)
+int movePiece(int x1Local, int y1Local, int x2Local, int y2Local, int playercolor)
 {
+	x1 = (int)(x1Local);
+	x2 = (int)(x2Local);
+	y1 = (int)(y1Local);
+	y2 = (int)(y2Local);
  /**
 	int selection = 0;
   selection = (x2 + (8*y2));*/ //these are currently not being used, when they are used --> uncomment
