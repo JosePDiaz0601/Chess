@@ -20,6 +20,8 @@ int type; //paul made color to char type.
 static int rangeOfMotion[64];
 struct PIECE empty = {7, 'E', 0};
 int valid = 0;
+int enpassant = 0;
+
 /*
 HOW TO GET X AND Y VALUES FOR RANGE OF MOTION
 	rangeOfMotion is 64 spaces wide
@@ -29,7 +31,7 @@ HOW TO GET X AND Y VALUES FOR RANGE OF MOTION
 */
 char promotion;
 
-int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2Global, int y2Global, bool hasMoved)
+int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2Global, int y2Global, int hasMoved)
 {
 	//int looper = 0;
     for(int x = 63; x >= 0; x--){
@@ -54,7 +56,7 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2Glo
             if (hasMoved == 0 && board[0][y+2][x].type == 7)
             {
                 rangeOfMotion[x+(8*(y+2))] = 1;
-				board[0][y1Global][x1Global].hasMoved = 2;
+				
             }
         }
 		if ((y < 7 && x-1 >= 0) && (board[0][y+1][x-1].color != pieceColor) && (board[0][y+1][x-1].color != 'E'))
@@ -74,6 +76,7 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2Glo
             if (hasMoved == 0 && board[0][y-2][x].type == 7)
             {
                 rangeOfMotion[x+(8*(y-2))] = 1;
+				
             }
         }
 		if ((y >= 0 && x-1 >= 0) && (board[0][y-1][x-1].color != pieceColor) && (board[0][y-1][x-1].color != 'E'))
@@ -706,19 +709,25 @@ void makeMove(int x1Global, int y1Global, int x2Global, int y2Global, char playe
 	int isInCheck = 0;
 	p = getRangeOfMotion(s1.type, s1.color, x1Global, y1Global, x2Global, y2Global, s1.hasMoved);
 	printf("P = %d\n", *(p+(x2Global + (8*y2Global))));
-	if (*(p+(x2Global + (8*y2Global))) == 1 && board[0][y1Global][x1Global].color == playercolor){
+	if (*(p+(x2Global + (8*y2Global))) == 1 /*&& board[0][y1Global][x1Global].color == playercolor*/){
 		do
 		{
+		if(board[0][y1Global][x1Global].type == 1 && board[0][y1Global][x1Global].color == 'W' && y2Global - 2 == y1Global){
+			enpassant = 1;
+			printf("\nHAS MOVES EQUALS 2, %d\n", enpassant);
+		}else if(board[0][y1Global][x1Global].type == 1 && board[0][y1Global][x1Global].color == 'B' && y2Global + 2 == y1Global){
+			enpassant = 1;
+			printf("\nHAS MOVES EQUALS 2, %d\n", enpassant);
+		}else{
+			enpassant = 0;
+		}
+
 		board[0][y1Global][x1Global] = empty;
 		board[0][y2Global][x2Global] = s1;
 		board[0][y2Global][x2Global].hasMoved = 1;
-		for(int x = 0; x < 7; x++){
-			for(int y = 0; y < 7; y++){
-				if(board[0][y][x].type == 1 && board[0][y][x].hasMoved > 0){
-					board[0][y][x].hasMoved = 1;
-				}
-			}
-		}
+		
+		
+		
 
 			//isInCheck = check(playercolor, 0);
 			if(isInCheck == 1){
@@ -749,45 +758,53 @@ int movePiece(int x1Local, int y1Local, int x2Local, int y2Local, int playercolo
 	//printf("x1Global = %d\n", x1Global);
 	//printf("y1Global = %d\n", y1Global);
 	struct PIECE s = board[0][y1Global][x1Global]; 
-		printf("%d, %d, %c", s.type, y1Global, s.color);
+		printf("\n\n\n\n%d, %d, %c\n\n\n\n", s.type, y1Global, s.color);
 	if (playercolor == 0){
-		playercolor == 'w';
+		playercolor == 'W';
 	}
 	if (playercolor == 1){
-		playercolor == 'b';
+		playercolor == 'B';
 	}
 	//en passant
-		if (s.type == 1 && y1Global == 4 && s.color == 'B'){
-		printf("black");
-		if (board[0][y1Global][x1Global-1].type == 1 && board[0][y1Global][x1Global-1].hasMoved == 2 && x1Global-1 == x2Global && (y1Global == y2Global)) {
+		if (s.type == 1 && y1Global == 4 && s.color == 'W'){
+		printf("%d %d %d %d %d %d\n", board[0][y1Global][x1Global+1].type, board[0][y1Global][x1Global+1].hasMoved, x1Global+1, x2Global, y1Global, y2Global);
+		if (board[0][y1Global][x1Global-1].type == 1 && enpassant == 1 && x1Global-1 == x2Global && (y1Global == y2Global-1)) {
 			printf("black1");
 		board[0][y1Global+1][x1Global-1] = s;
 		board[0][y1Global][x1Global] =   empty;
 		board[0][y1Global][x1Global-1] = empty;
+		positionValues[y1Global][x1Global-1][0] = ' '; 
+		positionValues[y1Global][x1Global-1][1] = ' '; 
 		return valid;
 				}
-	if (board[0][y1Global][x1Global+1].type == 1 && board[0][y1Global][x1Global+1].hasMoved == 2 && x1Global+1 == x2Global && (y1Global == y2Global)) {
+	if (board[0][y1Global][x1Global+1].type == 1 && enpassant == 1 && x1Global+1 == x2Global && (y1Global == y2Global-1)) {
 			printf("black2");
 		board[0][y1Global+1][x1Global+1] = s;
 		board[0][y1Global][x1Global] =   empty;
 		board[0][y1Global][x1Global+1] = empty;
+		positionValues[y1Global][x1Global+1][0] = ' '; 
+		positionValues[y1Global][x1Global+1][1] = ' '; 
 		return valid;
 		}
 	}
-	if (s.type == 1 && y1Global == 3 && s.color == 'W'){
+	if (s.type == 1 && y1Global == 3 && s.color == 'B'){
 		printf("white");
-		if (board[0][y1Global][x1Global-1].type == 1 && board[0][y1Global][x1Global-1].hasMoved == 2 && x1Global-1 == x2Global && (y1Global == y2Global)) {
+		if (board[0][y1Global][x1Global-1].type == 1 && enpassant == 1 && x1Global-1 == x2Global && (y1Global == y2Global+1)) {
 				printf("white1");
 			board[0][y1Global-1][x1Global-1] = s;
 			board[0][y1Global][x1Global] =   empty;
 			board[0][y1Global][x1Global-1] = empty;
+			positionValues[y1Global][x1Global-1][0] = ' '; 
+			positionValues[y1Global][x1Global-1][1] = ' '; 
 			return valid;
 		}
-		if (board[0][y1Global][x1Global+1].type == 1 && board[0][y1Global][x1Global+1].hasMoved == 2 && x1Global+1 == x2Global && (y1Global == y2Global)) {
+		if (board[0][y1Global][x1Global+1].type == 1 && enpassant == 1 && x1Global+1 == x2Global && (y1Global == y2Global+1)) {
 				printf("white2");
 			board[0][y1Global-1][x1Global+1] = s;
 			board[0][y1Global][x1Global] =   empty;
 			board[0][y1Global][x1Global+1] = empty;
+			positionValues[y1Global][x1Global+1][0] = ' '; 
+			positionValues[y1Global][x1Global+1][1] = ' '; 
 			return valid;
 		}
 	}
