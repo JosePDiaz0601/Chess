@@ -148,7 +148,7 @@ int main(void)
     //when turn % 2 == 0 (white's Turn), when turn % 2 == 1 (black's Turn)
 
     char movePart1[3], movePart2[3];
-
+    char computerMovePart1[3], computerMovePart2[3];
     while (!programFinished)
     {
         displayStartingMenu();
@@ -172,6 +172,11 @@ int main(void)
             int currentSquareCol = -1;
             int destSquareRow = -1;
             int destSquareCol = -1;
+            //initialize variables for current square and destination square of piece to be moved
+            int computerMoveCurrentSquareRow = -1;
+            int computerMoveCurrentSquareCol = -1;
+            int computerMoveDestSquareRow = -1;
+            int computerMoveDestSquareCol = -1;
             while (!gameOver)
             {
                 if (turn == 0){
@@ -259,16 +264,44 @@ int main(void)
                 	}
                 	//White's turn with the AI being white.
                 	else{
-                	    printf("\nWhite to move. It is the computer's turn. The computer selects x1y1 x2y2\n");
-                	    //
+                	    printf("\nWhite to move. It is the computer's turn.");
+                	    //convert computer's move to a string
+                        computerMoveCurrentSquareRow = x1Global;
+                        computerMoveCurrentSquareCol = y1Global;
+                        computerMoveDestSquareRow = x1Global;
+                        computerMoveDestSquareCol = y1Global;
+                        computerMovePart1[3] = {(char)(computerMoveCurrentSquareCol + 97),
+                        		(char)(computerMoveCurrentSquareRow + 49),
+								' '
+                        };
+						computerMovePart2[3] = {(char)(computerMoveDestSquareCol + 97),
+                        		(char)(computerMoveDestSquareRow + 49),
+								' '
+                        };
+						printf("\nThe computer has chosen to play %s %s\n",computerMovePart1,computerMovePart2);
+                        printCurrentBoard();
                 	}
                 }
                 //else: It is the turn of Black regardless of which side is the AI and which is the human user
                 else{
                 	//Black's turn with human being white
                 	if(colorInput == 0){
-                	    printf("\nBlack to move. It is the computer's turn. The computer selects x1y1 x2y2\n");
-                	    //
+                	    printf("\nBlack to move. It is the computer's turn.");
+                	    //convert computer's move to a string
+                        computerMoveCurrentSquareRow = x1Global;
+                        computerMoveCurrentSquareCol = y1Global;
+                        computerMoveDestSquareRow = x1Global;
+                        computerMoveDestSquareCol = y1Global;
+                        computerMovePart1[3] = {(char)(computerMoveCurrentSquareCol + 97),
+                        		(char)(computerMoveCurrentSquareRow + 49),
+								' '
+                        };
+						computerMovePart2[3] = {(char)(computerMoveDestSquareCol + 97),
+                        		(char)(computerMoveDestSquareRow + 49),
+								' '
+                        };
+						printf("\nThe computer has chosen to play %s %s\n",computerMovePart1,computerMovePart2);
+                        printCurrentBoard();
                 	}
                 	//Black's turn with human being black
                 	else{
