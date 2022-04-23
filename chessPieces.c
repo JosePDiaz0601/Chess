@@ -41,6 +41,13 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2Glo
 		//}
 		//looper++;
     }
+	for(int x = 0; x < 7; x++){
+		for(int y = 0; y < 7; y++){
+			if(board[0][y][x].type == 1 && board[0][y][x].hasMoved > 0){
+				board[0][y][x].hasMoved = 1;
+			}
+		}
+	}
 	char pieceColor = board[0][y][x].color;
 	printf("X is %d\nY is %d\nPiece is %d\n", x, y, piece);
 
@@ -53,6 +60,7 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2Glo
             if (hasMoved == 0 && board[0][y+2][x].type == 7)
             {
                 rangeOfMotion[x+(8*(y+2))] = 1;
+				board[0][y1Global][x1Global].hasMoved = 2;
             }
         }
 		if ((y < 7 && x-1 >= 0) && (board[0][y+1][x-1].color != pieceColor) && (board[0][y+1][x-1].color != 'E'))
