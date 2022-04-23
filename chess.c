@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "chessPieces.h"
-#include "chessPieces.c"
+//#include "chessPieces.c"
 #include "chessAI.h"
 
 int colorInput; //the int that user types to choose color 0 for white 1 for black
