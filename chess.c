@@ -28,16 +28,20 @@ char positionValues[8][8][3] = {
 
 
 
-void printPromptWhiteToMove(){
+void promptWhiteToMove(){
     printf("\nWhite to move. Please enter a move in the format of initial square \n");
     printf("and destination square (e.g. e2 e4). Note that the file must be \n");
-    printf("typed in lowercase (a to h), and the rank must be from 1 to 8. : ");
+    printf("typed in lowercase (a to h), and the rank must be from 1 to 8. For castling ");
+    printf("type the square of the king's current position as the initial square and the ");
+    printf("square of the rook's current position as the final square (e.g. e1 h1). : ");
 }
 
-void printPromptBlackToMove(){
+void promptBlackToMove(){
     printf("\nBlack to move. Please enter a move in the format of initial square \n");
-    printf("and destination square (e.g. e7 e5). Note that the file must be \n");
-    printf("typed in lowercase (a to h), and the rank must be from 1 to 8. : ");
+    printf("and destination square (e.g. e2 e4). Note that the file must be \n");
+    printf("typed in lowercase (a to h), and the rank must be from 1 to 8. For castling ");
+    printf("type the square of the king's current position as the initial square and the ");
+    printf("square of the rook's current position as the final square (e.g. e1 h1). : ");
 }
 
 void displayStartingMenu()
@@ -54,42 +58,40 @@ void displayStartingMenu()
 // explain some game settings to user
 void viewGameSettings()
 {
-    printf("\nFor this version release, the human user must play as White. ");
-    printf("\nThere is a 50 move limit on the number of moves that can be played. ");
-    printf("\nCheckmate detection is not fully functional yet. ");
-    printf("\nAlpha version only supports human vs human gameplay. ");
-    printf("\n AI not fully implemented yet.");
+    printf("\nFor this version release, the human user may choose which color to play as. ");
+    printf("\nThere is no limit on the number of moves that can be played. ");
     printf("\nFor more information about the program objectives, we urge players to ");
     printf("\nconsult the user manual. ");
 }
-// display the current positions from White's view
-void printCurrentBoardWhitePerspective()
-{
-    printf("\n  +----+----+----+----+----+----+----+----+\n");
-    int i;
-    for (i = 8; i > 0; i--)
-    {
-        int j = 0;
-        printf("%d | %s | %s | %s | %s | %s | %s | %s | %s |\n", i, positionValues[i - 1][j], positionValues[i - 1][j + 1], positionValues[i - 1][j + 2], positionValues[i - 1][j + 3], positionValues[i - 1][j + 4], positionValues[i - 1][j + 5], positionValues[i - 1][j + 6], positionValues[i - 1][j + 7]);
-        printf("  +----+----+----+----+----+----+----+----+\n");
-    }
-    printf("    a    b    c    d    e    f    g    h");
-    printf("\n========================================================================");
-    printf("\n========================================================================");
-}
 
-void printCurrentBoardBlackPerspective()
-{
-    printf("\n  +----+----+----+----+----+----+----+----+\n");
-    for (int i = 0; i < 8; i++)
-    {
-        int j = 7;
-        printf("%d | %s | %s | %s | %s | %s | %s | %s | %s |\n", i+1, positionValues[i][j], positionValues[i][j - 1], positionValues[i][j - 2], positionValues[i][j - 3], positionValues[i][j - 4], positionValues[i][j - 5], positionValues[i][j - 6], positionValues[i][j - 7]);
-        printf("  +----+----+----+----+----+----+----+----+\n");
+void printCurrentBoard(){
+	// display the current positions from White's view
+	if (colorInput == 0){
+        printf("\n  +----+----+----+----+----+----+----+----+\n");
+        int i;
+        for (i = 8; i > 0; i--)
+        {
+            int j = 0;
+            printf("%d | %s | %s | %s | %s | %s | %s | %s | %s |\n", i, positionValues[i - 1][j], positionValues[i - 1][j + 1], positionValues[i - 1][j + 2], positionValues[i - 1][j + 3], positionValues[i - 1][j + 4], positionValues[i - 1][j + 5], positionValues[i - 1][j + 6], positionValues[i - 1][j + 7]);
+            printf("  +----+----+----+----+----+----+----+----+\n");
+        }
+        printf("    a    b    c    d    e    f    g    h");
+        printf("\n========================================================================");
+        printf("\n========================================================================");
     }
-    printf("    h    g    f    e    d    c    b    a");
-    printf("\n========================================================================");
-    printf("\n========================================================================");
+	// display the current positions from Black's view
+	else{
+        printf("\n  +----+----+----+----+----+----+----+----+\n");
+        for (int i = 0; i < 8; i++)
+        {
+            int j = 7;
+            printf("%d | %s | %s | %s | %s | %s | %s | %s | %s |\n", i+1, positionValues[i][j], positionValues[i][j - 1], positionValues[i][j - 2], positionValues[i][j - 3], positionValues[i][j - 4], positionValues[i][j - 5], positionValues[i][j - 6], positionValues[i][j - 7]);
+            printf("  +----+----+----+----+----+----+----+----+\n");
+        }
+        printf("    h    g    f    e    d    c    b    a");
+        printf("\n========================================================================");
+        printf("\n========================================================================");
+    }
 }
 
 // display the starting position
@@ -135,7 +137,11 @@ int main(void)
 {
     int promptInput = 0;          /* user's input (from menu, choose 1 to start game,
     2 to view game settings, 3 to exit game) assigned to promptInput*/
-    colorInput = 0; //set color 0 to white by default
+    colorInput = 0; //set color to 0 (white) by default before taking user's choice
+    char colorInputStr[2][6] = {
+    		{'W','h','i','t','e'} ,
+			{'B','l','a','c','k'}
+    };
     bool programFinished = false; // checks whether game is exited
     int turn;
     turn = 0;
@@ -160,199 +166,197 @@ int main(void)
             printf("1. Black\n");
             printf("Choose Option: ");
             scanf("%d", &colorInput);
-            if (colorInput == 0){
-                printCurrentBoardWhitePerspective();
-            }
-            else{
-                printCurrentBoardBlackPerspective();
-            }
+            printCurrentBoard();
+            //initialize variables for current square and destination square of piece to be moved
+            int currentSquareRow = -1;
+            int currentSquareCol = -1;
+            int destSquareRow = -1;
+            int destSquareCol = -1;
             while (!gameOver)
             {
-                printf("\nWhite to move. Please enter a move in the format of initial square \n");
-                printf("and destination square (e.g. e2 e4). Note that the file must be \n");
-                printf("typed in lowercase (a to h), and the rank must be from 1 to 8. : ");
-                scanf("%s", movePart1);
-                scanf("%s", movePart2);
-                //            printf("String is : \n");
-                //            printf("%s %s %s \n" ,movePart1,movePart2,movePart3);
-                // See if you can take move inputs and just update the ASCII-based text board
-                int currentSquareCol = (int)(movePart1[0]) - 97; // a - 97 in ASCII corresponds to 0th column
-                int currentSquareRow = (int)(movePart1[1]) - 49;
-                int destSquareCol = (int)(movePart2[0]) - 97; // a - 97 in ASCII corresponds to 0th column
-                int destSquareRow = (int)(movePart2[1]) - 49;
-                while (!((currentSquareRow >= 0 && currentSquareRow <= 7) &&
-                         (currentSquareCol >= 0 && currentSquareCol <= 7) &&
-                         (destSquareRow >= 0 && destSquareRow <= 7) &&
-                         (destSquareCol >= 0 && destSquareCol <= 7)))
-                {
-                    displayErrorParsingInput();
-                    printf("\nWhite to move. Please enter a move in the format of initial square \n");
-                    printf("and destination square (e.g. e2 e4). Note that the file must be \n");
-                    printf("typed in lowercase (a to h), and the rank must be from 1 to 8. : ");
-                    scanf("%s", movePart1);
-                    scanf("%s", movePart2);
-                    currentSquareCol = (int)(movePart1[0]) - 97; // a - 97 in ASCII corresponds to 0th column
-                    currentSquareRow = (int)(movePart1[1]) - 49; // 1 as an ASCII char corresponds to 0th row
-                    destSquareCol = (int)(movePart2[0]) - 97;    // a - 97 in ASCII corresponds to 0th column
-                    destSquareRow = (int)(movePart2[1]) - 49;    // 1 as an ASCII char corresponds to 0th row
-                }
-                int check = movePiece(currentSquareCol, currentSquareRow, destSquareCol, destSquareRow);
-                                if (check == 0){
-                    if(currentSquareCol == 4 && currentSquareRow == 0 && destSquareCol == 7 && destSquareRow == 0){
-                        positionValues[0][6][0] = (char)(positionValues[0][4][0]);
-                        positionValues[0][6][1] = (char)(positionValues[0][4][1]);
-                        positionValues[0][5][0] = (char)(positionValues[0][7][0]);
-                        positionValues[0][5][1] = (char)(positionValues[0][7][1]);
-                        positionValues[0][4][0] = ' ';
-                        positionValues[0][4][1] = ' ';
-                        positionValues[0][7][0] = ' ';
-                        positionValues[0][7][1] = ' ';
-                    }else if(currentSquareCol == 4 && currentSquareRow == 7 && destSquareCol == 7 && destSquareRow == 7){
-                        positionValues[7][6][0] = (char)(positionValues[7][4][0]);
-                        positionValues[7][6][1] = (char)(positionValues[7][4][1]);
-                        positionValues[7][5][0] = (char)(positionValues[7][7][0]);
-                        positionValues[7][5][1] = (char)(positionValues[7][7][1]);
-                        positionValues[7][4][0] = ' ';
-                        positionValues[7][4][1] = ' ';
-                        positionValues[7][7][0] = ' ';
-                        positionValues[7][7][1] = ' ';
-                    }else if(currentSquareCol == 4 && currentSquareRow == 7 && destSquareCol == 0 && destSquareRow == 7){
-                        positionValues[7][2][0] = (char)(positionValues[7][4][0]);
-                        positionValues[7][2][1] = (char)(positionValues[7][4][1]);
-                        positionValues[7][3][0] = (char)(positionValues[7][0][0]);
-                        positionValues[7][3][1] = (char)(positionValues[7][0][1]);
-                        positionValues[7][4][0] = ' ';
-                        positionValues[7][4][1] = ' ';
-                        positionValues[7][0][0] = ' ';
-                        positionValues[7][0][1] = ' ';
-                    }else if(currentSquareCol == 4 && currentSquareRow == 0 && destSquareCol == 0 && destSquareRow == 0){
-                        positionValues[0][2][0] = (char)(positionValues[0][4][0]);
-                        positionValues[0][2][1] = (char)(positionValues[0][4][1]);
-                        positionValues[0][3][0] = (char)(positionValues[0][0][0]);
-                        positionValues[0][3][1] = (char)(positionValues[0][0][1]);
-                        positionValues[0][4][0] = ' ';
-                        positionValues[0][4][1] = ' ';
-                        positionValues[0][0][0] = ' ';
-                        positionValues[0][0][1] = ' ';
-                    }else{
-                positionValues[destSquareRow][destSquareCol][0] = (char)(positionValues[currentSquareRow][currentSquareCol][0]);
-                positionValues[destSquareRow][destSquareCol][1] = (char)(positionValues[currentSquareRow][currentSquareCol][1]);
+                if (turn == 0){
+                	if(colorInput == 0){
+                        promptWhiteToMove();
+                        scanf("%s", movePart1);
+                        scanf("%s", movePart2);
+                        //            printf("String is : \n");
+                        //            printf("%s %s %s \n" ,movePart1,movePart2,movePart3);
+                        // See if you can take move inputs and just update the ASCII-based text board
+                        currentSquareCol = (int)(movePart1[0]) - 97; // a - 97 in ASCII corresponds to 0th column
+                        currentSquareRow = (int)(movePart1[1]) - 49;
+                        destSquareCol = (int)(movePart2[0]) - 97; // a - 97 in ASCII corresponds to 0th column
+                        destSquareRow = (int)(movePart2[1]) - 49;
+                        while (!((currentSquareRow >= 0 && currentSquareRow <= 7) &&
+                                 (currentSquareCol >= 0 && currentSquareCol <= 7) &&
+                                 (destSquareRow >= 0 && destSquareRow <= 7) &&
+                                 (destSquareCol >= 0 && destSquareCol <= 7)))
+                        {
+                            displayErrorParsingInput();
+                            promptWhiteToMove();
+                            scanf("%s", movePart1);
+                            scanf("%s", movePart2);
+                            currentSquareCol = (int)(movePart1[0]) - 97; // a - 97 in ASCII corresponds to 0th column
+                            currentSquareRow = (int)(movePart1[1]) - 49; // 1 as an ASCII char corresponds to 0th row
+                            destSquareCol = (int)(movePart2[0]) - 97;    // a - 97 in ASCII corresponds to 0th column
+                            destSquareRow = (int)(movePart2[1]) - 49;    // 1 as an ASCII char corresponds to 0th row
+                        }
+                        int check = movePiece(currentSquareCol, currentSquareRow, destSquareCol, destSquareRow);
+                                        if (check == 0){
+                            if(currentSquareCol == 4 && currentSquareRow == 0 && destSquareCol == 7 && destSquareRow == 0){
+                                positionValues[0][6][0] = (char)(positionValues[0][4][0]);
+                                positionValues[0][6][1] = (char)(positionValues[0][4][1]);
+                                positionValues[0][5][0] = (char)(positionValues[0][7][0]);
+                                positionValues[0][5][1] = (char)(positionValues[0][7][1]);
+                                positionValues[0][4][0] = ' ';
+                                positionValues[0][4][1] = ' ';
+                                positionValues[0][7][0] = ' ';
+                                positionValues[0][7][1] = ' ';
+                            }else if(currentSquareCol == 4 && currentSquareRow == 7 && destSquareCol == 7 && destSquareRow == 7){
+                                positionValues[7][6][0] = (char)(positionValues[7][4][0]);
+                                positionValues[7][6][1] = (char)(positionValues[7][4][1]);
+                                positionValues[7][5][0] = (char)(positionValues[7][7][0]);
+                                positionValues[7][5][1] = (char)(positionValues[7][7][1]);
+                                positionValues[7][4][0] = ' ';
+                                positionValues[7][4][1] = ' ';
+                                positionValues[7][7][0] = ' ';
+                                positionValues[7][7][1] = ' ';
+                            }else if(currentSquareCol == 4 && currentSquareRow == 7 && destSquareCol == 0 && destSquareRow == 7){
+                                positionValues[7][2][0] = (char)(positionValues[7][4][0]);
+                                positionValues[7][2][1] = (char)(positionValues[7][4][1]);
+                                positionValues[7][3][0] = (char)(positionValues[7][0][0]);
+                                positionValues[7][3][1] = (char)(positionValues[7][0][1]);
+                                positionValues[7][4][0] = ' ';
+                                positionValues[7][4][1] = ' ';
+                                positionValues[7][0][0] = ' ';
+                                positionValues[7][0][1] = ' ';
+                            }else if(currentSquareCol == 4 && currentSquareRow == 0 && destSquareCol == 0 && destSquareRow == 0){
+                                positionValues[0][2][0] = (char)(positionValues[0][4][0]);
+                                positionValues[0][2][1] = (char)(positionValues[0][4][1]);
+                                positionValues[0][3][0] = (char)(positionValues[0][0][0]);
+                                positionValues[0][3][1] = (char)(positionValues[0][0][1]);
+                                positionValues[0][4][0] = ' ';
+                                positionValues[0][4][1] = ' ';
+                                positionValues[0][0][0] = ' ';
+                                positionValues[0][0][1] = ' ';
+                            }else{
+                        positionValues[destSquareRow][destSquareCol][0] = (char)(positionValues[currentSquareRow][currentSquareCol][0]);
+                        positionValues[destSquareRow][destSquareCol][1] = (char)(positionValues[currentSquareRow][currentSquareCol][1]);
 
-                positionValues[currentSquareRow][currentSquareCol][0] = ' ';
-                positionValues[currentSquareRow][currentSquareCol][1] = ' ';}
-                }else if (check == 1){
-//                    printf("INVALID MOVE, PLEASE ENTER A POSSIBLE MOVE");
-                    printf("\nERROR. An illegal move has been made. Please enter an allowed move\n");
-                    printf("according to the rules of chess. For more information on legal moves,\n");
-                    printf("consult our user manual’s glossary and index containing definitions of\n");
-                    printf("specific pieces, their allowed range of squares to move to, and other\n");
-                    printf("details regarding move limitations.\n");
-                    continue;
+                        positionValues[currentSquareRow][currentSquareCol][0] = ' ';
+                        positionValues[currentSquareRow][currentSquareCol][1] = ' ';}
+                        }else if (check == 1){
+        //                    printf("INVALID MOVE, PLEASE ENTER A POSSIBLE MOVE");
+                            printf("\nERROR. An illegal move has been made. Please enter an allowed move\n");
+                            printf("according to the rules of chess. For more information on legal moves,\n");
+                            printf("consult our user manual’s glossary and index containing definitions of\n");
+                            printf("specific pieces, their allowed range of squares to move to, and other\n");
+                            printf("details regarding move limitations.\n");
+                            continue;
+                        }
+                        printf("\n========================================================================");
+                        printf("\n========================================================================");
+                        printCurrentBoard();
+                	}
+                	//White's turn with the AI being white.
+                	else{
+                	    printf("\nWhite to move. It is the computer's turn. The computer selects x1y1 x2y2\n");
+                	    //
+                	}
                 }
-                printf("\n========================================================================");
-                printf("\n========================================================================");
-                if (colorInput == 0){
-                    printCurrentBoardWhitePerspective();
-                }
+                //else: It is the turn of Black regardless of which side is the AI and which is the human user
                 else{
-                    printCurrentBoardBlackPerspective();
-                }
-                turn += 1; //updates whose turn it is
-                printf("\nBlack to move. Please enter a move in the format of initial square \n");
-                printf("and destination square (e.g. e7 e5). Note that the file must be \n");
-                printf("typed in lowercase (a to h), and the rank must be from 1 to 8. : ");
-                scanf("%s", movePart1);
-                scanf("%s", movePart2);
-                currentSquareCol = (int)(movePart1[0]) - 97; // a - 97 in ASCII corresponds to 0th column
-                currentSquareRow = (int)(movePart1[1]) - 49; // 1 as an ASCII char corresponds to 0th row
-                destSquareCol = (int)(movePart2[0]) - 97;    // a - 97 in ASCII corresponds to 0th column
-                destSquareRow = (int)(movePart2[1]) - 49;    // 1 as an ASCII char corresponds to 0th row
+                	//Black's turn with human being white
+                	if(colorInput == 0){
+                	    printf("\nBlack to move. It is the computer's turn. The computer selects x1y1 x2y2\n");
+                	    //
+                	}
+                	//Black's turn with human being black
+                	else{
+                        promptBlackToMove();
+                        scanf("%s", movePart1);
+                        scanf("%s", movePart2);
+                        currentSquareCol = (int)(movePart1[0]) - 97; // a - 97 in ASCII corresponds to 0th column
+                        currentSquareRow = (int)(movePart1[1]) - 49; // 1 as an ASCII char corresponds to 0th row
+                        destSquareCol = (int)(movePart2[0]) - 97;    // a - 97 in ASCII corresponds to 0th column
+                        destSquareRow = (int)(movePart2[1]) - 49;    // 1 as an ASCII char corresponds to 0th row
 
-                while (!((currentSquareRow >= 0 && currentSquareRow <= 8) &&
-                         (currentSquareCol >= 0 && currentSquareCol <= 8) &&
-                         (destSquareRow >= 0 && destSquareRow <= 8) &&
-                         (destSquareCol >= 0 && destSquareCol <= 8)))
-                {
-                    displayErrorParsingInput();
-                    printf("\nBlack to move. Please enter a move in the format of initial square \n");
-                    printf("and destination square (e.g. e7 e5). Note that the file must be \n");
-                    printf("typed in lowercase (a to h), and the rank must be from 1 to 8. : ");
-                    scanf("%s", movePart1);
-                    scanf("%s", movePart2);
-                    currentSquareCol = (int)(movePart1[0]) - 97; // a - 97 in ASCII corresponds to 0th column
-                    currentSquareRow = (int)(movePart1[1]) - 49; // 1 as an ASCII char corresponds to 0th row
-                    destSquareCol = (int)(movePart2[0]) - 97;    // a - 97 in ASCII corresponds to 0th column
-                    destSquareRow = (int)(movePart2[1]) - 49;    // 1 as an ASCII char corresponds to 0th row
-                }
-                check = movePiece(currentSquareCol, currentSquareRow, destSquareCol, destSquareRow);
-                if (check == 0){
-                    if(currentSquareCol == 4 && currentSquareRow == 0 && destSquareCol == 7 && destSquareRow == 0){
-                        positionValues[0][6][0] = (char)(positionValues[0][4][0]);
-                        positionValues[0][6][1] = (char)(positionValues[0][4][1]);
-                        positionValues[0][5][0] = (char)(positionValues[0][7][0]);
-                        positionValues[0][5][1] = (char)(positionValues[0][7][1]);
-                        positionValues[0][4][0] = ' ';
-                        positionValues[0][4][1] = ' ';
-                        positionValues[0][7][0] = ' ';
-                        positionValues[0][7][1] = ' ';
-                    }else if(currentSquareCol == 4 && currentSquareRow == 7 && destSquareCol == 7 && destSquareRow == 7){
-                        positionValues[7][6][0] = (char)(positionValues[7][4][0]);
-                        positionValues[7][6][1] = (char)(positionValues[7][4][1]);
-                        positionValues[7][5][0] = (char)(positionValues[7][7][0]);
-                        positionValues[7][5][1] = (char)(positionValues[7][7][1]);
-                        positionValues[7][4][0] = ' ';
-                        positionValues[7][4][1] = ' ';
-                        positionValues[7][7][0] = ' ';
-                        positionValues[7][7][1] = ' ';
-                    }else if(currentSquareCol == 4 && currentSquareRow == 7 && destSquareCol == 0 && destSquareRow == 7){
-                        positionValues[7][2][0] = (char)(positionValues[7][4][0]);
-                        positionValues[7][2][1] = (char)(positionValues[7][4][1]);
-                        positionValues[7][3][0] = (char)(positionValues[7][0][0]);
-                        positionValues[7][3][1] = (char)(positionValues[7][0][1]);
-                        positionValues[7][4][0] = ' ';
-                        positionValues[7][4][1] = ' ';
-                        positionValues[7][0][0] = ' ';
-                        positionValues[7][0][1] = ' ';
-                    }else if(currentSquareCol == 4 && currentSquareRow == 0 && destSquareCol == 0 && destSquareRow == 0){
-                        positionValues[0][2][0] = (char)(positionValues[0][4][0]);
-                        positionValues[0][2][1] = (char)(positionValues[0][4][1]);
-                        positionValues[0][3][0] = (char)(positionValues[0][0][0]);
-                        positionValues[0][3][1] = (char)(positionValues[0][0][1]);
-                        positionValues[0][4][0] = ' ';
-                        positionValues[0][4][1] = ' ';
-                        positionValues[0][0][0] = ' ';
-                        positionValues[0][0][1] = ' ';
-                    }else{
-                positionValues[destSquareRow][destSquareCol][0] = (char)(positionValues[currentSquareRow][currentSquareCol][0]);
-                positionValues[destSquareRow][destSquareCol][1] = (char)(positionValues[currentSquareRow][currentSquareCol][1]);
+                        while (!((currentSquareRow >= 0 && currentSquareRow <= 8) &&
+                                 (currentSquareCol >= 0 && currentSquareCol <= 8) &&
+                                 (destSquareRow >= 0 && destSquareRow <= 8) &&
+                                 (destSquareCol >= 0 && destSquareCol <= 8)))
+                        {
+                            displayErrorParsingInput();
+                            promptBlackToMove();
+                            scanf("%s", movePart1);
+                            scanf("%s", movePart2);
+                            currentSquareCol = (int)(movePart1[0]) - 97; // a - 97 in ASCII corresponds to 0th column
+                            currentSquareRow = (int)(movePart1[1]) - 49; // 1 as an ASCII char corresponds to 0th row
+                            destSquareCol = (int)(movePart2[0]) - 97;    // a - 97 in ASCII corresponds to 0th column
+                            destSquareRow = (int)(movePart2[1]) - 49;    // 1 as an ASCII char corresponds to 0th row
+                        }
+                        check = movePiece(currentSquareCol, currentSquareRow, destSquareCol, destSquareRow);
+                        if (check == 0){
+                            if(currentSquareCol == 4 && currentSquareRow == 0 && destSquareCol == 7 && destSquareRow == 0){
+                                positionValues[0][6][0] = (char)(positionValues[0][4][0]);
+                                positionValues[0][6][1] = (char)(positionValues[0][4][1]);
+                                positionValues[0][5][0] = (char)(positionValues[0][7][0]);
+                                positionValues[0][5][1] = (char)(positionValues[0][7][1]);
+                                positionValues[0][4][0] = ' ';
+                                positionValues[0][4][1] = ' ';
+                                positionValues[0][7][0] = ' ';
+                                positionValues[0][7][1] = ' ';
+                            }else if(currentSquareCol == 4 && currentSquareRow == 7 && destSquareCol == 7 && destSquareRow == 7){
+                                positionValues[7][6][0] = (char)(positionValues[7][4][0]);
+                                positionValues[7][6][1] = (char)(positionValues[7][4][1]);
+                                positionValues[7][5][0] = (char)(positionValues[7][7][0]);
+                                positionValues[7][5][1] = (char)(positionValues[7][7][1]);
+                                positionValues[7][4][0] = ' ';
+                                positionValues[7][4][1] = ' ';
+                                positionValues[7][7][0] = ' ';
+                                positionValues[7][7][1] = ' ';
+                            }else if(currentSquareCol == 4 && currentSquareRow == 7 && destSquareCol == 0 && destSquareRow == 7){
+                                positionValues[7][2][0] = (char)(positionValues[7][4][0]);
+                                positionValues[7][2][1] = (char)(positionValues[7][4][1]);
+                                positionValues[7][3][0] = (char)(positionValues[7][0][0]);
+                                positionValues[7][3][1] = (char)(positionValues[7][0][1]);
+                                positionValues[7][4][0] = ' ';
+                                positionValues[7][4][1] = ' ';
+                                positionValues[7][0][0] = ' ';
+                                positionValues[7][0][1] = ' ';
+                            }else if(currentSquareCol == 4 && currentSquareRow == 0 && destSquareCol == 0 && destSquareRow == 0){
+                                positionValues[0][2][0] = (char)(positionValues[0][4][0]);
+                                positionValues[0][2][1] = (char)(positionValues[0][4][1]);
+                                positionValues[0][3][0] = (char)(positionValues[0][0][0]);
+                                positionValues[0][3][1] = (char)(positionValues[0][0][1]);
+                                positionValues[0][4][0] = ' ';
+                                positionValues[0][4][1] = ' ';
+                                positionValues[0][0][0] = ' ';
+                                positionValues[0][0][1] = ' ';
+                            }else{
+                        positionValues[destSquareRow][destSquareCol][0] = (char)(positionValues[currentSquareRow][currentSquareCol][0]);
+                        positionValues[destSquareRow][destSquareCol][1] = (char)(positionValues[currentSquareRow][currentSquareCol][1]);
 
-                positionValues[currentSquareRow][currentSquareCol][0] = ' ';
-                positionValues[currentSquareRow][currentSquareCol][1] = ' ';}
-                }else if (check == 1){
-//                    printf("INVALID MOVE, PLEASE ENTER A POSSIBLE MOVE");
-                    printf("\nERROR. An illegal move has been made. Please enter an allowed move\n");
-                    printf("according to the rules of chess. For more information on legal moves,\n");
-                    printf("consult our user manual’s glossary and index containing definitions of\n");
-                    printf("specific pieces, their allowed range of squares to move to, and other\n");
-                    printf("details regarding move limitations.\n");
-                    continue;
+                        positionValues[currentSquareRow][currentSquareCol][0] = ' ';
+                        positionValues[currentSquareRow][currentSquareCol][1] = ' ';}
+                        }else if (check == 1){
+        //                    printf("INVALID MOVE, PLEASE ENTER A POSSIBLE MOVE");
+                            printf("\nERROR. An illegal move has been made. Please enter an allowed move\n");
+                            printf("according to the rules of chess. For more information on legal moves,\n");
+                            printf("consult our user manual’s glossary and index containing definitions of\n");
+                            printf("specific pieces, their allowed range of squares to move to, and other\n");
+                            printf("details regarding move limitations.\n");
+                            continue;
+                        }
+                        // display the updated board
+                        printf("\n========================================================================");
+                        printf("\n========================================================================");
+                        printCurrentBoard();
+
+                        turn += 1; //updates whose turn it is
+                	}
                 }
                 // increment the count of the moves (1 move is done when both White and Black have finished their turn)
                 moveCount++;
-                // display the updated board
-                printf("\n========================================================================");
-                printf("\n========================================================================");
-                if (colorInput == 0){
-                    printCurrentBoardWhitePerspective();
-                }
-                else{
-                    printCurrentBoardBlackPerspective();
-                }
-                if (moveCount > 50)
-                {
-                    gameOver = true;
-                    printf("\nThe game has exceeded the maximum number of moves possible for this version release. Thanks for playing.\n");
-                }
                 int promptGameExit = 0; // user's input assigned to promptInput
                 printf("\nTo stop the game choose (1). Type any other charcter, and the game shall continue: ");
                 scanf("%d", &promptGameExit);
