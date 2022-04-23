@@ -41,13 +41,7 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2Glo
 		//}
 		//looper++;
     }
-	for(int x = 0; x < 7; x++){
-		for(int y = 0; y < 7; y++){
-			if(board[0][y][x].type == 1 && board[0][y][x].hasMoved > 0){
-				board[0][y][x].hasMoved = 1;
-			}
-		}
-	}
+	
 	char pieceColor = board[0][y][x].color;
 	printf("X is %d\nY is %d\nPiece is %d\n", x, y, piece);
 
@@ -718,6 +712,13 @@ void makeMove(int x1Global, int y1Global, int x2Global, int y2Global, char playe
 		board[0][y1Global][x1Global] = empty;
 		board[0][y2Global][x2Global] = s1;
 		board[0][y2Global][x2Global].hasMoved = 1;
+		for(int x = 0; x < 7; x++){
+			for(int y = 0; y < 7; y++){
+				if(board[0][y][x].type == 1 && board[0][y][x].hasMoved > 0){
+					board[0][y][x].hasMoved = 1;
+				}
+			}
+		}
 
 			//isInCheck = check(playercolor, 0);
 			if(isInCheck == 1){
