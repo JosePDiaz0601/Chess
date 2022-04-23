@@ -695,10 +695,10 @@ int check(char king, int boardNumber){
 void makeMove(int x1Global, int y1Global, int x2Global, int y2Global, char playercolor){
 	valid = 0;
 	if (playercolor == 0){
-		playercolor = 'w';
+		playercolor = 'W';
 	}
 	if (playercolor == 1){
-		playercolor = 'b';
+		playercolor = 'B';
 	}
 	struct PIECE s1 = board[0][y1Global][x1Global]; 
 	struct PIECE s2 = board[0][y2Global][x2Global];
@@ -706,7 +706,7 @@ void makeMove(int x1Global, int y1Global, int x2Global, int y2Global, char playe
 	int isInCheck = 0;
 	p = getRangeOfMotion(s1.type, s1.color, x1Global, y1Global, x2Global, y2Global, s1.hasMoved);
 	printf("P = %d\n", *(p+(x2Global + (8*y2Global))));
-	if (*(p+(x2Global + (8*y2Global))) == 1 /*&& board[0][y1Global][x1Global].color == playercolor*/){
+	if (*(p+(x2Global + (8*y2Global))) == 1 && board[0][y1Global][x1Global].color == playercolor){
 		do
 		{
 		board[0][y1Global][x1Global] = empty;
