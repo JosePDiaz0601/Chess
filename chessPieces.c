@@ -27,11 +27,11 @@ HOW TO GET X AND Y VALUES FOR RANGE OF MOTION
 		int 42/8, which is the y (5)
 		int 42%8, which is the x (2)
 */
+char promotion;
 
 int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2Global, int y2Global, bool hasMoved)
 {
 	//int looper = 0;
-	char promotion;
     for(int x = 63; x >= 0; x--){
         rangeOfMotion[x] = 0;
 		printf("%d", rangeOfMotion[x]);
@@ -43,65 +43,8 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2Glo
     }
 	char pieceColor = board[0][y][x].color;
 	printf("X is %d\nY is %d\nPiece is %d\n", x, y, piece);
-	struct PIECE empty = {7, 'E', 0};
 
-	if ((board[0][y][x].type == 1) && (board[0][y][x].color == 'W') && ((y == 6) && (y2Global == 7))){
-		board[0][y][x] = empty;
-		printf("Promotion! White, please enter: Q for queen, N for Knight, B for Bishop, R for Rook\n");
-		scanf(" %c", &promotion);
-		printf("Promotion is %c\n", promotion);
-	
-		if (promotion == 'Q'){
-			printf("Promoted to Queen");
-			board[0][y2Global][x2Global].type = 5;
-			board[0][y2Global][x2Global].color = 'W';
-			board[0][y2Global][x2Global].hasMoved = 1; 
-		}
-		if (promotion == 'N'){
-			board[0][y2Global][x2Global].type = 2;
-			board[0][y2Global][x2Global].color = 'W';
-			board[0][y2Global][x2Global].hasMoved = 1; 
-		}
-		if (promotion == 'B'){
-			board[0][y2Global][x2Global].type = 3;
-			board[0][y2Global][x2Global].color = 'W';
-			board[0][y2Global][x2Global].hasMoved = 1; 
-		}
-		if (promotion == 'R'){
-			board[0][y2Global][x2Global].type = 4;
-			board[0][y2Global][x2Global].color = 'W';
-			board[0][y2Global][x2Global].hasMoved = 1; 
-		}
-		return check;
-	}
 
-	if ((board[0][y][x].type == 1) && (board[0][y][x].color == 'B') && ((y2Global == 0) && (y==1))){
-		board[0][y][x] = empty;
-		printf("Promotion! Black, please enter: Q for queen, N for Knight, B for Bishop, R for Rook\n");
-		scanf(" %c", &promotion);
-		printf("%c", promotion);
-		if (promotion == 'Q'){
-			board[0][y2Global][x2Global].type = 5;
-			board[0][y2Global][x2Global].color = 'B';
-			board[0][y2Global][x2Global].hasMoved = 1; 
-		}
-		if (promotion == 'N'){
-			board[0][y2Global][x2Global].type = 2;
-			board[0][y2Global][x2Global].color = 'B';
-			board[0][y2Global][x2Global].hasMoved = 1; 
-		}
-		if (promotion == 'B'){
-			board[0][y2Global][x2Global].type = 3;
-			board[0][y2Global][x2Global].color = 'B';
-			board[0][y2Global][x2Global].hasMoved = 1; 
-		}
-		if (promotion == 'R'){
-			board[0][y2Global][x2Global].type = 4;
-			board[0][y2Global][x2Global].color = 'B';
-			board[0][y2Global][x2Global].hasMoved = 1; 
-		}
-	return check;
-	}
     if ((piece == 1) && ('W' == color))
     {
         if (y < 7 && board[0][y+1][x].type == 7)
@@ -815,7 +758,64 @@ int movePiece(int x1Local, int y1Local, int x2Local, int y2Local, int playercolo
 		board[0][y1Global][x1Global] =   empty;
 		board[0][y1Global][x1Global+1] = empty;}
 	}
+	//Promotion
+		if ((board[0][y1Global][x1Global].type == 1) && (board[0][y1Global][x1Global].color == 'W') && ((y1Global == 6) && (y2Global == 7))){
+		board[0][y1Global][x1Global] = empty;
+		printf("Promotion! White, please enter: Q for queen, N for Knight, B for Bishop, R for Rook\n");
+		scanf(" %c", &promotion);
+		printf("Promotion is %c\n", promotion);
+	
+		if (promotion == 'Q'){
+			printf("Promoted to Queen");
+			board[0][y2Global][x2Global].type = 5;
+			board[0][y2Global][x2Global].color = 'W';
+			board[0][y2Global][x2Global].hasMoved = 1; 
+		}
+		if (promotion == 'N'){
+			board[0][y2Global][x2Global].type = 2;
+			board[0][y2Global][x2Global].color = 'W';
+			board[0][y2Global][x2Global].hasMoved = 1; 
+		}
+		if (promotion == 'B'){
+			board[0][y2Global][x2Global].type = 3;
+			board[0][y2Global][x2Global].color = 'W';
+			board[0][y2Global][x2Global].hasMoved = 1; 
+		}
+		if (promotion == 'R'){
+			board[0][y2Global][x2Global].type = 4;
+			board[0][y2Global][x2Global].color = 'W';
+			board[0][y2Global][x2Global].hasMoved = 1; 
+		}
+		return valid;
+	}
 
+	if ((board[0][y1Global][x1Global].type == 1) && (board[0][y1Global][x1Global].color == 'B') && ((y2Global == 0) && (y1Global==1))){
+		board[0][y1Global][x1Global] = empty;
+		printf("Promotion! Black, please enter: Q for queen, N for Knight, B for Bishop, R for Rook\n");
+		scanf(" %c", &promotion);
+		printf("%c", promotion);
+		if (promotion == 'Q'){
+			board[0][y2Global][x2Global].type = 5;
+			board[0][y2Global][x2Global].color = 'B';
+			board[0][y2Global][x2Global].hasMoved = 1; 
+		}
+		if (promotion == 'N'){
+			board[0][y2Global][x2Global].type = 2;
+			board[0][y2Global][x2Global].color = 'B';
+			board[0][y2Global][x2Global].hasMoved = 1; 
+		}
+		if (promotion == 'B'){
+			board[0][y2Global][x2Global].type = 3;
+			board[0][y2Global][x2Global].color = 'B';
+			board[0][y2Global][x2Global].hasMoved = 1; 
+		}
+		if (promotion == 'R'){
+			board[0][y2Global][x2Global].type = 4;
+			board[0][y2Global][x2Global].color = 'B';
+			board[0][y2Global][x2Global].hasMoved = 1; 
+		}
+	return valid;
+	}
 	//castling
 	if(x1Global == 4 && y1Global == 0 && x2Global == 7 && y2Global == 0 && board[0][y1Global][x1Global].color == playercolor && board[0][y2Global][x2Global].color == playercolor){
 		if(board[0][y1Global][x1Global].hasMoved == 0 && board[0][y2Global][x2Global].hasMoved == 0){
