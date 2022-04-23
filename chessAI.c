@@ -22,10 +22,10 @@ void randomMove()
     int colorInput = 0;
     int AIinput = 0;
     // Color Initialization
-    if(colorInput == 0)
-      AIinput = 1;
+    if (colorInput == 0)
+        AIinput = 1;
     else
-      AIinput = 0;
+        AIinput = 0;
     int i2, j2;
     for (int i = 0; i < 8; i++)
     {
@@ -51,29 +51,30 @@ void randomMove()
         // Promotion check, if not move randomly
         else if (moves[location][moveset] == 1)
         {
-            if(board[0][location][moveset].color != colorInput && board[0][location][moveset].color != 'E')
+            if (board[0][location][moveset].color != colorInput && board[0][location][moveset].color != 'E')
             {
-                if(board[0][location][moveset].type == 1)
+                if (board[0][location][moveset].type == 1)
                 {
-                  if(AIinput == 0 && location == 6)
-                  {
-                    board[0][location][moveset].type = 5;
-                    movePiece((location / 8), (location % 8), 7, (location % 8));
-                  }
-                  else
-                  {
-                    if(location == 1)
-                      board[0][location][moveset].type = 5;
-                      movePiece((location / 8), (location % 8), 0, (location % 8));
-                  }
+                    if (AIinput == 0 && location == 6)
+                    {
+                        // If Prommotion becomes avilaible as a function change this line
+                        board[0][location][moveset].type = 5;
+                        movePiece((location / 8), (location % 8), 7, (location % 8));
+                    }
+                    else
+                    {
+                        if (location == 1)
+                            board[0][location][moveset].type = 5;
+                        movePiece((location / 8), (location % 8), 0, (location % 8));
+                    }
+                    succ = 1;
                 }
                 else
                 {
-                  movePiece((location / 8), (location % 8), (moveset / 8), (moveset % 8));
-                  succ = 1;
+                    movePiece((location / 8), (location % 8), (moveset / 8), (moveset % 8));
+                    succ = 1;
                 }
             }
         }
     }
-    
 }
