@@ -782,13 +782,18 @@ int checkingAllMoves(void)
 {
 	int xtemp, ytemp, ROMtemp;
 	int *pROM;
-	struct PIECE piece;
+	struct PIECE piece, s1, s2;
 	int x2Global = x2Global;
 	int y2Global = y2Global;
 	for(xtemp = 0; xtemp < 8; xtemp++){
 			for(ytemp = 0; ytemp < 8; ytemp++){
 				board[0][ytemp][xtemp] = piece;
 				pROM = getRangeOfMotion(piece.type, piece.color, ytemp, xtemp, x2Global, y2Global, piece.hasMoved);
+				int isInCheck = check(playercolor);
+				if(isInCheck == 0){
+					continue;
+				}
+				if(isInCheck == 1){
 				for(ROMtemp = 0; ROMtemp < 64; ROMtemp++){
 					if (pROM[ROMtemp] == 1){
 						return 0;
@@ -796,11 +801,43 @@ int checkingAllMoves(void)
 					if (pROM[ROMtemp] == 0){
 						continue;
 					}	
+					if (pROM[ROMtemp] == 1){
+							int yROM = ROMtemp/8;
+							int xROM = ROMtemp%8;
+							s1 = board[0][ytemp][xtemp];
+							s2 = board[0][yROM][xROM];
+
+							board[0][yROM][xROM] = s1;
+							board[0][ytemp][xtemp] = empty;
+
+							int isInCheck = check(playcolor);
+							
+							if(isInCheck = 0){
+								break;
+							}
+							
+							if(isInCheck = 1){
+								pROM[ROMtemp] = 0;
+								board[0][ytemp][xtemp] = s1;
+								board[0][yROM][xROM] = s2;
+							}	
+						}	
+					for (ROMtemp = 0; ROMtemp < 64; ROMtemp++){
+						if(pROM[ROMtemp] == 0){
+							// still in check 
+							continue;
+						}
+						if (pROM[ROMtemp] == 1){
+							return 1;
+						}
+					}
 				}
 			}
+	return 0;
+		}
 	}
-	return 1;
 }
+
 
 int movePiece(int x1Local, int y1Local, int x2Local, int y2Local, int playercolor)
 {
