@@ -4,7 +4,7 @@
 /* Initial author: Jose Diaz                                       */
 /*                                                                   */
 /* Logfile.c  notation file reader and writer for UNOPTIMIZED CHESS  */
-/*                                                                   */
+/*            my name jeff                                          */
 /*********************************************************************/
 #include "LogFile.h"
 #include "chess.h"
