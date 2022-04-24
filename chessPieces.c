@@ -31,7 +31,7 @@ HOW TO GET X AND Y VALUES FOR RANGE OF MOTION
 */
 int promotion;
 
-int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2Global, int y2Global, int hasMoved)
+int * getRangeOfMotion(int x, int y)
 {
 	//int looper = 0;
     for(int x = 63; x >= 0; x--){
@@ -44,16 +44,18 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2Glo
 		//looper++;
     }
 	
+	enum PIECETYPE piece = board[0][y][x].type;
+
 	char pieceColor = board[0][y][x].color;
 	printf("\nX is %d\nY is %d\nPiece is %d\n\n", x, y, piece);
 
 
-    if ((piece == 1) && ('W' == color))
+    if ((piece == 1) && ('W' == pieceColor))
     {
         if (y < 7 && board[0][y+1][x].type == 7)
         {
             rangeOfMotion[x+(8*(y+1))] = 1;
-            if (hasMoved == 0 && board[0][y+2][x].type == 7)
+            if (board[0][y][x].hasMoved == 0 && board[0][y+2][x].type == 7)
             {
                 rangeOfMotion[x+(8*(y+2))] = 1;
 				
@@ -69,11 +71,11 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2Glo
 		}
     }
 
-	if (piece == 1 && 'B' == color){
+	if (piece == 1 && 'B' == pieceColor){
 		if (y >= 0 && board[0][y-1][x].type == 7)
         {
             rangeOfMotion[x+(8*(y-1))] = 1;
-            if (hasMoved == 0 && board[0][y-2][x].type == 7)
+            if (board[0][y][x].hasMoved == 0 && board[0][y-2][x].type == 7)
             {
                 rangeOfMotion[x+(8*(y-2))] = 1;
 				
@@ -733,7 +735,7 @@ int checkForCheckMate(char playercolor, int boardnumber)
 	for(xtemp = 0; xtemp < 8; xtemp++){
 			for(ytemp = 0; ytemp < 8; ytemp++){
 				board[0][ytemp][xtemp] = piece;
-				pROM = getRangeOfMotion(piece.type, piece.color, ytemp, xtemp, x2Global, y2Global, piece.hasMoved);
+				pROM = getRangeOfMotion(ytemp, xtemp);
 				int isInCheck = check(playercolor, boardnumber);
 				if(isInCheck == 0){
 					return 0;
@@ -796,7 +798,7 @@ void makeMove(int x1Global, int y1Global, int x2Global, int y2Global, char playe
 	int *p;
 	int isInCheck = 0;
 	int isInCheckMate = 0;
-	p = getRangeOfMotion(s1.type, s1.color, x1Global, y1Global, x2Global, y2Global, s1.hasMoved);
+	p = getRangeOfMotion(x1Global, y1Global);
 	//printf("P = %d\n", *(p+(x2Global + (8*y2Global))));
 	if (*(p+(x2Global + (8*y2Global))) == 1 /*&& board[0][y1Global][x1Global].color == playercolor*/){
 		
