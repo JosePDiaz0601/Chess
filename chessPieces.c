@@ -29,7 +29,7 @@ HOW TO GET X AND Y VALUES FOR RANGE OF MOTION
 		int 42/8, which is the y (5)
 		int 42%8, which is the x (2)
 */
-char promotion;
+int promotion;
 
 int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2Global, int y2Global, int hasMoved)
 {
@@ -758,7 +758,6 @@ int movePiece(int x1Local, int y1Local, int x2Local, int y2Local, int playercolo
 	//printf("x1Global = %d\n", x1Global);
 	//printf("y1Global = %d\n", y1Global);
 	struct PIECE s = board[0][y1Global][x1Global]; 
-		printf("\n\n\n\n%d, %d, %c\n\n\n\n", s.type, y1Global, s.color);
 	if (playercolor == 0){
 		playercolor == 'W';
 	}
@@ -811,61 +810,58 @@ int movePiece(int x1Local, int y1Local, int x2Local, int y2Local, int playercolo
 	//Promotion
 		if ((board[0][y1Global][x1Global].type == 1) && (board[0][y1Global][x1Global].color == 'W') && ((y1Global == 6) && (y2Global == 7))){
 		board[0][y1Global][x1Global] = empty;
-		printf("Promotion! White, please enter: Q for queen, N for Knight, B for Bishop, R for Rook\n");
-		scanf(" %c", &promotion);
-		printf("Promotion is %c\n", promotion);
-	
-		if (promotion == 'Q'){
-			printf("Promoted to Queen");
-			board[0][y2Global][x2Global].type = 5;
+		printf("Promotion! White, please enter: 2 for Knight, 3 for Bishop, 4 for Rook, 5 for Queen\n");
+		scanf(" %d", &promotion);
+			printf("Promoted!");
+			board[0][y2Global][x2Global].type = promotion;
 			board[0][y2Global][x2Global].color = 'W';
 			board[0][y2Global][x2Global].hasMoved = 1; 
+			if (promotion == 5 ){
+				printf("\nX2 Global is : %d", x2Global);
+				positionValues[y2Global][x2Global][1] = 'Q';
+			}
+			if (promotion == 4 ){
+				positionValues[y2Global][x2Global][1] = 'R';
+			}
+			if (promotion == 3 ){
+				positionValues[y2Global][x2Global][1] = 'B';
+			}
+			if (promotion == 2 ){
+				positionValues[y2Global][x2Global][1] = 'N';
+			}
+			positionValues[y1Global][x1Global][0] = ' ';
+			positionValues[y1Global][x1Global][1] = ' ';
+			promotion = 0;
+			valid = 2;
+			return valid;
 		}
-		if (promotion == 'N'){
-			board[0][y2Global][x2Global].type = 2;
-			board[0][y2Global][x2Global].color = 'W';
-			board[0][y2Global][x2Global].hasMoved = 1; 
-		}
-		if (promotion == 'B'){
-			board[0][y2Global][x2Global].type = 3;
-			board[0][y2Global][x2Global].color = 'W';
-			board[0][y2Global][x2Global].hasMoved = 1; 
-		}
-		if (promotion == 'R'){
-			board[0][y2Global][x2Global].type = 4;
-			board[0][y2Global][x2Global].color = 'W';
-			board[0][y2Global][x2Global].hasMoved = 1; 
-		}
-		return valid;
-	}
 
 	if ((board[0][y1Global][x1Global].type == 1) && (board[0][y1Global][x1Global].color == 'B') && ((y2Global == 0) && (y1Global==1))){
 		board[0][y1Global][x1Global] = empty;
-		printf("Promotion! Black, please enter: Q for queen, N for Knight, B for Bishop, R for Rook\n");
-		scanf(" %c", &promotion);
-		printf("%c", promotion);
-		if (promotion == 'Q'){
-			board[0][y2Global][x2Global].type = 5;
+		printf("Promotion! Black, please enter: 2 for Knight, 3 for Bishop, 4 for Rook, 5 for Queen\n");
+		scanf(" %d", &promotion);
+			printf("Promoted!");
+			board[0][y2Global][x2Global].type = promotion;
 			board[0][y2Global][x2Global].color = 'B';
 			board[0][y2Global][x2Global].hasMoved = 1; 
+			if (promotion == 5 ){
+				positionValues[y2Global][x2Global][1] = 'Q';
+			}
+			if (promotion == 4 ){
+				positionValues[y2Global][x2Global][1] = 'R';
+			}
+			if (promotion == 3 ){
+				positionValues[y2Global][x2Global][1] = 'B';
+			}
+			if (promotion == 2 ){
+				positionValues[y2Global][x2Global][1] = 'N';
+			}
+			positionValues[y1Global][x1Global][0] = ' ';
+			positionValues[y1Global][x1Global][1] = ' ';
+			promotion = 0;
+			valid = 2;
+			return valid;
 		}
-		if (promotion == 'N'){
-			board[0][y2Global][x2Global].type = 2;
-			board[0][y2Global][x2Global].color = 'B';
-			board[0][y2Global][x2Global].hasMoved = 1; 
-		}
-		if (promotion == 'B'){
-			board[0][y2Global][x2Global].type = 3;
-			board[0][y2Global][x2Global].color = 'B';
-			board[0][y2Global][x2Global].hasMoved = 1; 
-		}
-		if (promotion == 'R'){
-			board[0][y2Global][x2Global].type = 4;
-			board[0][y2Global][x2Global].color = 'B';
-			board[0][y2Global][x2Global].hasMoved = 1; 
-		}
-	return valid;
-	}
 	//castling
 	if(x1Global == 4 && y1Global == 0 && x2Global == 7 && y2Global == 0 && board[0][y1Global][x1Global].color == playercolor && board[0][y2Global][x2Global].color == playercolor){
 		if(board[0][y1Global][x1Global].hasMoved == 0 && board[0][y2Global][x2Global].hasMoved == 0){
