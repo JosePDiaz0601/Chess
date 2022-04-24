@@ -48,7 +48,7 @@ int *getRangeOfMotion(int x, int y)
 	enum PIECETYPE piece = board[0][y][x].type;
 
 	char pieceColor = board[0][y][x].color;
-	// printf("\nX is %d\nY is %d\nPiece is %d\n\n", x, y, piece);
+	//printf("\nX is %d\nY is %d\nPiece is %d\n\n", x, y, piece);
 
 	if ((piece == 1) && ('W' == pieceColor))
 	{
@@ -568,7 +568,7 @@ int *getRangeOfMotion(int x, int y)
 	int checkLoop = 56;
 	for (int testing = 0; testing <= 7; testing++)
 	{
-		// printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[checkLoop], rangeOfMotion[checkLoop+1], rangeOfMotion[checkLoop+2], rangeOfMotion[checkLoop+3], rangeOfMotion[checkLoop+4], rangeOfMotion[checkLoop+5], rangeOfMotion[checkLoop+6], rangeOfMotion[checkLoop+7]);
+		//printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[checkLoop], rangeOfMotion[checkLoop+1], rangeOfMotion[checkLoop+2], rangeOfMotion[checkLoop+3], rangeOfMotion[checkLoop+4], rangeOfMotion[checkLoop+5], rangeOfMotion[checkLoop+6], rangeOfMotion[checkLoop+7]);
 		checkLoop -= 8;
 	}
 	return rangeOfMotion; // this line returns an error when compiling try this website https://stackoverflow.com/questions/23593597/returning-an-integer-array-pointer-in-c
@@ -576,7 +576,7 @@ int *getRangeOfMotion(int x, int y)
 
 int check(char king, int boardNumber)
 {
-	printf("\nCOLOR IS : %c\n", king);
+	//printf("\nCOLOR IS : %c\n", king);
 	int x = 999;
 	int y = 999;
 	for (int loop1 = 0; loop1 < 8; loop1++)
@@ -590,7 +590,7 @@ int check(char king, int boardNumber)
 			}
 		}
 	}
-	printf("\nKING (X,Y) IS  : (%d,%d)\n", x, y);
+	//printf("\nKING (X,Y) IS  : (%d,%d)\n", x, y);
 
 	if (x == 999 && y == 999)
 	{
@@ -604,6 +604,7 @@ int check(char king, int boardNumber)
 	char pieceColor = board[boardNumber][y][x].color;
 	// printf("pieceColor = %c\n", pieceColor);
 	int isInCheck = 0;
+
 	while (x + 1 < 8)
 	{
 		x++;
@@ -817,7 +818,7 @@ int check(char king, int boardNumber)
 	{
 		isInCheck = 16;
 	}
-	printf("\nisInCheck : %d\n=====================================\n", isInCheck);
+	//printf("\nisInCheck : %d\n=====================================\n", isInCheck);
 	// printf("\nAI LOCATION X1 : %d\nAI LOCATION Y1 : %d\nAI LOCATION X2 : %d\nAI LOCATION Y2 : %d\n", x1Global, x2Global, y1Global, y2Global);
 	return isInCheck;
 }
@@ -832,15 +833,11 @@ int checkForCheckMate(char playercolor, int boardnumber)
 	{
 		for (ytemp = 0; ytemp < 8; ytemp++)
 		{
-			board[0][ytemp][xtemp] = piece;
-			printf("\nXTEMP IS : %d\nYTEMP IS : %d", xtemp, ytemp);
+			//board[0][ytemp][xtemp] = piece;
+			//printf("\nXTEMP IS : %d\nYTEMP IS : %d", xtemp, ytemp);
 			pROM = getRangeOfMotion(xtemp, ytemp);
 			int isInCheck = check(playercolor, boardnumber);
-			printf("\nISINCHECK IS %d", isInCheck);
-			if (isInCheck == 0)
-			{
-				return 0;
-			}
+			//printf("\nISINCHECK IS %d", isInCheck);
 			if (isInCheck == 1)
 			{
 				for (ROMtemp = 0; ROMtemp < 64; ROMtemp++)
@@ -927,25 +924,66 @@ void makeMove(int x1Global, int y1Global, int x2Global, int y2Global, char playe
 		board[0][y2Global][x2Global] = s1;
 		board[0][y2Global][x2Global].hasMoved = 1;
 
-		isInCheck = check(playercolor, 0);
-		if (isInCheck != 0)
+		if (whiteIsInCheck != 0)
+		{
+			whiteIsInCheck = check('W', 0);
+			if(whiteIsInCheck != 0){
+				board[0][y1Global][x1Global] = s1;
+				board[0][y2Global][x2Global] = s2;
+				printf("\n\n\nWHITE IS STILL IN CHECK\n\n\n");
+				valid = 1;
+				return;
+			}
+		}
+		if (blackIsInCheck != 0)
+		{
+			blackIsInCheck = check('B', 0);
+			if(blackIsInCheck != 0){
+				board[0][y1Global][x1Global] = s1;
+				board[0][y2Global][x2Global] = s2;
+				printf("\n\n\nBLACK IS STILL IN CHECK\n\n\n");
+				valid = 1;
+				return;
+			}
+		}
+
+		whiteIsInCheck = check('W', 0);
+		if (whiteIsInCheck != 0 && playercolor == 'B')
+		{
+			printf("\nWHITE IS IN CHECK");
+			valid = 0;
+		}
+		if (whiteIsInCheck != 0 && playercolor == 'W')
 		{
 			board[0][y1Global][x1Global] = s1;
 			board[0][y2Global][x2Global] = s2;
-			board[0][y1Global][x1Global].hasMoved = 0;
-			printf("INVALID MOVE: CHECK");
+			printf("\nCANT PUT SELF IN CHECK");
 			valid = 1;
 		}
-		isInCheckMate = checkForCheckMate('W', 0);
+		blackIsInCheck = check('B', 0);
+
+		if (blackIsInCheck != 0 && playercolor == 'W')
+		{
+			printf("\nBLACK IS IN CHECK");
+			valid = 0;
+		}
+		if (blackIsInCheck != 0 && playercolor == 'B')
+		{
+			board[0][y1Global][x1Global] = s1;
+			board[0][y2Global][x2Global] = s2;
+			printf("\nCANT PUT SELF IN CHECK");
+			valid = 1;
+		}
+		//isInCheckMate = checkForCheckMate('W', 0);
 		if (isInCheckMate != 0)
 		{
-			printf("CheckMate! Black Wins!");
+			printf("\nCheckMate! Black Wins!");
 			checkMate = 1;
 		}
-		isInCheckMate = checkForCheckMate('B', 0);
+		//isInCheckMate = checkForCheckMate('B', 0);
 		if (isInCheckMate != 0)
 		{
-			printf("CheckMate! White Wins!");
+			printf("\nCheckMate! White Wins!");
 			checkMate = 2;
 		}
 	}

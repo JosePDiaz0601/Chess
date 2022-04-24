@@ -30,7 +30,8 @@ enum PIECETYPE
     king = 6,
     eempty = 7
 };
-
+	int whiteIsInCheck = 0;
+	int blackIsInCheck = 0;
 
 
 struct PIECE

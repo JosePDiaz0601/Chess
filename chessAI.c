@@ -121,13 +121,15 @@ void checkMateAI()
         aiColor = 0;
     if (counter == 0)
     {
-        movePiece(4, 6, 4, 5, aiColor);
-        positionValues[5][4][0] = (char)(positionValues[6][4][0]);
-        positionValues[5][4][1] = (char)(positionValues[6][4][1]);
+            succ = movePiece(4, 6, 4, 5, aiColor);
+            positionValues[5][4][0] = (char)(positionValues[6][4][0]);
+            positionValues[5][4][1] = (char)(positionValues[6][4][1]);
 
-        positionValues[6][4][0] = ' ';
-        positionValues[6][4][1] = ' ';
-        counter++;
+            positionValues[6][4][0] = ' ';
+            positionValues[6][4][1] = ' ';
+            counter++;
+            return;
+            
     }
     if (counter == 1)
     {
@@ -135,8 +137,9 @@ void checkMateAI()
         positionValues[3][7][0] = (char)(positionValues[7][3][0]);
         positionValues[3][7][1] = (char)(positionValues[7][3][1]);
 
-        positionValues[3][7][0] = ' ';
-        positionValues[3][7][1] = ' ';
+        positionValues[7][3][0] = ' ';
+        positionValues[7][3][1] = ' ';
         counter++;
+        }
     }
-}
+
