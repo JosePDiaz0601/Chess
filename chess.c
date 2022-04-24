@@ -274,10 +274,10 @@ int main(void)
                 	else{
                 	    printf("\nWhite to move. It is the computer's turn.");
                 	    //convert computer's move to a string
-                        computerMoveCurrentSquareRow = x1Global;
-                        computerMoveCurrentSquareCol = y1Global;
-                        computerMoveDestSquareRow = x2Global;
-                        computerMoveDestSquareCol = y2Global;
+                        computerMoveCurrentSquareRow = y1Global;
+                        computerMoveCurrentSquareCol = x1Global;
+                        computerMoveDestSquareRow = y2Global;
+                        computerMoveDestSquareCol = x2Global;
                         char firstChar = 'a';
                         char secondChar = '1';
                         firstChar = (char)(computerMoveCurrentSquareCol + 97);
@@ -308,10 +308,10 @@ int main(void)
                 	if(colorInput == 0){
                 	    printf("\nBlack to move. It is the computer's turn.");
                 	    //convert computer's move to a string
-                        computerMoveCurrentSquareRow = x1Global;
-                        computerMoveCurrentSquareCol = y1Global;
-                        computerMoveDestSquareRow = x2Global;
-                        computerMoveDestSquareCol = y2Global;
+                        computerMoveCurrentSquareRow = y1Global;
+                        computerMoveCurrentSquareCol = x1Global;
+                        computerMoveDestSquareRow = y2Global;
+                        computerMoveDestSquareCol = x2Global;
 
                         char firstChar = 'a';
                         char secondChar = '1';
