@@ -269,6 +269,7 @@ int main(void)
                             printf("details regarding move limitations.\n");
                             continue;
                         }
+                        //randomMove();
                         printf("\n========================================================================");
                         printf("\n========================================================================");
                         printCurrentBoard();

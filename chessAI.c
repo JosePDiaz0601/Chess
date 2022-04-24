@@ -22,11 +22,14 @@ void randomMove()
     time_t t;
     userColor;
     aiColor;
+    srand((unsigned)time(&t));
     // Color Initialization
     if (userColor == 0)
         aiColor = 1;
     else
         aiColor = 0;
+
+    printf("\nAI COLOR INITIALIZATION DONE AI COLOR IS : %d", aiColor);
     int i2, j2;
     for (int i = 0; i < 8; i++)
     {
@@ -35,52 +38,59 @@ void randomMove()
             temp = getRangeOfMotion(i, j);
             for (int k = 0; k < 64; k++)
             {
-                moves[i][j][k] = *(temp+(x2Global + (8*y2Global)));
+                moves[i][j][k] = *(temp+(i + (8*j)));
+                //printf("\nK IS : %d", moves[i][j][k]);
             }
         }
     }
     // Inefficent asf because it does 2 rands a misses a lot before making a move
     while (succ == 0)
     {
-        srand((unsigned)time(&t));
+        
         //int location = (rand() % 64);
-        int locationx = (rand() % 64);
-        int locationy = (rand() % 64);
-        int moveset = (rand() % 64);
-        if (moves[locationx][locationy][moveset] == 0)
-        {
-            continue;
-        }
-        // Promotion check, if not move randomly
-        else if (moves[locationx][locationy][moveset] == 1)
-        {
-            int movesetx = moveset % 8;
-            int movesety = moveset / 8;
-            if (board[0][locationy][locationx].color != userColor && board[0][locationy][locationx].color != 'E')
+        int locationx = (rand() % 8);
+        int locationy = (rand() % 8);
+        if((board[0][locationy][locationx].color == 'W' && aiColor == 0) || (board[0][locationy][locationx].color == 'B' && aiColor == 1)){
+            int moveset = (rand() % 64);
+            //printf("\nAI LOCATION X1 : %d\nAI LOCATION Y1 : %d\nMOVESET : %d", locationx, locationy, moves[locationx][locationy][moveset]);
+            
+            if (moves[locationx][locationy][moveset] == 0)
             {
-                if (board[0][locationy][locationx].type == 1)
+                continue;
+            }
+            // Promotion check, if not move randomly
+            else if (moves[locationx][locationy][moveset] == 1)
+            {
+                int movesetx = moveset % 8;
+                int movesety = moveset / 8;
+                printf("\nAI LOCATION X1 : %d\nAI LOCATION Y1 : %d\nAI LOCATION X2 : %d\nAI LOCATION Y2 : %d\n", locationx, locationy, movesetx, movesety);
+                if (board[0][locationy][locationx].color != userColor && board[0][locationy][locationx].color != 'E')
                 {
-                    if (aiColor == 0 && locationy == 6)
+                    if (board[0][locationy][locationx].type == 1)
                     {
-                        // If Prommotion becomes avilaible as a function change this line
-                        //board[0][locationy][locationx].type = 5;
-                        //movePiece((location / 8), (location % 8), 7, (location % 8));
+                        if (aiColor == 0 && locationy == 6)
+                        {
+                            // If Prommotion becomes avilaible as a function change this line
+                            //board[0][locationy][locationx].type = 5;
+                            //movePiece((location / 8), (location % 8), 7, (location % 8));
+                        }
+                        else if (aiColor == 1 && locationy == 1) 
+                        {
+                            
+                            //board[0][location][moveset].type = 5;
+                            //movePiece((location / 8), (location % 8), 0, (location % 8));
+                        }
+                            //succ = 1;
                     }
-                    else if (aiColor == 1 && locationy == 1) 
-                    {
-                        
-                        //board[0][location][moveset].type = 5;
-                        //movePiece((location / 8), (location % 8), 0, (location % 8));
-                    }
-                    succ = 1;
-                }
-                x1Global = locationx;
-                y1Global = locationy;
-                x2Global = movesetx;
-                y2Global = movesety;
+                    x1Global = locationx;
+                    y1Global = locationy;
+                    x2Global = movesetx;
+                    y2Global = movesety;
 
-                movePiece(x1Global, y1Global, x2Global, y2Global, aiColor);
-                    succ = 1;
+                    movePiece(x1Global, y1Global, x2Global, y2Global, aiColor);
+                        succ = 1;
+                        break;
+                }
             }
         }
     }
