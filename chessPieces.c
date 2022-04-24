@@ -736,16 +736,13 @@ int checkForCheckMate(char playercolor, int boardnumber)
 	for(xtemp = 0; xtemp < 8; xtemp++){
 			for(ytemp = 0; ytemp < 8; ytemp++){
 				board[0][ytemp][xtemp] = piece;
-				pROM = getRangeOfMotion(ytemp, xtemp);
+				pROM = getRangeOfMotion(xtemp, ytemp);
 				int isInCheck = check(playercolor, boardnumber);
 				if(isInCheck == 0){
 					return 0;
 				}
 				if(isInCheck == 1){
 				for(ROMtemp = 0; ROMtemp < 64; ROMtemp++){
-					if (pROM[ROMtemp] == 1){
-						return 0;
-					}
 					if (pROM[ROMtemp] == 0){
 						continue;
 					}	
@@ -771,10 +768,6 @@ int checkForCheckMate(char playercolor, int boardnumber)
 							}	
 						}	
 					for (ROMtemp = 0; ROMtemp < 64; ROMtemp++){
-						if(pROM[ROMtemp] == 0){
-							// still in check 
-							continue;
-						}
 						if (pROM[ROMtemp] == 1){
 							return 1;
 						}
