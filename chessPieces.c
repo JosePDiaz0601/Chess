@@ -782,16 +782,15 @@ int movePiece(int x1Local, int y1Local, int x2Local, int y2Local, int playercolo
 	//printf("y1Global = %d\n", y1Global);
 	struct PIECE s = board[0][y1Global][x1Global]; 
 	if (playercolor == 0){
-		playercolor == 'W';
+		playercolor = 'W';
 	}
 	if (playercolor == 1){
-		playercolor == 'B';
+		playercolor = 'B';
 	}
 	//en passant
 		if (s.type == 1 && y1Global == 4 && s.color == 'W'){
 		printf("%d %d %d %d %d %d\n", board[0][y1Global][x1Global+1].type, board[0][y1Global][x1Global+1].hasMoved, x1Global+1, x2Global, y1Global, y2Global);
 		if (board[0][y1Global][x1Global-1].type == 1 && enpassant == 1 && x1Global-1 == x2Global && (y1Global == y2Global-1)) {
-			printf("black1");
 		board[0][y1Global+1][x1Global-1] = s;
 		board[0][y1Global][x1Global] =   empty;
 		board[0][y1Global][x1Global-1] = empty;
@@ -800,7 +799,6 @@ int movePiece(int x1Local, int y1Local, int x2Local, int y2Local, int playercolo
 		return valid;
 				}
 	if (board[0][y1Global][x1Global+1].type == 1 && enpassant == 1 && x1Global+1 == x2Global && (y1Global == y2Global-1)) {
-			printf("black2");
 		board[0][y1Global+1][x1Global+1] = s;
 		board[0][y1Global][x1Global] =   empty;
 		board[0][y1Global][x1Global+1] = empty;
@@ -812,7 +810,6 @@ int movePiece(int x1Local, int y1Local, int x2Local, int y2Local, int playercolo
 	if (s.type == 1 && y1Global == 3 && s.color == 'B'){
 		printf("white");
 		if (board[0][y1Global][x1Global-1].type == 1 && enpassant == 1 && x1Global-1 == x2Global && (y1Global == y2Global+1)) {
-				printf("white1");
 			board[0][y1Global-1][x1Global-1] = s;
 			board[0][y1Global][x1Global] =   empty;
 			board[0][y1Global][x1Global-1] = empty;
@@ -821,7 +818,6 @@ int movePiece(int x1Local, int y1Local, int x2Local, int y2Local, int playercolo
 			return valid;
 		}
 		if (board[0][y1Global][x1Global+1].type == 1 && enpassant == 1 && x1Global+1 == x2Global && (y1Global == y2Global+1)) {
-				printf("white2");
 			board[0][y1Global-1][x1Global+1] = s;
 			board[0][y1Global][x1Global] =   empty;
 			board[0][y1Global][x1Global+1] = empty;
@@ -839,6 +835,7 @@ int movePiece(int x1Local, int y1Local, int x2Local, int y2Local, int playercolo
 			board[0][y2Global][x2Global].type = promotion;
 			board[0][y2Global][x2Global].color = 'W';
 			board[0][y2Global][x2Global].hasMoved = 1; 
+			positionValues[y2Global][x2Global][0] = (char)(positionValues[y1Global][x1Global][0]) ;
 			if (promotion == 5 ){
 				printf("\nX2 Global is : %d", x2Global);
 				positionValues[y2Global][x2Global][1] = 'Q';
@@ -867,6 +864,7 @@ int movePiece(int x1Local, int y1Local, int x2Local, int y2Local, int playercolo
 			board[0][y2Global][x2Global].type = promotion;
 			board[0][y2Global][x2Global].color = 'B';
 			board[0][y2Global][x2Global].hasMoved = 1; 
+			positionValues[y2Global][x2Global][0] = (char)(positionValues[y1Global][x1Global][0]) ;
 			if (promotion == 5 ){
 				positionValues[y2Global][x2Global][1] = 'Q';
 			}
@@ -886,6 +884,10 @@ int movePiece(int x1Local, int y1Local, int x2Local, int y2Local, int playercolo
 			return valid;
 		}
 	//castling
+	/*printf("PLAYER COLOR IS : %d\n", playercolor);
+	printf("x1Global : %d || y1Global : %d || x2Global : %d || y2Global : %d || SourcePieceColor : %c || DestPieceColor : %c || PlayerColor : %c\n", x1Global, y1Global, x2Global, y2Global, board[0][y1Global][x1Global].color, board[0][y2Global][x2Global].color, playercolor);
+	printf("KingHasMoved : %d || RookHasMoved : %d\n", board[0][y1Global][x1Global].hasMoved, board[0][y2Global][x2Global].hasMoved);
+	printf("First Space empty : %d || Second Space empty : %d\n", board[0][y1Global][x1Global+1].type, board[0][y1Global][x1Global+2].type);*/
 	if(x1Global == 4 && y1Global == 0 && x2Global == 7 && y2Global == 0 && board[0][y1Global][x1Global].color == playercolor && board[0][y2Global][x2Global].color == playercolor){
 		if(board[0][y1Global][x1Global].hasMoved == 0 && board[0][y2Global][x2Global].hasMoved == 0){
 			if(board[0][y1Global][x1Global+1].type == 7 && board[0][y1Global][x1Global+2].type == 7){
