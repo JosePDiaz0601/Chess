@@ -212,6 +212,7 @@ int main(void)
                         }
                         turn += 1;
                         int check = movePiece(currentSquareCol, currentSquareRow, destSquareCol, destSquareRow, userColor);
+                        checkMateAI();
                         if (check == 0){
                             if(currentSquareCol == 4 && currentSquareRow == 0 && destSquareCol == 7 && destSquareRow == 0){
                                 positionValues[0][6][0] = (char)(positionValues[0][4][0]);
@@ -269,7 +270,6 @@ int main(void)
                             printf("details regarding move limitations.\n");
                             continue;
                         }
-                        //randomMove();
                         printf("\n========================================================================");
                         printf("\n========================================================================");
                         printCurrentBoard();

@@ -11,6 +11,7 @@
 #include <time.h>
 #include "chessAI.h"
 #include "chessPieces.h"
+int counter = 0;
 
 void randomMove()
 {
@@ -93,5 +94,25 @@ void randomMove()
                 }
             }
         }
+    }
+}
+
+void checkMateAI(){
+    int moves[8][8][64];
+    int *temp;
+    int succ = 0;
+    time_t t;
+    userColor;
+    aiColor;
+    srand((unsigned)time(&t));
+    // Color Initialization
+    if (userColor == 0)
+        aiColor = 1;
+    else
+        aiColor = 0;
+    if (counter == 0){
+        movePiece(4, 6, 4, 5, aiColor);
+    }if (counter == 1){
+        movePiece(3, 7, 7, 3, aiColor);
     }
 }
