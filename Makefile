@@ -21,13 +21,6 @@ ChessAI.o: ./src/chessAI.c ./src/chessAI.h ./src/chessPieces.h ./src/LogFile.h
 LogFile.o: ./src/LogFile.c ./src/LogFile.h
 	$(CC) $(CFLAGS) -c ./src/LogFile.c -o ./bin/LogFile.o ./bin/LogFile.log
 	
-	
-    
-
-#    address = echo[pwd] --> saves the address of the present working directory in the address variable
-#now you will use a command line argument in the LogFile.c 	
-	
-
 clean:
 	rm ./bin/chess
 	rm ./bin/*.o
