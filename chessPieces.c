@@ -778,7 +778,7 @@ void makeMove(int x1Global, int y1Global, int x2Global, int y2Global, char playe
 	return;
 }
 
-int checkingAllMoves(void)
+int checkingAllMoves(char playercolor, int boardnumber)
 {
 	int xtemp, ytemp, ROMtemp;
 	int *pROM;
@@ -789,7 +789,7 @@ int checkingAllMoves(void)
 			for(ytemp = 0; ytemp < 8; ytemp++){
 				board[0][ytemp][xtemp] = piece;
 				pROM = getRangeOfMotion(piece.type, piece.color, ytemp, xtemp, x2Global, y2Global, piece.hasMoved);
-				int isInCheck = check(playercolor);
+				int isInCheck = check(playercolor, boardnumber);
 				if(isInCheck == 0){
 					continue;
 				}
@@ -810,7 +810,7 @@ int checkingAllMoves(void)
 							board[0][yROM][xROM] = s1;
 							board[0][ytemp][xtemp] = empty;
 
-							int isInCheck = check(playcolor);
+							int isInCheck = check(playercolor, boardnumber);
 							
 							if(isInCheck = 0){
 								break;
