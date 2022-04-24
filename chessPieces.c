@@ -36,7 +36,7 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2Glo
 	//int looper = 0;
     for(int x = 63; x >= 0; x--){
         rangeOfMotion[x] = 0;
-		printf("%d", rangeOfMotion[x]);
+		//printf("%d", rangeOfMotion[x]);
 		//if(looper = 8){
 		//printf("\n");
 		//looper = 0;
@@ -45,7 +45,7 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2Glo
     }
 	
 	char pieceColor = board[0][y][x].color;
-	printf("X is %d\nY is %d\nPiece is %d\n", x, y, piece);
+	printf("\nX is %d\nY is %d\nPiece is %d\n\n", x, y, piece);
 
 
     if ((piece == 1) && ('W' == color))
@@ -122,7 +122,7 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2Glo
 		}
 		x = tempx;
 		y = tempy;
-		while (y-1 < 8 && x+1 < 8)
+		while (y-1 >= 0 && x+1 < 8)
 		{
 			if (board[0][y-1][x+1].color == pieceColor){
 				break;
@@ -398,7 +398,7 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2Glo
 		}
 		x = tempx;
 		y = tempy;
-		while (y-1 < 8 && x+1 < 8)
+		while (y-1 >= 0 && x+1 < 8)
 		{
 			if (board[0][y-1][x+1].color == pieceColor){
 				break;
@@ -498,16 +498,19 @@ int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, int x2Glo
 }
 
 int check(char king, int boardNumber){
+	printf("\nPLAYER COLOR IS : %c\n", king);
 	int x = 999;
 	int y = 999;
 	for (int loop1 = 0; loop1 < 8; loop1++){
 		for(int loop2 = 0; loop2 < 8; loop2++){
 			if (board[boardNumber][loop2][loop1].type == 6 && board[boardNumber][loop2][loop1].color == king){
-				int x = loop1;
-				int y = loop2;
+				x = loop1;
+				y = loop2;
+				
 			}
 		}
 	}
+	printf("\nKING (X,Y) IS  : (%d,%d)\n", x,y);
 	
 	if(x == 999 && y == 999)
 	{
@@ -519,16 +522,17 @@ int check(char king, int boardNumber){
 	int tempx = x;
 	int tempy = y;
 	char pieceColor = board[boardNumber][y][x].color;
+	//printf("pieceColor = %c\n", pieceColor);
 	int isInCheck = 0;
 	while (x+1 < 8)
 	{
-		if (board[boardNumber][y][x+1].color == pieceColor){
+		if (board[boardNumber][y][x+1].type != 7 && board[boardNumber][y+1][x-1].type != 4){
 			break;
 		}else{
 		x++;
 		
-		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E'){
-			int isInCheck = 1;
+		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E' && board[boardNumber][y][x].type == 4  || board[boardNumber][y][x].type == 5){
+			isInCheck = 24;
 			break;
 		}
 		}
@@ -537,13 +541,13 @@ int check(char king, int boardNumber){
 	y = tempy;
 	while (x-1 >= 0)
 	{
-		if (board[boardNumber][y][x-1].color == pieceColor){
+		if (board[boardNumber][y][x-1].type != 7 && board[boardNumber][y+1][x-1].type != 4){
 			break;
 		}else{
 		x--;
 		
-		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E'){
-			int isInCheck = 1;
+		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E' && board[boardNumber][y][x].type == 4  || board[boardNumber][y][x].type == 5){
+			isInCheck = 23;
 			break;
 		}
 		}
@@ -552,13 +556,13 @@ int check(char king, int boardNumber){
 	y = tempy;
 	while (y+1 < 8)
 	{
-		if (board[boardNumber][y+1][x].color == pieceColor){
+		if (board[boardNumber][y+1][x].type != 7 && board[boardNumber][y+1][x-1].type != 4){
 			break;
 		}else{
 		y++;
 		
-		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E'){
-			int isInCheck = 1;
+		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E' && board[boardNumber][y][x].type == 4  || board[boardNumber][y][x].type == 5){
+			isInCheck = 22;
 			break;
 		}
 		}
@@ -567,13 +571,13 @@ int check(char king, int boardNumber){
 	y = tempy;
 	while (y-1 >= 0)
 	{
-		if (board[boardNumber][y-1][x].color == pieceColor){
+		if (board[boardNumber][y-1][x].type != 7 && board[boardNumber][y+1][x-1].type != 4){
 			break;
 		}else{
 		y--;
 		
-		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E'){
-			int isInCheck = 1;
+		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E' && board[boardNumber][y][x].type == 4  || board[boardNumber][y][x].type == 5){
+			isInCheck = 21;
 			break;
 		}
 		}
@@ -582,14 +586,14 @@ int check(char king, int boardNumber){
 	y = tempy;
 	while (x+1 < 8 && y+1 < 8)
 	{
-		if (board[boardNumber][y+1][x+1].color == pieceColor){
+		if (board[boardNumber][y+1][x+1].type != 7 && board[boardNumber][y+1][x-1].type != 3){
 			break;
 		}else{
 		x++;
 		y++;
 		
-		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E'){
-			int isInCheck = 1;
+		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E' && board[boardNumber][y][x].type == 3  || board[boardNumber][y][x].type == 5){
+			isInCheck = 20;
 			break;
 		}
 		}
@@ -598,30 +602,31 @@ int check(char king, int boardNumber){
 	y = tempy;
 	while (x-1 >= 0 && y+1 <8)
 	{
-		if (board[boardNumber][y+1][x-1].color == pieceColor){
+		if (board[boardNumber][y+1][x-1].type != 7 && board[boardNumber][y+1][x-1].type != 3){
 			break;
 		}else{
 		x--;
 		y++;
 		
-		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E'){
-			int isInCheck = 1;
+		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E' && board[boardNumber][y][x].type == 3 || board[boardNumber][y][x].type == 5){
+			isInCheck = 19;
 			break;
 		}
 		}
 	}
 	x = tempx;
 	y = tempy;
-	while (y-1 < 8 && x+1 < 8)
+	while (y-1 >= 0 && x+1 < 8)
 	{
-		if (board[boardNumber][y-1][x+1].color == pieceColor){
+		if (board[boardNumber][y-1][x+1].type != 7 && board[boardNumber][y+1][x-1].type != 3){
 			break;
 		}else{
 		y--;
 		x++;
 		
-		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E'){
-			int isInCheck = 1;
+		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E' && board[boardNumber][y][x].type == 3 || board[boardNumber][y][x].type == 5){
+			printf("%d %d %c %d", x, y, board[boardNumber][y][x].color, board[boardNumber][y][x].type);
+			isInCheck = 18;
 			break;
 		}
 		}
@@ -630,14 +635,15 @@ int check(char king, int boardNumber){
 	y = tempy;
 	while (y-1 >= 0 && x-1 >= 0)
 	{
-		if (board[boardNumber][y-1][x-1].color == pieceColor){
+		if (board[boardNumber][y-1][x-1].type != 7 && board[boardNumber][y+1][x-1].type != 3){
 			break;
 		}else{
 		y--;
 		x--;
 		
-		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E'){
-			int isInCheck = 1;
+		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E' && board[boardNumber][y][x].type == 3 || board[boardNumber][y][x].type == 5){
+			isInCheck = 17;
+			//printf("EXAMINE queen CHECK");
 			break;
 			}
 		}
@@ -647,51 +653,81 @@ int check(char king, int boardNumber){
 	y = tempy;
 
 	//KNIGHT CHECK
+	//printf("\npieceColor = %c\n", pieceColor);
 	if((y+2) < 8)
     {
-		if (x+1 < 8 && (board[boardNumber][y+2][x+1].color != pieceColor ) && (board[boardNumber][y+2][x+1].color != 'E'))
+		if (x+1 < 8 && (board[boardNumber][y+2][x+1].color != pieceColor ) && (board[boardNumber][y+2][x+1].color != 'E') && (board[boardNumber][y+2][x+1].type == 2))
 		{
-			int isInCheck = 1;
+			isInCheck = 1;
 		}
-		if (x-1 >= 0 && (board[boardNumber][y+2][x-1].color != pieceColor) && (board[boardNumber][y+2][x-1].color != 'E'))
+		if (x-1 >= 0 && (board[boardNumber][y+2][x-1].color != pieceColor) && (board[boardNumber][y+2][x-1].color != 'E') && (board[boardNumber][y+2][x-1].type == 2))
 		{
-			int isInCheck = 1;
+			//printf("EXAMINE KNIGHT CHECK");
+			isInCheck = 2;
 		}
 	}
 	if (y-2 >= 0) 
 	{
-		if (x+1 < 8 && (board[boardNumber][y-2][x+1].color != pieceColor)&&(board[boardNumber][y-2][x+1].color != 'E'))
+		if (x+1 < 8 && (board[boardNumber][y-2][x+1].color != pieceColor)&&(board[boardNumber][y-2][x+1].color != 'E') && (board[boardNumber][y-2][x+1].type == 2))
 		{
-			int isInCheck = 1;
+			isInCheck = 3;
 		}
-		if (x-1 >= 0 && (board[boardNumber][y-2][x-1].color != pieceColor) && (board[boardNumber][y-2][x-1].color != 'E'))
+		if (x-1 >= 0 && (board[boardNumber][y-2][x-1].color != pieceColor) && (board[boardNumber][y-2][x-1].color != 'E') && (board[boardNumber][y-2][x-1].type == 2))
 		{
-			int isInCheck = 1;
+			isInCheck = 4;
 		}
 	}
 
 	if (y+1 < 8 )
 	{
-		if (x+2 < 8 && (board[boardNumber][y+1][x+2].color != pieceColor) && (board[boardNumber][y+1][x+2].color != 'E')) 
+		if (x+2 < 8 && (board[boardNumber][y+1][x+2].color != pieceColor) && (board[boardNumber][y+1][x+2].color != 'E') && (board[boardNumber][y+1][x+2].type == 2)) 
 		{
-			int isInCheck = 1;
+			isInCheck = 5;
 		}
-		if (x-2 >= 0 && (board[boardNumber][y+1][x-2].color != pieceColor) && (board[boardNumber][y+1][x-2].color != 'E'))
+		if (x-2 >= 0 && (board[boardNumber][y+1][x-2].color != pieceColor) && (board[boardNumber][y+1][x-2].color != 'E') && (board[boardNumber][y+1][x-2].type == 2))
 		{
-			int isInCheck = 1;
+			isInCheck = 6;
 		}
 	}
 	if (y-1 >= 0)
 	{
-		if (x+2 < 8 && (board[boardNumber][y-1][x+2].color != pieceColor) && (board[boardNumber][y-1][x+2].color != 'E'))
+		if (x+2 < 8 && (board[boardNumber][y-1][x+2].color != pieceColor) && (board[boardNumber][y-1][x+2].color != 'E') && (board[boardNumber][y-1][x+2].type == 2))
 		{
-			int isInCheck = 1;
+			isInCheck = 7;
 		}
-		if (x-2 >= 0 && (board[boardNumber][y-1][x-2].color != pieceColor) && (board[boardNumber][y-1][x-2].color != 'E'))
+		if (x-2 >= 0 && (board[boardNumber][y-1][x-2].color != pieceColor) && (board[boardNumber][y-1][x-2].color != 'E') && (board[boardNumber][y-1][x-2].type == 2))
 		{
-			int isInCheck = 1;
+			isInCheck = 8;
 		}
 	}
+	//printf("\npieceColor = %c\n", pieceColor);
+	//KING CHECK
+	if ((y+1 < 8 ) && (board[0][y+1][x].color != pieceColor)  && (board[0][y+1][x].type == 6)){
+			isInCheck = 9;
+		}
+		if ((y-1 >= 0) && (board[0][y-1][x].color != pieceColor) && (board[0][y-1][x].type == 6)){
+			isInCheck = 10;
+		}
+		if ((x+1 < 8) && (board[0][y][x+1].color != pieceColor) && (board[0][y][x+1].type == 6)){
+			isInCheck = 11;
+		}
+		if ((x-1 >= 0) && (board[0][y][x-1].color != pieceColor) && (board[0][y][x-1].type == 6)){
+			isInCheck = 12;
+		}
+		if ((x+1 < 8) && (y+1 < 8) && (board[0][y+1][x+1].color != pieceColor) && (board[0][y+1][x+1].type == 6)){
+			isInCheck = 13;
+		}
+		if ((y+1 < 8) && (x-1 >= 0)  && (board[0][y+1][x-1].color != pieceColor) && (board[0][y+1][x-1].type == 6)){ 
+			isInCheck = 14;
+		}
+		if ((y-1 >= 0) && (x-1 >= 0) && (board[0][y-1][x-1].color != pieceColor) && (board[0][y-1][x-1].type == 6)){
+			//printf("EXAMINE KING CHECK");
+			isInCheck = 15;
+		}
+		if ((y-1 >= 0) && (x+1 < 8) && (board[0][y-1][x+1].color != pieceColor)  && (board[0][y-1][x+1].type == 6)){
+			isInCheck = 16;
+		}
+	printf("\nisInCheck : %d\n", isInCheck);
 	return isInCheck;
 }
 
@@ -708,16 +744,15 @@ void makeMove(int x1Global, int y1Global, int x2Global, int y2Global, char playe
 	int *p;
 	int isInCheck = 0;
 	p = getRangeOfMotion(s1.type, s1.color, x1Global, y1Global, x2Global, y2Global, s1.hasMoved);
-	printf("P = %d\n", *(p+(x2Global + (8*y2Global))));
+	//printf("P = %d\n", *(p+(x2Global + (8*y2Global))));
 	if (*(p+(x2Global + (8*y2Global))) == 1 /*&& board[0][y1Global][x1Global].color == playercolor*/){
-		do
-		{
+		
 		if(board[0][y1Global][x1Global].type == 1 && board[0][y1Global][x1Global].color == 'W' && y2Global - 2 == y1Global){
 			enpassant = 1;
-			printf("\nHAS MOVES EQUALS 2, %d\n", enpassant);
+			//printf("\nHAS MOVES EQUALS 2, %d\n", enpassant);
 		}else if(board[0][y1Global][x1Global].type == 1 && board[0][y1Global][x1Global].color == 'B' && y2Global + 2 == y1Global){
 			enpassant = 1;
-			printf("\nHAS MOVES EQUALS 2, %d\n", enpassant);
+			//printf("\nHAS MOVES EQUALS 2, %d\n", enpassant);
 		}else{
 			enpassant = 0;
 		}
@@ -729,14 +764,14 @@ void makeMove(int x1Global, int y1Global, int x2Global, int y2Global, char playe
 		
 		
 
-			//isInCheck = check(playercolor, 0);
-			if(isInCheck == 1){
+			isInCheck = check(playercolor, 0);
+			if(isInCheck != 0){
 				board[0][y1Global][x1Global] = s1;
 				board[0][y2Global][x2Global] = s2;
 				board[0][y1Global][x1Global].hasMoved = 0;
 				printf("INVALID MOVE: CURRENTLY IN CHECK");
 			}
-		} while (isInCheck == 1);
+		
 	}else{
 		valid = 1;
 	}
@@ -747,13 +782,18 @@ int checkingAllMoves(void)
 {
 	int xtemp, ytemp, ROMtemp;
 	int *pROM;
-	struct PIECE piece;
+	struct PIECE piece, s1, s2;
 	int x2Global = x2Global;
 	int y2Global = y2Global;
 	for(xtemp = 0; xtemp < 8; xtemp++){
 			for(ytemp = 0; ytemp < 8; ytemp++){
 				board[0][ytemp][xtemp] = piece;
 				pROM = getRangeOfMotion(piece.type, piece.color, ytemp, xtemp, x2Global, y2Global, piece.hasMoved);
+				int isInCheck = check(playercolor);
+				if(isInCheck == 0){
+					continue;
+				}
+				if(isInCheck == 1){
 				for(ROMtemp = 0; ROMtemp < 64; ROMtemp++){
 					if (pROM[ROMtemp] == 1){
 						return 0;
@@ -761,11 +801,43 @@ int checkingAllMoves(void)
 					if (pROM[ROMtemp] == 0){
 						continue;
 					}	
+					if (pROM[ROMtemp] == 1){
+							int yROM = ROMtemp/8;
+							int xROM = ROMtemp%8;
+							s1 = board[0][ytemp][xtemp];
+							s2 = board[0][yROM][xROM];
+
+							board[0][yROM][xROM] = s1;
+							board[0][ytemp][xtemp] = empty;
+
+							int isInCheck = check(playcolor);
+							
+							if(isInCheck = 0){
+								break;
+							}
+							
+							if(isInCheck = 1){
+								pROM[ROMtemp] = 0;
+								board[0][ytemp][xtemp] = s1;
+								board[0][yROM][xROM] = s2;
+							}	
+						}	
+					for (ROMtemp = 0; ROMtemp < 64; ROMtemp++){
+						if(pROM[ROMtemp] == 0){
+							// still in check 
+							continue;
+						}
+						if (pROM[ROMtemp] == 1){
+							return 1;
+						}
+					}
 				}
 			}
+	return 0;
+		}
 	}
-	return 1;
 }
+
 
 int movePiece(int x1Local, int y1Local, int x2Local, int y2Local, int playercolor)
 {
@@ -789,7 +861,7 @@ int movePiece(int x1Local, int y1Local, int x2Local, int y2Local, int playercolo
 	}
 	//en passant
 		if (s.type == 1 && y1Global == 4 && s.color == 'W'){
-		printf("%d %d %d %d %d %d\n", board[0][y1Global][x1Global+1].type, board[0][y1Global][x1Global+1].hasMoved, x1Global+1, x2Global, y1Global, y2Global);
+		//printf("%d %d %d %d %d %d\n", board[0][y1Global][x1Global+1].type, board[0][y1Global][x1Global+1].hasMoved, x1Global+1, x2Global, y1Global, y2Global);
 		if (board[0][y1Global][x1Global-1].type == 1 && enpassant == 1 && x1Global-1 == x2Global && (y1Global == y2Global-1)) {
 		board[0][y1Global+1][x1Global-1] = s;
 		board[0][y1Global][x1Global] =   empty;
@@ -808,7 +880,7 @@ int movePiece(int x1Local, int y1Local, int x2Local, int y2Local, int playercolo
 		}
 	}
 	if (s.type == 1 && y1Global == 3 && s.color == 'B'){
-		printf("white");
+		//printf("white");
 		if (board[0][y1Global][x1Global-1].type == 1 && enpassant == 1 && x1Global-1 == x2Global && (y1Global == y2Global+1)) {
 			board[0][y1Global-1][x1Global-1] = s;
 			board[0][y1Global][x1Global] =   empty;
