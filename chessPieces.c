@@ -833,8 +833,10 @@ int checkForCheckMate(char playercolor, int boardnumber)
 		for (ytemp = 0; ytemp < 8; ytemp++)
 		{
 			board[0][ytemp][xtemp] = piece;
+			printf("\nXTEMP IS : %d\nYTEMP IS : %d", xtemp, ytemp);
 			pROM = getRangeOfMotion(xtemp, ytemp);
 			int isInCheck = check(playercolor, boardnumber);
+			printf("\nISINCHECK IS %d", isInCheck);
 			if (isInCheck == 0)
 			{
 				return 0;
@@ -871,12 +873,12 @@ int checkForCheckMate(char playercolor, int boardnumber)
 							board[0][yROM][xROM] = s2;
 						}
 					}
-					for (ROMtemp = 0; ROMtemp < 64; ROMtemp++)
+				}
+				for (ROMtemp = 0; ROMtemp < 64; ROMtemp++)
+				{
+					if (pROM[ROMtemp] == 1)
 					{
-						if (pROM[ROMtemp] == 1)
-						{
-							return 1;
-						}
+						return 1;
 					}
 				}
 			}
