@@ -11,7 +11,7 @@
 #include "chessAI.c"
 #include "chessAI.h"
 #include "LogFile.c"
-#include "Logfile.h"
+#include "LogFile.h"
 #include "chess.h"
 
 int userColor; //the int that user types to choose color 0 for white 1 for black
