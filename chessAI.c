@@ -32,9 +32,9 @@ void randomMove()
 
     printf("\nAI COLOR INITIALIZATION DONE AI COLOR IS : %d", aiColor);
     int i2, j2;
-    for (int i = 0; i < 7; i++)
+    for (int i = 0; i < 8; i++)
     {
-        for (int j = 0; j < 7; j++)
+        for (int j = 0; j < 8; j++)
         {
             temp = getRangeOfMotion(i, j);
             for (int k = 0; k < 63; k++)
