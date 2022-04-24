@@ -412,6 +412,8 @@ int main(void)
                             printf("specific pieces, their allowed range of squares to move to, and other\n");
                             printf("details regarding move limitations.\n");
                             continue;
+                        }else if (check == 2){
+                            check = 2;
                         }
                         // display the updated board
                         printf("\n========================================================================");
