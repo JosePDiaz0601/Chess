@@ -26,6 +26,6 @@ clean:
 	rm ./bin/chess
 	rm ./bin/*.o
 
-tar:
-	tar -zcvf Chess_V1.0.tar.gz ./README ./COPYRIGHT ./INSTALL ./bin/chess ./doc/Chess_UserManual.pdf
-	tar -zcvf Chess_V1.0_src.tar.gz ./doc ./bin ./src ./Makefile ./README ./COPYRIGHT ./INSTALL
+#tar:
+#	tar -zcvf Chess_V1.0.tar.gz ./README ./COPYRIGHT ./INSTALL ./bin/chess ./doc
+#	tar -zcvf Chess_V1.0_src.tar.gz ./doc ./bin ./src ./Makefile ./README ./COPYRIGHT ./INSTALL
