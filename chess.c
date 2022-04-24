@@ -10,6 +10,9 @@
 #include "chessPieces.c"
 #include "chessAI.c"
 #include "chessAI.h"
+#include "LogFile.c"
+#include "LogFile.h"
+#include "chess.h"
 int dummy = 0;
 
 int userColor; // the int that user types to choose color 0 for white 1 for black
@@ -159,9 +162,9 @@ int main(void)
     turn = 0;
     // when turn % 2 == 0 (white's Turn), when turn % 2 == 1 (black's Turn)
 
-    char movePart1[3], movePart2[3];
-    char computerMovePart1[3];
-    char computerMovePart2[3];
+    /**    char movePart1[3], movePart2[3];
+        char computerMovePart1[3];
+        char computerMovePart2[3];*/
     while (!programFinished)
     {
         displayStartingMenu();

@@ -10,8 +10,14 @@
 #include "chess.h"
 
 //function to write to log. returns an integer for error purposes.
-int WriteToLog(int movenumber,char MovePart1[],char MovePart2[],char MovePiece[]){
+int WriteToLog(char MovePart1[],char MovePart2[],char justMovedPieceColor, char JustMovedPieceType){
+
 char *filename = "LogFile.log";
+
+int MOVENUMBER =  0;
+int MOVEUPDATER = 1;
+strcat(justMovedPieceColor, JustMovedPieceType);
+
 
  /*This portion opens the file corresponding to pointer 'filename'*/
     FILE *fp = fopen(filename, "a");
@@ -20,7 +26,14 @@ char *filename = "LogFile.log";
         printf("File 'LogFile.log' could not be opened. %s", filename);
         return 0;
 	}
-	fprintf(fp,"%d. ,%s,%s,%s\n",movenumber,MovePart1,MovePart2,MovePiece); 
+   MOVENUMBER = MOVENUMBER + MOVEUPDATER;
+
+   if (MOVEUPDATER == 1)
+   MOVEUPDATER == 0;
+   if (MOVEUPDATER == 0)
+   MOVEUPDATER == 1;
+
+	fprintf(fp,"%d. ,%s,%s,%s\n", MOVENUMBER,MovePart1,MovePart2,justMovedPieceColor); 
 
 /** WARNING. DO NOT DELETE THIS COMMENT. Use variables
  * justMovedPieceColor	and
@@ -43,7 +56,10 @@ FILE *pointer1, *pointer2;
 }
 
 void ConvertToPDF(void){
-   int hello;
+   int CONVERT;
+
+   CONVERT = rename("LogFile.log", "LogFile.pdf");
+                                                   }
 
 /*Before calling WriteToLog, we need to remove the current LogFile. 'remove("LogFile.txt")'
 void WriteToLog(int movenumber,char MOVE1[],char MOVE2[],char MOVEP[]) {

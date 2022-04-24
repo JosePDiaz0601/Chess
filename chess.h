@@ -9,6 +9,9 @@
 char justMovedPieceColor;	//this variable stores either 'w' or 'b' for the piece that moved most recently (either from AI or human)
 char justMovedPieceType;	/*this variable stores 'P','N','B','R','Q','K' for the type of the piece that
 							moved most recently*/
+char movePart1[3], movePart2[3];
+char computerMovePart1[3];
+char computerMovePart2[3];
 
 int userColor;
 int aiColor;
