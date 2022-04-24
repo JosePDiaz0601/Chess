@@ -7,6 +7,7 @@
 /*                                                                   */
 /*********************************************************************/
 #include "LogFile.h"
+#include "chess.h"
 
 //function to write to log. returns an integer for error purposes.
 int WriteToLog(int movenumber,char MovePart1[],char MovePart2[],char MovePiece[]){
@@ -21,6 +22,13 @@ char *filename = "LogFile.log";
 	}
 	fprintf(fp,"%d. ,%s,%s,%s\n",movenumber,MovePart1,MovePart2,MovePiece); 
 
+/** WARNING. DO NOT DELETE THIS COMMENT. Use variables
+ * justMovedPieceColor	and
+ * justMovedPieceType
+ * to print the piece type of the piece that has just been moved.
+ * These are global variables from chess.h that are updated on the
+ * front end everytime the human user or computer makes a move.
+ */
 
    fclose(fp);
 
