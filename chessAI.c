@@ -32,12 +32,12 @@ void randomMove()
 
     printf("\nAI COLOR INITIALIZATION DONE AI COLOR IS : %d", aiColor);
     int i2, j2;
-    for (int i = 0; i < 8; i++)
+    for (int i = 0; i < 7; i++)
     {
-        for (int j = 0; j < 8; j++)
+        for (int j = 0; j < 7; j++)
         {
             temp = getRangeOfMotion(i, j);
-            for (int k = 0; k < 64; k++)
+            for (int k = 0; k < 63; k++)
             {
                 moves[i][j][k] = *(temp+(i + (8*j)));
                 //printf("\nK IS : %d", moves[i][j][k]);
@@ -112,7 +112,19 @@ void checkMateAI(){
         aiColor = 0;
     if (counter == 0){
         movePiece(4, 6, 4, 5, aiColor);
+        positionValues[5][4][0] = (char)(positionValues[6][4][0]);
+        positionValues[5][4][1] = (char)(positionValues[6][4][1]);
+
+        positionValues[6][4][0] = ' ';
+        positionValues[6][4][1] = ' ';
+        counter++;
     }if (counter == 1){
         movePiece(3, 7, 7, 3, aiColor);
+        positionValues[3][7][0] = (char)(positionValues[7][3][0]);
+        positionValues[3][7][1] = (char)(positionValues[7][3][1]);
+
+        positionValues[3][7][0] = ' ';
+        positionValues[3][7][1] = ' ';
+        counter++;
     }
 }
