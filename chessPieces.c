@@ -743,6 +743,29 @@ void makeMove(int x1Global, int y1Global, int x2Global, int y2Global, char playe
 	return;
 }
 
+int checkingAllMoves(void)
+{
+	int xtemp, ytemp, ROMtemp;
+	int *pROM;
+	struct PIECE piece;
+	int x2Global = x2Global;
+	int y2Global = y2Global;
+	for(xtemp = 0; xtemp < 8; xtemp++){
+			for(ytemp = 0; ytemp < 8; ytemp++){
+				board[0][ytemp][xtemp] = piece;
+				pROM = getRangeOfMotion(piece.type, piece.color, ytemp, xtemp, x2Global, y2Global, piece.hasMoved);
+				for(ROMtemp = 0; ROMtemp < 64; ROMtemp++){
+					if (pROM[ROMtemp] == 1){
+						return 0;
+					}
+					if (pROM[ROMtemp] == 0){
+						continue;
+					}	
+				}
+			}
+	}
+	return 1;
+}
 
 int movePiece(int x1Local, int y1Local, int x2Local, int y2Local, int playercolor)
 {
