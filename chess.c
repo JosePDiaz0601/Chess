@@ -276,8 +276,8 @@ int main(void)
                 	    //convert computer's move to a string
                         computerMoveCurrentSquareRow = x1Global;
                         computerMoveCurrentSquareCol = y1Global;
-                        computerMoveDestSquareRow = x1Global;
-                        computerMoveDestSquareCol = y1Global;
+                        computerMoveDestSquareRow = x2Global;
+                        computerMoveDestSquareCol = y2Global;
                         char firstChar = 'a';
                         char secondChar = '1';
                         firstChar = (char)(computerMoveCurrentSquareCol + 97);
@@ -310,8 +310,8 @@ int main(void)
                 	    //convert computer's move to a string
                         computerMoveCurrentSquareRow = x1Global;
                         computerMoveCurrentSquareCol = y1Global;
-                        computerMoveDestSquareRow = x1Global;
-                        computerMoveDestSquareCol = y1Global;
+                        computerMoveDestSquareRow = x2Global;
+                        computerMoveDestSquareCol = y2Global;
 
                         char firstChar = 'a';
                         char secondChar = '1';
