@@ -325,6 +325,7 @@ int main(void)
 
                    /* WriteToLog(computerMovePart1,computerMovePart2,justMovedPieceColor,justMovedPieceType); */
                 }
+                }
                 //else: It is the turn of Black regardless of which side is the AI and which is the human user
                 //turb % 2 ==1
                 else{
