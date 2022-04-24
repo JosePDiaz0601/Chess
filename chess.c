@@ -31,24 +31,23 @@ char positionValues[8][8][3] = {
 void promptWhiteToMove(){
     printf("\nWhite to move. Please enter a move in the format of initial square \n");
     printf("and destination square (e.g. e2 e4). Note that the file must be \n");
-    printf("typed in lowercase (a to h), and the rank must be from 1 to 8. For castling ");
-    printf("type the square of the king's current position as the initial square and the ");
+    printf("typed in lowercase (a to h), and the rank must be from 1 to 8. For castling \n");
+    printf("type the square of the king's current position as the initial square and the \n");
     printf("square of the rook's current position as the final square (e.g. e1 h1). : ");
 }
 
 void promptBlackToMove(){
     printf("\nBlack to move. Please enter a move in the format of initial square \n");
     printf("and destination square (e.g. e2 e4). Note that the file must be \n");
-    printf("typed in lowercase (a to h), and the rank must be from 1 to 8. For castling ");
-    printf("type the square of the king's current position as the initial square and the ");
-    printf("square of the rook's current position as the final square (e.g. e1 h1). : ");
+    printf("typed in lowercase (a to h), and the rank must be from 1 to 8. For castling \n");
+    printf("type the square of the king's current position as the initial square and the \n");
+    printf("square of the rook's current position as the final square (e.g. e8 h8). : ");
 }
 
 void displayStartingMenu()
 {
     // display menu prompt
-    printf("\nWelcome to Unoptimized Chess, our newly released chess game from Loading��!\n");
-    //        printf("2. Start New Game (Human v. Human)\n");
+    printf("\nWelcome to Unoptimized Chess, our newly released chess game from Loading.. !\n");
     printf("1. Start New Game (Human v. AI)\n");
     printf("2. Game Settings\n");
     printf("3. Exit Game\n");
@@ -251,6 +250,9 @@ int main(void)
 
 								positionValues[currentSquareRow][currentSquareCol][0] = ' ';
 								positionValues[currentSquareRow][currentSquareCol][1] = ' ';
+								//store color and type of piece that just moved
+								justMovedPieceColor = (char)(positionValues[destSquareRow][destSquareCol][0]);
+								justMovedPieceType = (char)(positionValues[destSquareRow][destSquareCol][1]);
                             }
                         }
                         else if (check == 1){
@@ -293,6 +295,10 @@ int main(void)
                         computerMovePart2[1] = secondChar;
                         computerMovePart2[2] = '\0';
                         turn += 1;
+
+						//store color and type of piece that just moved
+						justMovedPieceColor = (char)(positionValues[computerMoveDestSquareRow][computerMoveDestSquareCol][0]);
+						justMovedPieceType = (char)(positionValues[computerMoveDestSquareRow][computerMoveDestSquareCol][1]);
 						printf("\nThe computer has chosen to play %s %s\n",computerMovePart1,computerMovePart2);
                         printCurrentBoard();
                         if ((checkMate == 1) || (staleMate == 1)){
