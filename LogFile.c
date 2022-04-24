@@ -8,16 +8,19 @@
 /*********************************************************************/
 #include "LogFile.h"
 #include "chess.h"
+char justMovedPieceColor = 'h';
+char justMovedPieceType = 'h';
 
 //function to write to log. returns an integer for error purposes.
-int WriteToLog(char MovePart1[],char MovePart2[],char justMovedPieceColor, char JustMovedPieceType){
+int WriteToLog(char MovePart1[],char MovePart2[],char justMovedPieceColor, char justMovedPieceType){
 
+char colorAndType[2];
 char *filename = "LogFile.log";
 
 int MOVENUMBER =  0;
 int MOVEUPDATER = 1;
-strcat(justMovedPieceColor, JustMovedPieceType);
-
+colorAndType[0] = justMovedPieceColor;
+colorAndType[1] = justMovedPieceType;
 
  /*This portion opens the file corresponding to pointer 'filename'*/
     FILE *fp = fopen(filename, "a");
@@ -33,7 +36,7 @@ strcat(justMovedPieceColor, JustMovedPieceType);
    if (MOVEUPDATER == 0)
    MOVEUPDATER == 1;
 
-	fprintf(fp,"%d. ,%s,%s,%s\n", MOVENUMBER,MovePart1,MovePart2,justMovedPieceColor); 
+	fprintf(fp,"%d. ,%s,%s,%s\n", MOVENUMBER,MovePart1,MovePart2,colorAndType); 
 
 /** WARNING. DO NOT DELETE THIS COMMENT. Use variables
  * justMovedPieceColor	and
