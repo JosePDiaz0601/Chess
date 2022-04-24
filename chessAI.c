@@ -15,26 +15,27 @@
 void randomMove()
 {
     // First is location on board, second is the available locations to move on the board
-    int moves[64][64];
-    int temp[64];
+    //int moves[64][64];
+    int moves[8][8][64];
+    int *temp;
     int succ = 0;
     time_t t;
-    int colorInput = 0;
-    int AIinput = 0;
+    userColor;
+    aiColor;
     // Color Initialization
-    if (colorInput == 0)
-        AIinput = 1;
+    if (userColor == 0)
+        aiColor = 1;
     else
-        AIinput = 0;
+        aiColor = 0;
     int i2, j2;
     for (int i = 0; i < 8; i++)
     {
         for (int j = 0; j < 8; j++)
         {
-            temp[64] = getRangeOfMotion(board[0][i][j].type, board[0][i][j].color, i, j, i2, j2, board[0][i][j].hasMoved);
+            temp = getRangeOfMotion(i, j);
             for (int k = 0; k < 64; k++)
             {
-                moves[i + j][k] = temp[k];
+                moves[i][j][k] = *(temp+(x2Global + (8*y2Global)));
             }
         }
     }
@@ -42,38 +43,44 @@ void randomMove()
     while (succ == 0)
     {
         srand((unsigned)time(&t));
-        int location = (rand() % 64);
+        //int location = (rand() % 64);
+        int locationx = (rand() % 64);
+        int locationy = (rand() % 64);
         int moveset = (rand() % 64);
-        if (moves[location][moveset] == 0)
+        if (moves[locationx][locationy][moveset] == 0)
         {
             continue;
         }
         // Promotion check, if not move randomly
-        else if (moves[location][moveset] == 1)
+        else if (moves[locationx][locationy][moveset] == 1)
         {
-            if (board[0][location][moveset].color != colorInput && board[0][location][moveset].color != 'E')
+            int movesetx = moveset % 8;
+            int movesety = moveset / 8;
+            if (board[0][locationy][locationx].color != userColor && board[0][locationy][locationx].color != 'E')
             {
-                if (board[0][location][moveset].type == 1)
+                if (board[0][locationy][locationx].type == 1)
                 {
-                    if (AIinput == 0 && location == 6)
+                    if (aiColor == 0 && locationy == 6)
                     {
                         // If Prommotion becomes avilaible as a function change this line
-                        board[0][location][moveset].type = 5;
-                        movePiece((location / 8), (location % 8), 7, (location % 8));
+                        //board[0][locationy][locationx].type = 5;
+                        //movePiece((location / 8), (location % 8), 7, (location % 8));
                     }
-                    else
+                    else if (aiColor == 1 && locationy == 1) 
                     {
-                        if (location == 1)
-                            board[0][location][moveset].type = 5;
-                        movePiece((location / 8), (location % 8), 0, (location % 8));
+                        
+                        //board[0][location][moveset].type = 5;
+                        //movePiece((location / 8), (location % 8), 0, (location % 8));
                     }
                     succ = 1;
                 }
-                else
-                {
-                    movePiece((location / 8), (location % 8), (moveset / 8), (moveset % 8));
+                x1Global = locationx;
+                y1Global = locationy;
+                x2Global = movesetx;
+                y2Global = movesety;
+
+                movePiece(x1Global, y1Global, x2Global, y2Global, aiColor);
                     succ = 1;
-                }
             }
         }
     }

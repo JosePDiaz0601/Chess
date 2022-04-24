@@ -8,9 +8,10 @@
 #include <stdbool.h>
 #include "chessPieces.h"
 #include "chessPieces.c"
+#include "chessAI.c"
 #include "chessAI.h"
 
-int colorInput; //the int that user types to choose color 0 for white 1 for black
+int userColor; //the int that user types to choose color 0 for white 1 for black
 // array with initial positions of chess pieces, have the zeroth row correspond to white's first rank
 // columns go from a to h on board, 0 to 7 for array indices
 char positionValues[8][8][3] = {
@@ -65,7 +66,7 @@ void viewGameSettings()
 
 void printCurrentBoard(){
 	// display the current positions from White's view
-	if (colorInput == 0){
+	if (userColor == 0){
         printf("\n  +----+----+----+----+----+----+----+----+\n");
         int i;
         for (i = 8; i > 0; i--)
@@ -136,7 +137,7 @@ int main(void)
 {
     int promptInput = 0;          /* user's input (from menu, choose 1 to start game,
     2 to view game settings, 3 to exit game) assigned to promptInput*/
-    colorInput = 0; //set color to 0 (white) by default before taking user's choice
+    userColor = 0; //set color to 0 (white) by default before taking user's choice
     char colorInputStr[2][6] = {
     		{'W','h','i','t','e'} ,
 			{'B','l','a','c','k'}
@@ -165,7 +166,11 @@ int main(void)
             printf("0. White\n");
             printf("1. Black\n");
             printf("Choose Option: ");
-            scanf("%d", &colorInput);
+            scanf("%d", &userColor);
+            if (userColor == 0)
+            aiColor = 1;
+              else
+            aiColor = 0;
             printCurrentBoard();
             //initialize variables for current square and destination square of piece to be moved
             int currentSquareRow = -1;
@@ -180,7 +185,7 @@ int main(void)
             while (!gameOver)
             {
             	if ((turn % 2) == 0){
-                	if(colorInput == 0){
+                	if(userColor == 0){
                         promptWhiteToMove();
                         scanf("%s", movePart1);
                         scanf("%s", movePart2);
@@ -206,7 +211,7 @@ int main(void)
                             destSquareRow = (int)(movePart2[1]) - 49;    // 1 as an ASCII char corresponds to 0th row
                         }
                         turn += 1;
-                        int check = movePiece(currentSquareCol, currentSquareRow, destSquareCol, destSquareRow, colorInput);
+                        int check = movePiece(currentSquareCol, currentSquareRow, destSquareCol, destSquareRow, userColor);
                         if (check == 0){
                             if(currentSquareCol == 4 && currentSquareRow == 0 && destSquareCol == 7 && destSquareRow == 0){
                                 positionValues[0][6][0] = (char)(positionValues[0][4][0]);
@@ -311,7 +316,7 @@ int main(void)
                 //turb % 2 ==1
                 else{
                 	//Black's turn with human being white
-                	if(colorInput == 0){
+                	if(userColor == 0){
                 	    printf("\nBlack to move. It is the computer's turn.");
                 	    //convert computer's move to a string
                         computerMoveCurrentSquareRow = y1Global;
@@ -366,7 +371,7 @@ int main(void)
                             destSquareRow = (int)(movePart2[1]) - 49;    // 1 as an ASCII char corresponds to 0th row
                         }
                         turn += 1; //updates whose turn it is
-                        int check = movePiece(currentSquareCol, currentSquareRow, destSquareCol, destSquareRow, colorInput);
+                        int check = movePiece(currentSquareCol, currentSquareRow, destSquareCol, destSquareRow, userColor);
                         if (check == 0){
                             if(currentSquareCol == 4 && currentSquareRow == 0 && destSquareCol == 7 && destSquareRow == 0){
                                 positionValues[0][6][0] = (char)(positionValues[0][4][0]);
