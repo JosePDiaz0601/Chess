@@ -723,56 +723,7 @@ int check(char king, int boardNumber){
 	printf("\nisInCheck : %d\n", isInCheck);
 	return isInCheck;
 }
-
-void makeMove(int x1Global, int y1Global, int x2Global, int y2Global, char playercolor){
-	valid = 0;
-	if (playercolor == 0){
-		playercolor = 'W';
-	}
-	if (playercolor == 1){
-		playercolor = 'B';
-	}
-	struct PIECE s1 = board[0][y1Global][x1Global]; 
-	struct PIECE s2 = board[0][y2Global][x2Global];
-	int *p;
-	int isInCheck = 0;
-	p = getRangeOfMotion(s1.type, s1.color, x1Global, y1Global, x2Global, y2Global, s1.hasMoved);
-	//printf("P = %d\n", *(p+(x2Global + (8*y2Global))));
-	if (*(p+(x2Global + (8*y2Global))) == 1 /*&& board[0][y1Global][x1Global].color == playercolor*/){
-		
-		if(board[0][y1Global][x1Global].type == 1 && board[0][y1Global][x1Global].color == 'W' && y2Global - 2 == y1Global){
-			enpassant = 1;
-			//printf("\nHAS MOVES EQUALS 2, %d\n", enpassant);
-		}else if(board[0][y1Global][x1Global].type == 1 && board[0][y1Global][x1Global].color == 'B' && y2Global + 2 == y1Global){
-			enpassant = 1;
-			//printf("\nHAS MOVES EQUALS 2, %d\n", enpassant);
-		}else{
-			enpassant = 0;
-		}
-
-		board[0][y1Global][x1Global] = empty;
-		board[0][y2Global][x2Global] = s1;
-		board[0][y2Global][x2Global].hasMoved = 1;
-		
-		
-		
-
-			isInCheck = check(playercolor, 0);
-			if(isInCheck != 0){
-				board[0][y1Global][x1Global] = s1;
-				board[0][y2Global][x2Global] = s2;
-				board[0][y1Global][x1Global].hasMoved = 0;
-				printf("INVALID MOVE: CHECK");
-				valid = 1;
-			}
-		
-	}else{
-		valid = 1;
-	}
-	return;
-}
-
-int checkingAllMoves(char playercolor, int boardnumber)
+int checkForCheckMate(char playercolor, int boardnumber)
 {
 	int xtemp, ytemp, ROMtemp;
 	int *pROM;
@@ -785,7 +736,7 @@ int checkingAllMoves(char playercolor, int boardnumber)
 				pROM = getRangeOfMotion(piece.type, piece.color, ytemp, xtemp, x2Global, y2Global, piece.hasMoved);
 				int isInCheck = check(playercolor, boardnumber);
 				if(isInCheck == 0){
-					continue;
+					return 0;
 				}
 				if(isInCheck == 1){
 				for(ROMtemp = 0; ROMtemp < 64; ROMtemp++){
@@ -832,6 +783,64 @@ int checkingAllMoves(char playercolor, int boardnumber)
 	}
 }
 
+void makeMove(int x1Global, int y1Global, int x2Global, int y2Global, char playercolor){
+	valid = 0;
+	if (playercolor == 0){
+		playercolor = 'W';
+	}
+	if (playercolor == 1){
+		playercolor = 'B';
+	}
+	struct PIECE s1 = board[0][y1Global][x1Global]; 
+	struct PIECE s2 = board[0][y2Global][x2Global];
+	int *p;
+	int isInCheck = 0;
+	int isInCheckMate = 0;
+	p = getRangeOfMotion(s1.type, s1.color, x1Global, y1Global, x2Global, y2Global, s1.hasMoved);
+	//printf("P = %d\n", *(p+(x2Global + (8*y2Global))));
+	if (*(p+(x2Global + (8*y2Global))) == 1 /*&& board[0][y1Global][x1Global].color == playercolor*/){
+		
+		if(board[0][y1Global][x1Global].type == 1 && board[0][y1Global][x1Global].color == 'W' && y2Global - 2 == y1Global){
+			enpassant = 1;
+			//printf("\nHAS MOVES EQUALS 2, %d\n", enpassant);
+		}else if(board[0][y1Global][x1Global].type == 1 && board[0][y1Global][x1Global].color == 'B' && y2Global + 2 == y1Global){
+			enpassant = 1;
+			//printf("\nHAS MOVES EQUALS 2, %d\n", enpassant);
+		}else{
+			enpassant = 0;
+		}
+
+		board[0][y1Global][x1Global] = empty;
+		board[0][y2Global][x2Global] = s1;
+		board[0][y2Global][x2Global].hasMoved = 1;
+		
+		
+		
+
+			isInCheck = check(playercolor, 0);
+			if(isInCheck != 0){
+				board[0][y1Global][x1Global] = s1;
+				board[0][y2Global][x2Global] = s2;
+				board[0][y1Global][x1Global].hasMoved = 0;
+				printf("INVALID MOVE: CHECK");
+				valid = 1;
+			}
+			isInCheckMate = checkForCheckMate('W', 0);
+			if(isInCheckMate != 0){
+				printf("CheckMate! Black Wins!");
+				checkMate = 1;
+			}
+			isInCheckMate = checkForCheckMate('B', 0);
+			if(isInCheckMate != 0){
+				printf("CheckMate! White Wins!");
+				checkMate = 2;
+			}
+		
+	}else{
+		valid = 1;
+	}
+	return;
+}
 
 int movePiece(int x1Local, int y1Local, int x2Local, int y2Local, int playercolor)
 {
