@@ -628,6 +628,5 @@ void newBoard()
             }
         }
 }
-
-
+// hi
 /* EOF */
