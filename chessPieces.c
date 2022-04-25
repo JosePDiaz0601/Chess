@@ -1088,7 +1088,11 @@ int movePiece(int x1Local, int y1Local, int x2Local, int y2Local, int playercolo
 	{
 		board[0][y1Global][x1Global] = empty;
 		printf("Promotion! White, please enter: 2 for Knight, 3 for Bishop, 4 for Rook, 5 for Queen\n");
+		if(userColor == 0){
 		scanf(" %d", &promotion);
+		}else{
+			promotion = 5;
+		}
 		printf("Promoted!");
 		board[0][y2Global][x2Global].type = promotion;
 		board[0][y2Global][x2Global].color = 'W';
@@ -1122,7 +1126,11 @@ int movePiece(int x1Local, int y1Local, int x2Local, int y2Local, int playercolo
 	{
 		board[0][y1Global][x1Global] = empty;
 		printf("Promotion! Black, please enter: 2 for Knight, 3 for Bishop, 4 for Rook, 5 for Queen\n");
+		if(userColor == 1){
 		scanf(" %d", &promotion);
+		}else{
+			promotion = 5;
+		}
 		printf("Promoted!");
 		board[0][y2Global][x2Global].type = promotion;
 		board[0][y2Global][x2Global].color = 'B';
