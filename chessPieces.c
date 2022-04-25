@@ -828,64 +828,81 @@ int check(char king, int boardNumber)
 }
 int checkForCheckMate(char playercolor, int boardnumber)
 {
-	int xtemp, ytemp, ROMtemp;
+	int xtemp, ytemp, x2temp, y2temp, ROMtemp;
 	int *pROM;
 	struct PIECE piece, s1, s2;
-	int x2Global = x2Global;
-	int y2Global = y2Global;
+	int moves[8][8][64];
 	for (xtemp = 0; xtemp < 8; xtemp++)
 	{
 		for (ytemp = 0; ytemp < 8; ytemp++)
 		{
-			//board[0][ytemp][xtemp] = piece;
-			//printf("\nXTEMP IS : %d\nYTEMP IS : %d", xtemp, ytemp);
 			pROM = getRangeOfMotion(xtemp, ytemp);
-			int isInCheck = check(playercolor, boardnumber);
-			//printf("\nISINCHECK IS %d", isInCheck);
-			if (isInCheck == 1)
+			for(int k = 0; k < 64; k++)
 			{
-				for (ROMtemp = 0; ROMtemp < 64; ROMtemp++)
-				{
-					if (pROM[ROMtemp] == 0)
-					{
-						continue;
-					}
-					if (pROM[ROMtemp] == 1)
-					{
-						int yROM = ROMtemp / 8;
-						int xROM = ROMtemp % 8;
-						s1 = board[0][ytemp][xtemp];
-						s2 = board[0][yROM][xROM];
-
-						board[0][yROM][xROM] = s1;
-						board[0][ytemp][xtemp] = empty;
-
-						int isInCheck = check(playercolor, boardnumber);
-
-						if (isInCheck = 0)
-						{
-							break;
-						}
-
-						if (isInCheck = 1)
-						{
-							pROM[ROMtemp] = 0;
-							board[0][ytemp][xtemp] = s1;
-							board[0][yROM][xROM] = s2;
-						}
-					}
-				}
-				for (ROMtemp = 0; ROMtemp < 64; ROMtemp++)
-				{
-					if (pROM[ROMtemp] == 1)
-					{
-						return 1;
-					}
-				}
+				moves[xtemp][ytemp][k] = *(pROM + k);
 			}
-			return 0;
 		}
 	}
+	int isInCheck = check(playercolor, boardnumber);
+	//printf("\nPLAYERCOLOR IS : %c\nBOARDNUMBER IS : %d\nisInCheck IS : %d", playercolor, boardnumber, isInCheck);
+	if (isInCheck != 0)
+	{
+		printf("\n\n\nENTERED IF STATEMENT\n\n\n");
+		for (xtemp = 0; xtemp < 8; xtemp++)
+		{
+			for (ytemp = 0; ytemp < 8; ytemp++)
+			{
+				for(int k = 0; k < 64; k++)
+				{
+					x2temp = k%8;
+					y2temp = k/8;
+					s1 = board[0][ytemp][xtemp];
+					s2 = board[0][y2temp][x2temp];
+
+					board[0][ytemp][xtemp] = empty;
+					board[0][y2temp][x2temp] = s1;
+					board[0][y2temp][x2temp].hasMoved = 1;
+
+					int isStillInCheck = check(playercolor, boardnumber);
+					if(isStillInCheck != 0){
+						moves[xtemp][ytemp][k] = 0;
+					}
+					board[0][ytemp][xtemp] = s1;
+					board[0][y2temp][x2temp] = s2;
+
+				}
+			}
+		}
+		printf("\n");
+		int looper = 0;
+		for (xtemp = 0; xtemp < 8; xtemp++)
+		{
+			for (ytemp = 0; ytemp < 8; ytemp++)
+			{
+				for(int k = 0; k < 64; k++)
+				{
+					if(looper == 64){
+						printf("\n");
+						looper = 0;
+					}
+					printf("%d", moves[xtemp][ytemp][k]);
+					x2temp = k%8;
+					y2temp = k/8;
+					if(moves[xtemp][ytemp][k] == 1 && board[0][ytemp][xtemp].color == playercolor)
+					{
+						x2temp =
+						printf("\n\n\n\nVALID MOVE AT: %d %d %d %d\n\n\n\n", xtemp, ytemp, x2temp, y2temp);
+						
+						return 0;
+					}	
+				}
+			}
+		}
+		printf("\n\n\n\nCHECKMATE SHOULD HAPPEN\n\n\n\n");
+		return 1;
+	}
+	
+	return 0;
 }
 
 void makeMove(int x1Global, int y1Global, int x2Global, int y2Global, char playercolor)
@@ -978,13 +995,13 @@ void makeMove(int x1Global, int y1Global, int x2Global, int y2Global, char playe
 			printf("\nCANT PUT SELF IN CHECK");
 			valid = 1;
 		}
-		//isInCheckMate = checkForCheckMate('W', 0);
+		isInCheckMate = checkForCheckMate('W', 0);
 		if (isInCheckMate != 0)
 		{
 			printf("\nCheckMate! Black Wins!");
 			checkMate = 1;
 		}
-		//isInCheckMate = checkForCheckMate('B', 0);
+		isInCheckMate = checkForCheckMate('B', 0);
 		if (isInCheckMate != 0)
 		{
 			printf("\nCheckMate! White Wins!");
