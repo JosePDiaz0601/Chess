@@ -99,6 +99,9 @@ void printCurrentBoard(){
 // display the starting position
 void resetStartingPosition()
 {
+    whiteIsInCheck = 0;
+    blackIsInCheck = 0;
+    checkMate = 0;
     char boardStartingValues[8][8][3] = {
         {{'w', 'R', '\0'}, {'w', 'N', '\0'}, {'w', 'B', '\0'}, {'w', 'Q', '\0'}, {'w', 'K', '\0'}, {'w', 'B', '\0'}, {'w', 'N', '\0'}, {'w', 'R', '\0'}}, // First rank of board , index 0 for row of array
         {{'w', 'P', '\0'}, {'w', 'P', '\0'}, {'w', 'P', '\0'}, {'w', 'P', '\0'}, {'w', 'P', '\0'}, {'w', 'P', '\0'}, {'w', 'P', '\0'}, {'w', 'P', '\0'}}, // second rank

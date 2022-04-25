@@ -11,6 +11,7 @@
 #include <time.h>
 #include "chessAI.h"
 #include "chessPieces.h"
+#include "chess.h"
 int counter = 0;
 
 void randomMove()

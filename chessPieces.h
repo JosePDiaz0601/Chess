@@ -1,14 +1,11 @@
 #ifndef PIECESHEADER
 #define PIECESHEADER
 
-#include <stdbool.h>
-#include "chess.h"
-
 char positionValues[8][8][3];
 
 void newBoard();
 int x1Global, y1Global, x2Global, y2Global;
-int checkMate = 0;
+int checkMate;
 
 int movePiece(int x1, int y1, int x2, int y2, int playercolor);
 //int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasMoved);
@@ -29,15 +26,15 @@ enum PIECETYPE
     king = 6,
     eempty = 7
 };
-	int whiteIsInCheck = 0;
-	int blackIsInCheck = 0;
+	int whiteIsInCheck;
+	int blackIsInCheck;
 
 
 struct PIECE
 {
     enum PIECETYPE type;
     char color;
-    bool hasMoved;
+    int hasMoved;
 };
 
 struct PIECE board[500][8][8];

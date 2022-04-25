@@ -8,6 +8,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "chessAI.h"
+#include "chess.h"
 /*  1 - wpawn
 	2 - wbishop
 	3 - wknight

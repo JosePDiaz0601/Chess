@@ -1,11 +1,9 @@
 #ifndef LOGFILEHEADER
 #define LOGFILEHEADER
 
-#include <stdio.h>
-#include <string.h>
 
-int MOVENUMBER = 1;
-int MOVEUPDATER = 0; 
+int MOVENUMBER;
+int MOVEUPDATER; 
 
 int WriteToLog(char MovePart1[],char MovePart2[],char JustMovedPieceColor, char JustMovedPieceType);          //Write to log takes whatever is in 'move' array and Writes it to the LogFile
 
