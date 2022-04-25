@@ -217,7 +217,7 @@ int main(void)
                         
                         if (check == 0){
                             if(currentSquareCol == 4 && currentSquareRow == 0 && destSquareCol == 7 && destSquareRow == 0){
-                                //checkMateAI();
+                                checkMateAI();
                                 positionValues[0][6][0] = (char)(positionValues[0][4][0]);
                                 positionValues[0][6][1] = (char)(positionValues[0][4][1]);
                                 positionValues[0][5][0] = (char)(positionValues[0][7][0]);
@@ -227,7 +227,7 @@ int main(void)
                                 positionValues[0][7][0] = ' ';
                                 positionValues[0][7][1] = ' ';
                             }else if(currentSquareCol == 4 && currentSquareRow == 7 && destSquareCol == 7 && destSquareRow == 7){
-                                //checkMateAI();
+                                checkMateAI();
                                 positionValues[7][6][0] = (char)(positionValues[7][4][0]);
                                 positionValues[7][6][1] = (char)(positionValues[7][4][1]);
                                 positionValues[7][5][0] = (char)(positionValues[7][7][0]);
@@ -237,7 +237,7 @@ int main(void)
                                 positionValues[7][7][0] = ' ';
                                 positionValues[7][7][1] = ' ';
                             }else if(currentSquareCol == 4 && currentSquareRow == 7 && destSquareCol == 0 && destSquareRow == 7){
-                                //checkMateAI();
+                                checkMateAI();
                                 positionValues[7][2][0] = (char)(positionValues[7][4][0]);
                                 positionValues[7][2][1] = (char)(positionValues[7][4][1]);
                                 positionValues[7][3][0] = (char)(positionValues[7][0][0]);
@@ -247,7 +247,7 @@ int main(void)
                                 positionValues[7][0][0] = ' ';
                                 positionValues[7][0][1] = ' ';
                             }else if(currentSquareCol == 4 && currentSquareRow == 0 && destSquareCol == 0 && destSquareRow == 0){
-                                //checkMateAI();
+                                checkMateAI();
                                 positionValues[0][2][0] = (char)(positionValues[0][4][0]);
                                 positionValues[0][2][1] = (char)(positionValues[0][4][1]);
                                 positionValues[0][3][0] = (char)(positionValues[0][0][0]);
@@ -257,7 +257,7 @@ int main(void)
                                 positionValues[0][0][0] = ' ';
                                 positionValues[0][0][1] = ' ';
                             }else{
-                                //checkMateAI();
+                                checkMateAI();
 								positionValues[destSquareRow][destSquareCol][0] = (char)(positionValues[currentSquareRow][currentSquareCol][0]);
 								positionValues[destSquareRow][destSquareCol][1] = (char)(positionValues[currentSquareRow][currentSquareCol][1]);
 
