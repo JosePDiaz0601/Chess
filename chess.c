@@ -5,10 +5,10 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "chessPieces.h"
-//#include "chessPieces.c"
-//#include "chessAI.c"
+#include "chessPieces.c"
+#include "chessAI.c"
 #include "chessAI.h"
-//#include "LogFile.c"
+#include "LogFile.c"
 #include "LogFile.h"
 #include "chess.h"
 
@@ -400,6 +400,7 @@ int main(void)
                                 positionValues[0][4][1] = ' ';
                                 positionValues[0][7][0] = ' ';
                                 positionValues[0][7][1] = ' ';
+                                randomMove();
                             }else if(currentSquareCol == 4 && currentSquareRow == 7 && destSquareCol == 7 && destSquareRow == 7){
                                 positionValues[7][6][0] = (char)(positionValues[7][4][0]);
                                 positionValues[7][6][1] = (char)(positionValues[7][4][1]);
@@ -409,6 +410,7 @@ int main(void)
                                 positionValues[7][4][1] = ' ';
                                 positionValues[7][7][0] = ' ';
                                 positionValues[7][7][1] = ' ';
+                                randomMove();
                             }else if(currentSquareCol == 4 && currentSquareRow == 7 && destSquareCol == 0 && destSquareRow == 7){
                                 positionValues[7][2][0] = (char)(positionValues[7][4][0]);
                                 positionValues[7][2][1] = (char)(positionValues[7][4][1]);
@@ -418,6 +420,7 @@ int main(void)
                                 positionValues[7][4][1] = ' ';
                                 positionValues[7][0][0] = ' ';
                                 positionValues[7][0][1] = ' ';
+                                randomMove();
                             }else if(currentSquareCol == 4 && currentSquareRow == 0 && destSquareCol == 0 && destSquareRow == 0){
                                 positionValues[0][2][0] = (char)(positionValues[0][4][0]);
                                 positionValues[0][2][1] = (char)(positionValues[0][4][1]);
@@ -427,12 +430,14 @@ int main(void)
                                 positionValues[0][4][1] = ' ';
                                 positionValues[0][0][0] = ' ';
                                 positionValues[0][0][1] = ' ';
+                                randomMove();
                             }else{
                         positionValues[destSquareRow][destSquareCol][0] = (char)(positionValues[currentSquareRow][currentSquareCol][0]);
                         positionValues[destSquareRow][destSquareCol][1] = (char)(positionValues[currentSquareRow][currentSquareCol][1]);
 
                         positionValues[currentSquareRow][currentSquareCol][0] = ' ';
-                        positionValues[currentSquareRow][currentSquareCol][1] = ' ';}
+                        positionValues[currentSquareRow][currentSquareCol][1] = ' ';
+                        randomMove();}
                         }else if (check == 1){
         //                    printf("INVALID MOVE, PLEASE ENTER A POSSIBLE MOVE");
                             printf("\nERROR. An illegal move has been made. Please enter an allowed move\n");

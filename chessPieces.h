@@ -9,7 +9,6 @@ char positionValues[8][8][3];
 void newBoard();
 int x1Global, y1Global, x2Global, y2Global;
 int checkMate = 0;
-int staleMate = 0;
 
 int movePiece(int x1, int y1, int x2, int y2, int playercolor);
 //int * getRangeOfMotion(enum PIECETYPE piece, char color, int x, int y, bool hasMoved);
