@@ -8,8 +8,8 @@
 /*********************************************************************/
 #include "LogFile.h"
 #include "chess.h"
-char justMovedPieceColor = 'h';
-char justMovedPieceType = 'h';
+// char justMovedPieceColor = 'h';
+// char justMovedPieceType = 'h';
 
 
 //function to write to log. returns an integer for error purposes.
