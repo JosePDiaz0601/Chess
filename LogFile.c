@@ -1,10 +1,10 @@
 /*********************************************************************/
-/* Chess Assignment, for EECS 22L, Spring 22                     */
+/* Chess Assignment, for EECS 22L, Spring 22                         */
 /*                                                                   */
-/* Initial author: Jose Diaz                                       */
+/* Initial author: Jose Diaz                                         */
 /*                                                                   */
 /* Logfile.c  notation file reader and writer for UNOPTIMIZED CHESS  */
-/*            my name jeff                                          */
+/*                                                                   */
 /*********************************************************************/
 #include "LogFile.h"
 #include "chess.h"
