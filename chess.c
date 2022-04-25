@@ -5,10 +5,10 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "chessPieces.h"
-//#include "chessPieces.c"
-//#include "chessAI.c"
+#include "chessPieces.c"
+#include "chessAI.c"
 #include "chessAI.h"
-//#include "LogFile.c"
+#include "LogFile.c"
 #include "LogFile.h"
 #include "chess.h"
 
@@ -143,10 +143,10 @@ int main(void)
     int promptInput = 0;          /* user's input (from menu, choose 1 to start game,
     2 to view game settings, 3 to exit game) assigned to promptInput*/
     userColor = 0; //set color to 0 (white) by default before taking user's choice
-    //char colorInputStr[2][6] = {
-    //		{'W','h','i','t','e'} ,
-	//		{'B','l','a','c','k'}
-    //};
+    char colorInputStr[2][6] = {
+    		{'W','h','i','t','e'} ,
+			{'B','l','a','c','k'}
+    };
     bool programFinished = false; // checks whether game is exited
     int turn;
     turn = 0;
@@ -283,13 +283,16 @@ int main(void)
                         printf("\n========================================================================");
                         printf("\n========================================================================");
                         printCurrentBoard();
+                        /* WriteToLog(movePart1,movePart2,justMovedPieceColor,justMovedPieceType); */
+                        /* WriteToLog(computerMovePart1,computerMovePart2,justMovedPieceColor,justMovedPieceType); */
                         if ((checkMate != 0)){
                         	gameOver = true;
                             programFinished = true;
                         	break;
                         }
                         
-                        WriteToLog(movePart1,movePart2,justMovedPieceColor,justMovedPieceType);
+                WriteToLog(movePart1,movePart2);
+
                 	}
                 	//White's turn with the AI being white.
                 	else{
@@ -320,14 +323,15 @@ int main(void)
 						justMovedPieceType = (char)(positionValues[computerMoveDestSquareRow][computerMoveDestSquareCol][1]);
 						printf("\nThe computer has chosen to play %s %s\n",computerMovePart1,computerMovePart2);
                         printCurrentBoard();
+
                         if ((checkMate != 0)){
                         	gameOver = true;
                             programFinished = true;
                         	break;
 
                 	}
-
-                    WriteToLog(computerMovePart1,computerMovePart2,justMovedPieceColor,justMovedPieceType); 
+                        WriteToLog(computerMovePart1,computerMovePart2);
+                    
                 }
                 }
                 //else: It is the turn of Black regardless of which side is the AI and which is the human user
@@ -365,7 +369,8 @@ int main(void)
                         	break;
                         
                         }
-                     WriteToLog(computerMovePart1,computerMovePart2,justMovedPieceColor,justMovedPieceType); 
+                    WriteToLog(computerMovePart1,computerMovePart2);
+
                 	}
                 	//Black's turn with human being black
                 	else{
@@ -461,8 +466,9 @@ int main(void)
                             programFinished = true;
                         	break;
                         }
-                 WriteToLog(movePart1,movePart2, justMovedPieceColor,justMovedPieceType);
                 	}
+                WriteToLog(movePart1,movePart2);
+
                 }
                 // increment the count of the moves (1 move is done when both White and Black have finished their turn)
                 moveCount++;

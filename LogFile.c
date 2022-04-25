@@ -13,14 +13,13 @@ char justMovedPieceType = 'h';
 
 
 //function to write to log. returns an integer for error purposes.
-int WriteToLog(char MovePart1[],char MovePart2[],char justMovedPieceColor, char justMovedPieceType){
+int WriteToLog(char MovePart1[],char MovePart2[]){
 
-char colorAndType[2];
+
 char *filename = "LogFile.log";
 
 
-colorAndType[0] = justMovedPieceColor;
-colorAndType[1] = justMovedPieceType;
+
 
  /*This portion opens the file corresponding to pointer 'filename'*/
     FILE *fp = fopen(filename, "a");
@@ -41,7 +40,7 @@ colorAndType[1] = justMovedPieceType;
    }
    
 
-	fprintf(fp,"%d. ,%s,%s,%s\n", MOVENUMBER,MovePart1,MovePart2,colorAndType); 
+	fprintf(fp,"%d. ,%s,%s\n", MOVENUMBER,MovePart1,MovePart2); 
 
 /** WARNING. DO NOT DELETE THIS COMMENT. Use variables
  * justMovedPieceColor	and

@@ -7,7 +7,7 @@
 int MOVENUMBER;
 int MOVEUPDATER; 
 
-int WriteToLog(char MovePart1[],char MovePart2[],char JustMovedPieceColor, char JustMovedPieceType);          //Write to log takes whatever is in 'move' array and Writes it to the LogFile
+int WriteToLog(char MovePart1[],char MovePart2[]);          //Write to log takes whatever is in 'move' array and Writes it to the LogFile
 
                  //Should delete the indicated move. Useful for situations where we allow user to redo their move.
 
