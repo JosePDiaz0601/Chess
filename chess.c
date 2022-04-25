@@ -5,10 +5,10 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "chessPieces.h"
-#include "chessPieces.c"
-#include "chessAI.c"
+//#include "chessPieces.c"
+//#include "chessAI.c"
 #include "chessAI.h"
-#include "LogFile.c"
+//#include "LogFile.c"
 #include "LogFile.h"
 #include "chess.h"
 
