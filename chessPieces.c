@@ -619,6 +619,8 @@ int check(char king, int boardNumber)
 			if ((board[boardNumber][y][x].type == 4 || board[boardNumber][y][x].type == 5))
 			{
 				isInCheck = 24;
+			}else if (board[boardNumber][y][x].type == 1 || board[boardNumber][y][x].type == 2 || board[boardNumber][y][x].type == 3 board[boardNumber][y][x].type == 6){
+				break;
 			}
 			break;
 		}
@@ -633,6 +635,8 @@ int check(char king, int boardNumber)
 			if ((board[boardNumber][y][x].type == 4 || board[boardNumber][y][x].type == 5))
 			{
 				isInCheck = 23;
+			}else if (board[boardNumber][y][x].type == 1 || board[boardNumber][y][x].type == 2 || board[boardNumber][y][x].type == 3 board[boardNumber][y][x].type == 6){
+				break;
 			}
 			break;
 		}
@@ -647,6 +651,8 @@ int check(char king, int boardNumber)
 			if ((board[boardNumber][y][x].type == 4 || board[boardNumber][y][x].type == 5))
 			{
 				isInCheck = 22;
+			}else if (board[boardNumber][y][x].type == 1 || board[boardNumber][y][x].type == 2 || board[boardNumber][y][x].type == 3 board[boardNumber][y][x].type == 6){
+				break;
 			}
 			break;
 		}
@@ -663,6 +669,8 @@ int check(char king, int boardNumber)
 			if ((board[boardNumber][y][x].type == 4 || board[boardNumber][y][x].type == 5))
 			{
 				isInCheck = 21;
+			}else if (board[boardNumber][y][x].type == 1 || board[boardNumber][y][x].type == 2 || board[boardNumber][y][x].type == 3 board[boardNumber][y][x].type == 6){
+				break;
 			}
 			break;
 		}
@@ -680,6 +688,8 @@ int check(char king, int boardNumber)
 			if ((board[boardNumber][y][x].type == 3 || board[boardNumber][y][x].type == 5))
 			{
 				isInCheck = 20;
+			}else if (board[boardNumber][y][x].type == 1 || board[boardNumber][y][x].type == 2 || board[boardNumber][y][x].type == 4 board[boardNumber][y][x].type == 6){
+				break;
 			}
 			break;
 		}
@@ -697,6 +707,8 @@ int check(char king, int boardNumber)
 			if ((board[boardNumber][y][x].type == 3 || board[boardNumber][y][x].type == 5))
 			{
 				isInCheck = 19;
+			}else if (board[boardNumber][y][x].type == 1 || board[boardNumber][y][x].type == 2 || board[boardNumber][y][x].type == 4 board[boardNumber][y][x].type == 6){
+				break;
 			}
 			break;
 		}
@@ -715,6 +727,8 @@ int check(char king, int boardNumber)
 			{
 				// printf("%d %d %c %d", x, y, board[boardNumber][y][x].color, board[boardNumber][y][x].type);
 				isInCheck = 18;
+			}else if (board[boardNumber][y][x].type == 1 || board[boardNumber][y][x].type == 2 || board[boardNumber][y][x].type == 4 board[boardNumber][y][x].type == 6){
+				break;
 			}
 			break;
 		}
@@ -732,6 +746,8 @@ int check(char king, int boardNumber)
 			if ((board[boardNumber][y][x].type == 3 || board[boardNumber][y][x].type == 5))
 			{
 				isInCheck = 17;
+			}else if (board[boardNumber][y][x].type == 1 || board[boardNumber][y][x].type == 2 || board[boardNumber][y][x].type == 4 board[boardNumber][y][x].type == 6){
+				break;
 			}
 			// printf("EXAMINE queen CHECK");
 			break;
