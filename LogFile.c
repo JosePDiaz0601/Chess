@@ -10,7 +10,8 @@
 #include "chess.h"
 char justMovedPieceColor = 'h';
 char justMovedPieceType = 'h';
-int MOVENUMBER;
+int MOVENUMBER = 1;
+int MOVEUPDATER = 0;
 
 //function to write to log. returns an integer for error purposes.
 int WriteToLog(char MovePart1[],char MovePart2[],char justMovedPieceColor, char justMovedPieceType){
@@ -19,7 +20,6 @@ char colorAndType[2];
 char *filename = "LogFile.log";
 
 
-int MOVEUPDATER = 1;
 colorAndType[0] = justMovedPieceColor;
 colorAndType[1] = justMovedPieceType;
 
