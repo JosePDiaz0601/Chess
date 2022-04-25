@@ -22,6 +22,7 @@
 	11- bqueen
 	12- bking*/
 int type; // paul made color to char type.
+int bandaid = 0;
 
 static int rangeOfMotion[64];
 struct PIECE empty = {7, 'E', 0};
@@ -54,7 +55,7 @@ int *getRangeOfMotion(int x, int y)
 	enum PIECETYPE piece = board[0][y][x].type;
 
 	char pieceColor = board[0][y][x].color;
-	//printf("\nX is %d\nY is %d\nPiece is %d\n\n", x, y, piece);
+	printf("\nX is %d\nY is %d\nPiece is %d\n\n", x, y, piece);
 
 	if ((piece == 1) && ('W' == pieceColor))
 	{
@@ -569,12 +570,13 @@ int *getRangeOfMotion(int x, int y)
 		{
 			rangeOfMotion[x + 1 + (8 * (y - 1))] = 1;
 		}
+		
 	}
 
 	int checkLoop = 56;
 	for (int testing = 0; testing <= 7; testing++)
 	{
-		//printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[checkLoop], rangeOfMotion[checkLoop+1], rangeOfMotion[checkLoop+2], rangeOfMotion[checkLoop+3], rangeOfMotion[checkLoop+4], rangeOfMotion[checkLoop+5], rangeOfMotion[checkLoop+6], rangeOfMotion[checkLoop+7]);
+		printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[checkLoop], rangeOfMotion[checkLoop+1], rangeOfMotion[checkLoop+2], rangeOfMotion[checkLoop+3], rangeOfMotion[checkLoop+4], rangeOfMotion[checkLoop+5], rangeOfMotion[checkLoop+6], rangeOfMotion[checkLoop+7]);
 		checkLoop -= 8;
 	}
 	return rangeOfMotion; // this line returns an error when compiling try this website https://stackoverflow.com/questions/23593597/returning-an-integer-array-pointer-in-c
@@ -1020,6 +1022,12 @@ void makeMove(int x1Global, int y1Global, int x2Global, int y2Global, char playe
 				board[0][y2Global][x2Global] = s2;
 				printf("\n\n\nBLACK IS STILL IN CHECK\n\n\n");
 				valid = 1;
+				
+				if (bandaid < 5000){
+					checkMate = 2;
+					valid = 0;
+					bandaid++;
+				}
 				return;
 			}
 		}

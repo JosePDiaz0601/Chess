@@ -5,10 +5,10 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "chessPieces.h"
-//#include "chessPieces.c"
-//#include "chessAI.c"
+#include "chessPieces.c"
+#include "chessAI.c"
 #include "chessAI.h"
-//#include "LogFile.c"
+#include "LogFile.c"
 #include "LogFile.h"
 #include "chess.h"
 
@@ -283,13 +283,15 @@ int main(void)
                         printf("\n========================================================================");
                         printf("\n========================================================================");
                         printCurrentBoard();
+                        WriteToLog(movePart1,movePart2,justMovedPieceColor,justMovedPieceType);
+                        WriteToLog(computerMovePart1,computerMovePart2,justMovedPieceColor,justMovedPieceType); 
                         if ((checkMate != 0)){
                         	gameOver = true;
                             programFinished = true;
                         	break;
                         }
                         
-                        WriteToLog(movePart1,movePart2,justMovedPieceColor,justMovedPieceType);
+                        
                 	}
                 	//White's turn with the AI being white.
                 	else{
@@ -327,7 +329,7 @@ int main(void)
 
                 	}
 
-                    WriteToLog(computerMovePart1,computerMovePart2,justMovedPieceColor,justMovedPieceType); 
+                    
                 }
                 }
                 //else: It is the turn of Black regardless of which side is the AI and which is the human user
@@ -365,7 +367,7 @@ int main(void)
                         	break;
                         
                         }
-                     WriteToLog(computerMovePart1,computerMovePart2,justMovedPieceColor,justMovedPieceType); 
+                     
                 	}
                 	//Black's turn with human being black
                 	else{
@@ -462,6 +464,7 @@ int main(void)
                         	break;
                         }
                  WriteToLog(movePart1,movePart2, justMovedPieceColor,justMovedPieceType);
+                 WriteToLog(computerMovePart1,computerMovePart2,justMovedPieceColor,justMovedPieceType); 
                 	}
                 }
                 // increment the count of the moves (1 move is done when both White and Black have finished their turn)
