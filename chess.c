@@ -280,7 +280,7 @@ int main(void)
                         printf("\n========================================================================");
                         printf("\n========================================================================");
                         printCurrentBoard();
-                        if ((checkMate != 0) || (staleMate == 1)){
+                        if ((checkMate != 0)){
                         	gameOver = true;
                             programFinished = true;
                         	break;
@@ -317,7 +317,7 @@ int main(void)
 						justMovedPieceType = (char)(positionValues[computerMoveDestSquareRow][computerMoveDestSquareCol][1]);
 						printf("\nThe computer has chosen to play %s %s\n",computerMovePart1,computerMovePart2);
                         printCurrentBoard();
-                        if ((checkMate != 0) || (staleMate == 1)){
+                        if ((checkMate != 0)){
                         	gameOver = true;
                             programFinished = true;
                         	break;
@@ -356,7 +356,7 @@ int main(void)
                         turn += 1;
 						printf("\nThe computer has chosen to play %s %s\n",computerMovePart1,computerMovePart2);
 						printCurrentBoard();
-                        if ((checkMate != 0) || (staleMate == 1)){
+                        if ((checkMate != 0)){
                         	gameOver = true;
                             programFinished = true;
                         	break;
@@ -453,7 +453,7 @@ int main(void)
                         printf("\n========================================================================");
                         printf("\n========================================================================");
                         printCurrentBoard();
-                        if ((checkMate != 0) || (staleMate == 1)){
+                        if ((checkMate != 0) ){
                         	gameOver = true;
                             programFinished = true;
                         	break;
