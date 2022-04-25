@@ -92,6 +92,7 @@ void randomMove()
                     y2Global = movesety;
 
                     int validCheck = movePiece(x1Global, y1Global, x2Global, y2Global, aiColor);
+                    printf("\nVALIDCHECK IS : %d\n", validCheck);
                     if (validCheck == 0){
                     positionValues[y2Global][x2Global][0] = (char)(positionValues[y1Global][x1Global][0]);
                     positionValues[y2Global][x2Global][1] = (char)(positionValues[y1Global][x1Global][1]);
@@ -101,6 +102,7 @@ void randomMove()
                     succ = 1;
                     break;
                     }else{
+                        succ = 0;
                         continue;
                     }
                 }
