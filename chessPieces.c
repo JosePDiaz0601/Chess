@@ -612,7 +612,7 @@ int check(char king, int boardNumber)
 	while (x + 1 < 8)
 	{
 		x++;
-		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E')
+		if (board[boardNumber][y][x].color != king && board[boardNumber][y][x].color != 'E')
 		{
 			if ((board[boardNumber][y][x].type == 4 || board[boardNumber][y][x].type == 5))
 			{
@@ -626,7 +626,7 @@ int check(char king, int boardNumber)
 	while (x - 1 >= 0)
 	{
 		x--;
-		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E')
+		if (board[boardNumber][y][x].color != king && board[boardNumber][y][x].color != 'E')
 		{
 			if ((board[boardNumber][y][x].type == 4 || board[boardNumber][y][x].type == 5))
 			{
@@ -640,7 +640,7 @@ int check(char king, int boardNumber)
 	while (y + 1 < 8)
 	{
 		y++;
-		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E')
+		if (board[boardNumber][y][x].color != king && board[boardNumber][y][x].color != 'E')
 		{
 			if ((board[boardNumber][y][x].type == 4 || board[boardNumber][y][x].type == 5))
 			{
@@ -656,7 +656,7 @@ int check(char king, int boardNumber)
 
 		y--;
 
-		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E')
+		if (board[boardNumber][y][x].color != king && board[boardNumber][y][x].color != 'E')
 		{
 			if ((board[boardNumber][y][x].type == 4 || board[boardNumber][y][x].type == 5))
 			{
@@ -673,7 +673,7 @@ int check(char king, int boardNumber)
 		x++;
 		y++;
 
-		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E')
+		if (board[boardNumber][y][x].color != king && board[boardNumber][y][x].color != 'E')
 		{
 			if ((board[boardNumber][y][x].type == 3 || board[boardNumber][y][x].type == 5))
 			{
@@ -690,7 +690,7 @@ int check(char king, int boardNumber)
 		x--;
 		y++;
 
-		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E')
+		if (board[boardNumber][y][x].color != king && board[boardNumber][y][x].color != 'E')
 		{
 			if ((board[boardNumber][y][x].type == 3 || board[boardNumber][y][x].type == 5))
 			{
@@ -707,7 +707,7 @@ int check(char king, int boardNumber)
 		y--;
 		x++;
 
-		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E')
+		if (board[boardNumber][y][x].color != king && board[boardNumber][y][x].color != 'E')
 		{
 			if ((board[boardNumber][y][x].type == 3 || board[boardNumber][y][x].type == 5))
 			{
@@ -725,7 +725,7 @@ int check(char king, int boardNumber)
 		y--;
 		x--;
 
-		if (board[boardNumber][y][x].color != pieceColor && board[boardNumber][y][x].color != 'E')
+		if (board[boardNumber][y][x].color != king && board[boardNumber][y][x].color != 'E')
 		{
 			if ((board[boardNumber][y][x].type == 3 || board[boardNumber][y][x].type == 5))
 			{
