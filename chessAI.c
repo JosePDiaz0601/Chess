@@ -101,7 +101,7 @@ void randomMove()
                     succ = 1;
                     break;
                     }else{
-                        randomMove();
+                        continue;
                     }
                 }
             }

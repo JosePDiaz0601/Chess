@@ -7,6 +7,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <stdio.h>
+#include "chessAI.h"
 /*  1 - wpawn
 	2 - wbishop
 	3 - wknight
@@ -1001,6 +1002,7 @@ void makeMove(int x1Global, int y1Global, int x2Global, int y2Global, char playe
 				board[0][y1Global][x1Global] = s1;
 				board[0][y2Global][x2Global] = s2;
 				printf("\n\n\nBLACK IS STILL IN CHECK\n\n\n");
+				randomMove();
 				valid = 1;
 				return;
 			}
