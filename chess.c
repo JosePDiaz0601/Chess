@@ -282,6 +282,7 @@ int main(void)
                         printCurrentBoard();
                         if ((checkMate != 0) || (staleMate == 1)){
                         	gameOver = true;
+                            programFinished = true;
                         	break;
                         }
                         
@@ -318,6 +319,7 @@ int main(void)
                         printCurrentBoard();
                         if ((checkMate != 0) || (staleMate == 1)){
                         	gameOver = true;
+                            programFinished = true;
                         	break;
 
                 	}
@@ -356,6 +358,7 @@ int main(void)
 						printCurrentBoard();
                         if ((checkMate != 0) || (staleMate == 1)){
                         	gameOver = true;
+                            programFinished = true;
                         	break;
                         
                         }
@@ -447,6 +450,7 @@ int main(void)
                         printCurrentBoard();
                         if ((checkMate != 0) || (staleMate == 1)){
                         	gameOver = true;
+                            programFinished = true;
                         	break;
                         }
                  WriteToLog(movePart1,movePart2, justMovedPieceColor,justMovedPieceType);
