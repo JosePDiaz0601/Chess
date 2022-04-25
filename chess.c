@@ -15,6 +15,7 @@
 int userColor; //the int that user types to choose color 0 for white 1 for black
 // array with initial positions of chess pieces, have the zeroth row correspond to white's first rank
 // columns go from a to h on board, 0 to 7 for array indices
+//
 char positionValues[8][8][3] = {
     {{'w', 'R', '\0'}, {'w', 'N', '\0'}, {'w', 'B', '\0'}, {'w', 'Q', '\0'}, {'w', 'K', '\0'}, {'w', 'B', '\0'}, {'w', 'N', '\0'}, {'w', 'R', '\0'}}, // First rank of board , index 0 for row of array
     {{'w', 'P', '\0'}, {'w', 'P', '\0'}, {'w', 'P', '\0'}, {'w', 'P', '\0'}, {'w', 'P', '\0'}, {'w', 'P', '\0'}, {'w', 'P', '\0'}, {'w', 'P', '\0'}}, // second rank
