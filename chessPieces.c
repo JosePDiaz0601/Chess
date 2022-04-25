@@ -1,3 +1,7 @@
+/** This program provides the functionality and range of motion for 
+  each type of piece in the game of chess. There is also a piece
+  type for an empty square.
+*/
 #include "chessPieces.h"
 #include <stdlib.h>
 #include <stdbool.h>

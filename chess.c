@@ -1,8 +1,6 @@
-/* Notes: we will remove 50 move limit for final release
- * We must let the human user choose which side to play as.
- *
- *  Created on: Apr 11, 2022
- *      Author: arhan
+/* This program contains the loop of the main gameplay. A menu is shown prompting
+ * the user to start a game against an AI, view game settings, or exit the game.  
+ * The board display based on ASCII text updates after every move for White and Black.
  */
 #include <stdio.h>
 #include <stdbool.h>
