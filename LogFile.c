@@ -10,6 +10,7 @@
 #include "chess.h"
 char justMovedPieceColor = 'h';
 char justMovedPieceType = 'h';
+int MOVENUMBER;
 
 //function to write to log. returns an integer for error purposes.
 int WriteToLog(char MovePart1[],char MovePart2[],char justMovedPieceColor, char justMovedPieceType){
@@ -17,7 +18,7 @@ int WriteToLog(char MovePart1[],char MovePart2[],char justMovedPieceColor, char 
 char colorAndType[2];
 char *filename = "LogFile.log";
 
-int MOVENUMBER =  0;
+
 int MOVEUPDATER = 1;
 colorAndType[0] = justMovedPieceColor;
 colorAndType[1] = justMovedPieceType;
@@ -29,12 +30,13 @@ colorAndType[1] = justMovedPieceType;
         printf("File 'LogFile.log' could not be opened. %s", filename);
         return 0;
 	}
+   
    MOVENUMBER = MOVENUMBER + MOVEUPDATER;
 
    if (MOVEUPDATER == 1)
    MOVEUPDATER == 0;
    if (MOVEUPDATER == 0)
-   MOVEUPDATER == 1;
+   MOVEUPDATER == 1; 
 
 	fprintf(fp,"%d. ,%s,%s,%s\n", MOVENUMBER,MovePart1,MovePart2,colorAndType); 
 
