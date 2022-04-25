@@ -12,6 +12,6 @@
 
 /* Global macros */
 /* Maximum length of file names */
-void choosePiece();
+void randomMove();
 
 #endif

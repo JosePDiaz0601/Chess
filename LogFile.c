@@ -32,10 +32,14 @@ colorAndType[1] = justMovedPieceType;
    
    MOVENUMBER = MOVENUMBER + MOVEUPDATER;
 
-   if (MOVEUPDATER == 1)
-   MOVEUPDATER == 0;
-   if (MOVEUPDATER == 0)
-   MOVEUPDATER == 1; 
+   if (MOVEUPDATER == 1){
+      MOVEUPDATER = 0;
+   }
+   
+   if (MOVEUPDATER == 0){
+      MOVEUPDATER = 1; 
+   }
+   
 
 	fprintf(fp,"%d. ,%s,%s,%s\n", MOVENUMBER,MovePart1,MovePart2,colorAndType); 
 
@@ -48,22 +52,13 @@ colorAndType[1] = justMovedPieceType;
  */
 
    fclose(fp);
-
+   return 0;
 }
 
 
 
-void DeleteMove(void){
-FILE *pointer1, *pointer2;
 
 
-}
-
-void ConvertToPDF(void){
-   int CONVERT;
-
-   CONVERT = rename("LogFile.log", "LogFile.pdf");
-                                                   }
 
 /*Before calling WriteToLog, we need to remove the current LogFile. 'remove("LogFile.txt")'
 void WriteToLog(int movenumber,char MOVE1[],char MOVE2[],char MOVEP[]) {

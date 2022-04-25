@@ -8,6 +8,7 @@
 /*********************************************************************/
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
 #include "chessAI.h"
 #include "chessPieces.h"
@@ -23,8 +24,6 @@ void randomMove()
     int *temp;
     int succ = 0;
     time_t t;
-    userColor;
-    aiColor;
     // Create time seed
     srand((unsigned)time(&t));
     // Color Initialization (only allows bot to move)
@@ -34,7 +33,6 @@ void randomMove()
         aiColor = 0;
 
     printf("\nAI COLOR INITIALIZATION DONE AI COLOR IS : %d", aiColor);
-    int i2, j2;
     for (int i = 0; i < 8; i++)
     {
         for (int j = 0; j < 8; j++)
@@ -114,13 +112,6 @@ void randomMove()
 
 void checkMateAI()
 {
-    int moves[8][8][64];
-    int *temp;
-    int succ = 0;
-    time_t t;
-    userColor;
-    aiColor;
-    srand((unsigned)time(&t));
     // Color Initialization
     if (userColor == 0)
         aiColor = 1;
@@ -128,7 +119,7 @@ void checkMateAI()
         aiColor = 0;
     if (counter == 0)
     {
-            succ = movePiece(4, 6, 4, 5, aiColor);
+            movePiece(4, 6, 4, 5, aiColor);
             positionValues[5][4][0] = (char)(positionValues[6][4][0]);
             positionValues[5][4][1] = (char)(positionValues[6][4][1]);
 

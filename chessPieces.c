@@ -22,7 +22,6 @@
 	11- bqueen
 	12- bking*/
 int type; // paul made color to char type.
-int bandaid = 0;
 
 static int rangeOfMotion[64];
 struct PIECE empty = {7, 'E', 0};
@@ -55,7 +54,7 @@ int *getRangeOfMotion(int x, int y)
 	enum PIECETYPE piece = board[0][y][x].type;
 
 	char pieceColor = board[0][y][x].color;
-	printf("\nX is %d\nY is %d\nPiece is %d\n\n", x, y, piece);
+	//printf("\nX is %d\nY is %d\nPiece is %d\n\n", x, y, piece);
 
 	if ((piece == 1) && ('W' == pieceColor))
 	{
@@ -570,13 +569,12 @@ int *getRangeOfMotion(int x, int y)
 		{
 			rangeOfMotion[x + 1 + (8 * (y - 1))] = 1;
 		}
-		
 	}
 
 	int checkLoop = 56;
 	for (int testing = 0; testing <= 7; testing++)
 	{
-		printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[checkLoop], rangeOfMotion[checkLoop+1], rangeOfMotion[checkLoop+2], rangeOfMotion[checkLoop+3], rangeOfMotion[checkLoop+4], rangeOfMotion[checkLoop+5], rangeOfMotion[checkLoop+6], rangeOfMotion[checkLoop+7]);
+		//printf("%d %d %d %d %d %d %d %d \n", rangeOfMotion[checkLoop], rangeOfMotion[checkLoop+1], rangeOfMotion[checkLoop+2], rangeOfMotion[checkLoop+3], rangeOfMotion[checkLoop+4], rangeOfMotion[checkLoop+5], rangeOfMotion[checkLoop+6], rangeOfMotion[checkLoop+7]);
 		checkLoop -= 8;
 	}
 	return rangeOfMotion; // this line returns an error when compiling try this website https://stackoverflow.com/questions/23593597/returning-an-integer-array-pointer-in-c
@@ -621,8 +619,6 @@ int check(char king, int boardNumber)
 			if ((board[boardNumber][y][x].type == 4 || board[boardNumber][y][x].type == 5))
 			{
 				isInCheck = 24;
-			}else if (board[boardNumber][y][x].type == 1 || board[boardNumber][y][x].type == 2 || board[boardNumber][y][x].type == 3 || board[boardNumber][y][x].type == 6){
-				break;
 			}
 			break;
 		}
@@ -637,8 +633,6 @@ int check(char king, int boardNumber)
 			if ((board[boardNumber][y][x].type == 4 || board[boardNumber][y][x].type == 5))
 			{
 				isInCheck = 23;
-			}else if (board[boardNumber][y][x].type == 1 || board[boardNumber][y][x].type == 2 || board[boardNumber][y][x].type == 3 || board[boardNumber][y][x].type == 6){
-				break;
 			}
 			break;
 		}
@@ -653,8 +647,6 @@ int check(char king, int boardNumber)
 			if ((board[boardNumber][y][x].type == 4 || board[boardNumber][y][x].type == 5))
 			{
 				isInCheck = 22;
-			}else if (board[boardNumber][y][x].type == 1 || board[boardNumber][y][x].type == 2 || board[boardNumber][y][x].type == 3 || board[boardNumber][y][x].type == 6){
-				break;
 			}
 			break;
 		}
@@ -671,8 +663,6 @@ int check(char king, int boardNumber)
 			if ((board[boardNumber][y][x].type == 4 || board[boardNumber][y][x].type == 5))
 			{
 				isInCheck = 21;
-			}else if (board[boardNumber][y][x].type == 1 || board[boardNumber][y][x].type == 2 || board[boardNumber][y][x].type == 3 || board[boardNumber][y][x].type == 6){
-				break;
 			}
 			break;
 		}
@@ -690,8 +680,6 @@ int check(char king, int boardNumber)
 			if ((board[boardNumber][y][x].type == 3 || board[boardNumber][y][x].type == 5))
 			{
 				isInCheck = 20;
-			}else if (board[boardNumber][y][x].type == 1 || board[boardNumber][y][x].type == 2 || board[boardNumber][y][x].type == 4 || board[boardNumber][y][x].type == 6){
-				break;
 			}
 			break;
 		}
@@ -709,8 +697,6 @@ int check(char king, int boardNumber)
 			if ((board[boardNumber][y][x].type == 3 || board[boardNumber][y][x].type == 5))
 			{
 				isInCheck = 19;
-			}else if (board[boardNumber][y][x].type == 1 || board[boardNumber][y][x].type == 2 || board[boardNumber][y][x].type == 4 || board[boardNumber][y][x].type == 6){
-				break;
 			}
 			break;
 		}
@@ -729,8 +715,6 @@ int check(char king, int boardNumber)
 			{
 				// printf("%d %d %c %d", x, y, board[boardNumber][y][x].color, board[boardNumber][y][x].type);
 				isInCheck = 18;
-			}else if (board[boardNumber][y][x].type == 1 || board[boardNumber][y][x].type == 2 || board[boardNumber][y][x].type == 4 || board[boardNumber][y][x].type == 6){
-				break;
 			}
 			break;
 		}
@@ -748,8 +732,6 @@ int check(char king, int boardNumber)
 			if ((board[boardNumber][y][x].type == 3 || board[boardNumber][y][x].type == 5))
 			{
 				isInCheck = 17;
-			}else if (board[boardNumber][y][x].type == 1 || board[boardNumber][y][x].type == 2 || board[boardNumber][y][x].type == 4 || board[boardNumber][y][x].type == 6){
-				break;
 			}
 			// printf("EXAMINE queen CHECK");
 			break;
@@ -848,9 +830,9 @@ int check(char king, int boardNumber)
 }
 int checkForCheckMate(char playercolor, int boardnumber)
 {
-	int xtemp, ytemp, x2temp, y2temp, ROMtemp;
+	int xtemp, ytemp, x2temp, y2temp;
 	int *pROM;
-	struct PIECE piece, s1, s2;
+	struct PIECE s1, s2;
 	int moves[8][8][64];
 	for (xtemp = 0; xtemp < 8; xtemp++)
 	{
@@ -921,9 +903,8 @@ int checkForCheckMate(char playercolor, int boardnumber)
 
 int checkForStaleMate(char playercolor, int boardnumber)
 {
-	int xtemp, ytemp, x2temp, y2temp, ROMtemp;
+	int xtemp, ytemp;
 	int *pROM;
-	struct PIECE piece, s1, s2;
 	int moves[8][8][64];
 	for (xtemp = 0; xtemp < 8; xtemp++)
 	{
@@ -933,6 +914,7 @@ int checkForStaleMate(char playercolor, int boardnumber)
 			for(int k = 0; k < 64; k++)
 			{
 				moves[xtemp][ytemp][k] = *(pROM + k);
+				
 			}
 		}
 	}
@@ -946,8 +928,6 @@ int checkForStaleMate(char playercolor, int boardnumber)
 			{
 				for(int k = 0; k < 64; k++)
 				{
-					x2temp = k%8;
-					y2temp = k/8;
 					if(moves[xtemp][ytemp][k] == 1 && board[0][ytemp][xtemp].color == playercolor)
 					{
 						return 0;
@@ -975,7 +955,6 @@ void makeMove(int x1Global, int y1Global, int x2Global, int y2Global, char playe
 	struct PIECE s1 = board[0][y1Global][x1Global];
 	struct PIECE s2 = board[0][y2Global][x2Global];
 	int *p;
-	int isInCheck = 0;
 	int isInCheckMate = 0;
 	int isInStaleMate1 = 0;
 	int isInStaleMate2 = 0;
@@ -1022,12 +1001,6 @@ void makeMove(int x1Global, int y1Global, int x2Global, int y2Global, char playe
 				board[0][y2Global][x2Global] = s2;
 				printf("\n\n\nBLACK IS STILL IN CHECK\n\n\n");
 				valid = 1;
-				
-				if (bandaid < 5000){
-					checkMate = 2;
-					valid = 0;
-					bandaid++;
-				}
 				return;
 			}
 		}
